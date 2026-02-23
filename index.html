@@ -132,7 +132,6 @@
         const { useState, useEffect, useMemo, useCallback, useRef } = React;
 
         // --- ICONS ---
-        const IconSettings = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>;
         const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>;
         const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg>;
         const IconGrip = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-white/30 hover:text-brandOrange transition-colors"><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="19" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="19" r="1"></circle></svg>;
@@ -277,8 +276,6 @@
             const [isGenerating, setIsGenerating] = useState(false);
             const [isAutoFilling, setIsAutoFilling] = useState(false);
             const [aiError, setAiError] = useState('');
-            const [apiKey, setApiKey] = useState(() => localStorage.getItem('ttv_apikey') || '');
-            const [showSettingsModal, setShowSettingsModal] = useState(false);
 
             // Active Timer State
             const [localTimer, setLocalTimer] = useState(0);
@@ -597,10 +594,6 @@
 
             // AI Features
             const runAutoFillData = async () => {
-                if (!apiKey) {
-                    setShowSettingsModal(true);
-                    return;
-                }
                 setIsAutoFilling(true);
                 setAiError('');
 
@@ -629,6 +622,7 @@ Verwende exakt diese Schlüssel für das specs Objekt: ${specKeysStr}.
 Wenn du Werte nicht genau kennst, nutze realistische Schätzungen oder schreibe "k.A.".`;
 
                 try {
+                    const apiKey = "";
                     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -689,10 +683,6 @@ Wenn du Werte nicht genau kennst, nutze realistische Schätzungen oder schreibe 
             };
 
             const generateDraft = async () => {
-                if (!apiKey) {
-                    setShowSettingsModal(true);
-                    return;
-                }
                 setIsGenerating(true);
                 setAiError('');
                 
@@ -744,6 +734,7 @@ ${checklistNotes}
 `;
 
                 try {
+                    const apiKey = "";
                     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -787,9 +778,6 @@ ${checklistNotes}
                         <div className="p-6 border-b border-slate-300/50 dark:border-white/10 flex justify-between items-center bg-white/20 dark:bg-white/5">
                             <BrandLogo />
                             <div className="flex gap-2">
-                                <button onClick={() => setShowSettingsModal(true)} className="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-white/10 transition">
-                                    <IconSettings />
-                                </button>
                                 <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-white/10 transition">
                                     {theme === 'dark' ? <IconSun /> : <IconMoon />}
                                 </button>
@@ -1327,39 +1315,6 @@ ${checklistNotes}
 
                     {/* MODALS */}
                     
-                    {/* Settings Modal */}
-                    {showSettingsModal && (
-                        <div className="fixed inset-0 bg-slate-900/50 dark:bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4">
-                            <div className="glass-panel !bg-white/90 dark:!bg-black/50 rounded-3xl p-8 max-w-md w-full shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/50 dark:border-white/20">
-                                <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Einstellungen</h3>
-                                <p className="text-sm text-slate-500 dark:text-white/50 mb-6">Hinterlege hier deinen Google Gemini API Key für die Auto Fill und Review Funktionen.</p>
-                                
-                                <div className="space-y-6 mb-8">
-                                    <div>
-                                        <label className="block text-xs font-bold mb-2 text-slate-500 dark:text-white/50 uppercase tracking-widest">Gemini API Key</label>
-                                        <input 
-                                            type="password"
-                                            value={apiKey}
-                                            onChange={(e) => setApiKey(e.target.value)}
-                                            className="w-full bg-white/50 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 outline-none focus:border-brandOrange text-slate-900 dark:text-white text-lg shadow-inner"
-                                            placeholder="AIzaSy..."
-                                        />
-                                        <p className="text-xs text-slate-400 dark:text-white/40 mt-2">Der Key wird lokal in deinem Browser gespeichert (localStorage).</p>
-                                    </div>
-                                </div>
-                                <div className="flex justify-end gap-4">
-                                    <button onClick={() => setShowSettingsModal(false)} className="px-6 py-3 rounded-xl hover:bg-slate-200/50 dark:hover:bg-white/10 transition text-sm font-bold text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white">Schließen</button>
-                                    <button 
-                                        onClick={() => { localStorage.setItem('ttv_apikey', apiKey); setShowSettingsModal(false); }} 
-                                        className="bg-brandOrange hover:bg-[#E66E00] text-white px-8 py-3 rounded-xl font-black shadow-[0_0_20px_rgba(255,123,0,0.3)] transition transform hover:scale-105 active:scale-95"
-                                    >
-                                        Speichern
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
                     {/* Create Project Modal */}
                     {showNewProjectModal && (
                         <div className="fixed inset-0 bg-slate-900/50 dark:bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4">
