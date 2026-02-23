@@ -31,6 +31,7 @@
                         'blob': 'blob 10s infinite',
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'glow-pulse': 'glow 2s ease-in-out infinite alternate',
+                        'slide-in': 'slideIn 0.3s ease-out forwards',
                     },
                     keyframes: {
                         blob: {
@@ -42,6 +43,10 @@
                         glow: {
                             '0%': { opacity: 0.6, boxShadow: '0 0 10px rgba(0,240,255,0.4)' },
                             '100%': { opacity: 1, boxShadow: '0 0 25px rgba(0,240,255,0.9), 0 0 40px rgba(176,38,255,0.6)' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateY(100%)', opacity: 0 },
+                            '100%': { transform: 'translateY(0)', opacity: 1 }
                         }
                     }
                 }
@@ -151,6 +156,9 @@
         const IconClock = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>;
         const IconCheckCircle = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>;
         const IconMenu = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>;
+        const IconCopy = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>;
+        const IconBook = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>;
+        const IconX = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
 
         // --- BRAND LOGO COMPONENT ---
         const BrandLogo = () => (
@@ -279,6 +287,13 @@
             
             // Sidebar State
             const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+            
+            // NEW: Global Logbuch State
+            const [globalNotes, setGlobalNotes] = useState(() => localStorage.getItem('ttv_global_notes') || '');
+            const [isLogbuchOpen, setIsLogbuchOpen] = useState(false);
+            
+            // NEW: Export State
+            const [exportSuccess, setExportSuccess] = useState(false);
 
             // UI Modal States
             const [showNewProjectModal, setShowNewProjectModal] = useState(false);
@@ -316,6 +331,11 @@
                 localStorage.setItem('ttv_projects', JSON.stringify(projects));
             }, [categories, projects]);
 
+            // Persist Global Notes
+            useEffect(() => {
+                localStorage.setItem('ttv_global_notes', globalNotes);
+            }, [globalNotes]);
+
             const currentProject = projects.find(p => p.id === currentProjectId);
 
             // Handle Project Switching
@@ -323,7 +343,7 @@
                 setCurrentProjectId(id);
             };
 
-            // Persistent Timer Logic - Saves directly to projects array every second to survive refreshes
+            // Persistent Timer Logic
             useEffect(() => {
                 if (!currentProjectId || !currentProject || currentProject.status === 'done') return;
                 
@@ -380,6 +400,66 @@
             }, [currentProject?.checklist, currentProject?.shotlist]);
             
             const progressPercent = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+
+            // NEW: Markdown Export Logic
+            const handleExportMarkdown = () => {
+                if (!currentProject) return;
+                
+                let md = `# Datenblatt: ${currentProject.title}\n\n`;
+                const catName = categories.find(c => c.id === currentProject.category)?.name || currentProject.category;
+                
+                md += `**Kategorie:** ${catName}\n`;
+                md += `**Zeit im Test:** ${formatTime(currentProject.timeSpent)}\n`;
+                md += `**Gesamtnote:** ${calculatedScore} / 10\n\n`;
+
+                md += `## 🎯 Stärken & Schwächen\n`;
+                md += `**🟢 Pro:**\n${currentProject.data.pros.map(x => `* ${x}`).join('\n') || '* Keine erfasst'}\n\n`;
+                md += `**🔴 Contra:**\n${currentProject.data.cons.map(x => `* ${x}`).join('\n') || '* Keine erfasst'}\n\n`;
+
+                md += `## 📋 Testbedingungen\n${currentProject.data.conditions || 'Keine erfasst'}\n\n`;
+
+                md += `## 🔬 Labor Notizen & Auffälligkeiten\n`;
+                let hasAnyNotesGlobal = false;
+                
+                currentProject.checklist.forEach(phase => {
+                    const phaseNotes = phase.items.filter(i => i.note || i.measurements || i.issues);
+                    if (phaseNotes.length > 0) {
+                        hasAnyNotesGlobal = true;
+                        md += `### ${phase.phase}\n`;
+                        phaseNotes.forEach(item => {
+                            md += `**${item.text}**\n`;
+                            if (item.note) md += `> Beobachtung: ${item.note}\n`;
+                            if (item.measurements) md += `> Messwerte: ${item.measurements}\n`;
+                            if (item.issues) md += `> Probleme: ${item.issues}\n`;
+                            md += `\n`;
+                        });
+                    }
+                });
+                if (!hasAnyNotesGlobal) md += `*Keine detaillierten Notizen erfasst.*\n\n`;
+
+                md += `## ⚖️ Spezifikationen & Vergleich\n`;
+                md += `| Eigenschaft | ${currentProject.title} | ${currentProject.comparison.predecessor || 'Vorgänger'} | ${currentProject.comparison.competitor || 'Konkurrent'} |\n`;
+                md += `|---|---|---|---|\n`;
+                currentProject.comparison.specs.forEach(s => {
+                    md += `| ${s.key || 'k.A.'} | ${s.current || '-'} | ${s.pred || '-'} | ${s.comp || '-'} |\n`;
+                });
+
+                // Fallback Clipboard method suitable for iframes
+                const textArea = document.createElement("textarea");
+                textArea.value = md;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    setExportSuccess(true);
+                    setTimeout(() => setExportSuccess(false), 3000);
+                } catch (err) {
+                    console.error('Kopieren fehlgeschlagen', err);
+                }
+                document.body.removeChild(textArea);
+            };
 
             // Project Management
             const handleCreateProject = () => {
@@ -671,8 +751,20 @@
                                         </span>
                                     </div>
 
-                                    <div className="flex items-center gap-4 bg-white/40 dark:bg-black/20 p-1.5 rounded-xl border border-slate-300/50 dark:border-white/10 backdrop-blur-xl">
-                                        <div className={`px-4 py-1.5 flex items-center gap-2 font-mono text-lg font-bold ${currentProject.status === 'done' ? 'text-green-500 dark:text-green-400' : 'text-slate-800 dark:text-white'}`}>
+                                    <div className="flex items-center gap-3 bg-white/40 dark:bg-black/20 p-1.5 rounded-xl border border-slate-300/50 dark:border-white/10 backdrop-blur-xl">
+                                        
+                                        {/* NEW: Markdown Export Button */}
+                                        <button 
+                                            onClick={handleExportMarkdown}
+                                            className="px-4 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2 bg-slate-200/50 dark:bg-white/10 hover:bg-brandOrange hover:text-white text-slate-700 dark:text-white transition-all shadow-sm"
+                                            title="Alle Daten in die Zwischenablage kopieren (Markdown Format)"
+                                        >
+                                            {exportSuccess ? <><IconCheckCircle /> Kopiert!</> : <><IconCopy /> Export</>}
+                                        </button>
+
+                                        <div className="w-px h-6 bg-slate-300 dark:bg-white/20 mx-1"></div>
+
+                                        <div className={`px-2 py-1.5 flex items-center gap-2 font-mono text-lg font-bold ${currentProject.status === 'done' ? 'text-green-500 dark:text-green-400' : 'text-slate-800 dark:text-white'}`}>
                                             <IconClock /> {formatTime(currentProject.timeSpent)}
                                             {currentProject.status !== 'done' && <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>}
                                         </div>
@@ -695,7 +787,7 @@
                                 </div>
 
                                 {/* Toolbar Tabs */}
-                                <div className="px-8 pt-6 pb-2">
+                                <div className="px-8 pt-6 pb-2 flex justify-between items-center">
                                     <div className="flex gap-2">
                                         <button onClick={() => setActiveTab('checklist')} className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'checklist' ? 'bg-white/80 dark:bg-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.3)] border border-slate-300/50 dark:border-white/20 text-slate-900 dark:text-white' : 'text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/5 border border-transparent'}`}>
                                             <IconList /> Checkliste
@@ -1114,12 +1206,44 @@
                         )}
                     </main>
 
+                    {/* NEW: FLOATING LOGBUCH BUTTON */}
+                    <button 
+                        onClick={() => setIsLogbuchOpen(true)}
+                        className={`fixed bottom-8 right-8 z-40 bg-slate-900 dark:bg-white text-white dark:text-black p-4 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:scale-110 active:scale-95 transition-transform ${isLogbuchOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                        title="Labor Logbuch öffnen"
+                    >
+                        <IconBook />
+                    </button>
+
+                    {/* NEW: GLOBAL LOGBUCH PANEL */}
+                    <div className={`fixed inset-y-0 right-0 w-96 glass-panel border-l border-white/20 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${isLogbuchOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                        <div className="flex items-center justify-between p-6 border-b border-white/10">
+                            <h3 className="text-xl font-bold flex items-center gap-2">
+                                <IconBook /> Labor Logbuch
+                            </h3>
+                            <button onClick={() => setIsLogbuchOpen(false)} className="p-2 hover:bg-white/10 rounded-lg transition">
+                                <IconX />
+                            </button>
+                        </div>
+                        <div className="flex-1 p-6 flex flex-col">
+                            <p className="text-sm text-slate-600 dark:text-white/50 mb-4">
+                                Dein globaler Notizzettel. Projektunabhängig. Ideal für PR Kontakte, spontane Ideen oder to do Listen. Speichert automatisch.
+                            </p>
+                            <textarea 
+                                value={globalNotes}
+                                onChange={(e) => setGlobalNotes(e.target.value)}
+                                className="flex-1 w-full bg-white/50 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/30 outline-none focus:border-brandOrange shadow-inner resize-none leading-relaxed"
+                                placeholder="Notizen hier eintragen..."
+                            />
+                        </div>
+                    </div>
+
                     {/* MODALS */}
                     
                     {/* Create Project Modal */}
                     {showNewProjectModal && (
                         <div className="fixed inset-0 bg-slate-900/50 dark:bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4">
-                            <div className="glass-panel !bg-white/80 dark:!bg-black/50 rounded-3xl p-8 max-w-md w-full shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/50 dark:border-white/20">
+                            <div className="glass-panel !bg-white/80 dark:!bg-black/50 rounded-3xl p-8 max-w-md w-full shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/50 dark:border-white/20 animate-slide-in">
                                 <h3 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-brandOrange to-purpleAccent">Neues Projekt anlegen</h3>
                                 <div className="space-y-6 mb-8">
                                     <div>
@@ -1178,7 +1302,7 @@
                     {/* Delete Confirm Modal */}
                     {projectToDelete && (
                         <div className="fixed inset-0 bg-slate-900/50 dark:bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4">
-                            <div className="glass-panel !bg-white/90 dark:!bg-black/50 rounded-3xl p-8 max-w-sm w-full shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(0,0,0,0.8)] text-center border border-red-500/30">
+                            <div className="glass-panel !bg-white/90 dark:!bg-black/50 rounded-3xl p-8 max-w-sm w-full shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(0,0,0,0.8)] text-center border border-red-500/30 animate-slide-in">
                                 <div className="w-16 h-16 bg-red-100 dark:bg-red-500/20 text-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(239,68,68,0.2)] dark:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
                                     <IconTrash />
                                 </div>
