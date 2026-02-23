@@ -1341,4 +1341,18 @@ ${checklistNotes}
                                 <p className="text-sm text-slate-600 dark:text-white/50 mb-8">Das kann nicht rückgängig gemacht werden. Alle Daten, Notizen und KI-Texte gehen verloren.</p>
                                 <div className="flex justify-center gap-4">
                                     <button onClick={() => setProjectToDelete(null)} className="px-6 py-3 rounded-xl hover:bg-slate-200/50 dark:hover:bg-white/10 transition text-sm font-bold text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white">Abbrechen</button>
-                                    <button onClick={confirmDeleteProject} className="bg-red-500 hover:bg
+                                    <button onClick={confirmDeleteProject} className="bg-red-500 hover:bg-red-600 dark:hover:bg-red-400 text-white px-8 py-3 rounded-xl font-black shadow-[0_0_20px_rgba(239,68,68,0.4)] transition transform hover:scale-105 active:scale-95">Ja, löschen</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
