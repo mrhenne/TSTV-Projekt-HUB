@@ -84,6 +84,7 @@
             opacity: 0.4;
             transform: scale(0.95) rotate(2deg);
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
         }
         .dark .dragging {
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -134,13 +135,13 @@
         const IconSettings = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>;
         const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>;
         const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg>;
-        const IconGrip = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-grab active:cursor-grabbing text-slate-400"><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="19" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="19" r="1"></circle></svg>;
+        const IconGrip = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-white/30 hover:text-brandOrange transition-colors"><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="19" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="19" r="1"></circle></svg>;
         const IconList = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>;
         const IconData = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>;
         const IconCompare = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg>;
         const IconZap = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>;
         const IconEdit = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>;
-        const IconChevronDown = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>;
+        const IconChevronDown = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="6 9 12 15 18 9"></polyline></svg>;
         const IconCamera = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>;
         const IconSun = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>;
         const IconMoon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>;
@@ -150,21 +151,15 @@
         const BrandLogo = () => (
             <div className="flex items-center gap-2 select-none pointer-events-none">
                 <svg width="44" height="28" viewBox="0 0 100 60" fill="none" stroke="#FF7B00" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
-                    {/* Drone body outline */}
                     <path d="M 30 20 L 70 20 L 60 30 L 40 30 Z" fill="#FF7B00" />
-                    {/* Props arms */}
                     <line x1="8" y1="14" x2="35" y2="14" />
                     <line x1="65" y1="14" x2="92" y2="14" />
-                    {/* Props hubs vertical */}
                     <line x1="20" y1="14" x2="20" y2="22" />
                     <line x1="80" y1="14" x2="80" y2="22" />
-                    {/* Legs */}
                     <path d="M 40 30 L 25 45 M 60 30 L 75 45" />
                     <line x1="20" y1="45" x2="30" y2="45" />
                     <line x1="70" y1="45" x2="80" y2="45" />
-                    {/* Camera Unit */}
                     <rect x="38" y="36" width="24" height="18" rx="4" fill="none" />
-                    {/* Play Button inside camera */}
                     <polygon points="46,40 56,45 46,50" fill="#FF7B00" stroke="none" />
                 </svg>
                 <div className="flex flex-col justify-center leading-none mt-1">
@@ -193,100 +188,55 @@
         const WORKFLOWS = {
             saugroboter: {
                 checklist: [
-                    "Phase 1: Inhalt prüfen & Vollständigkeit checken",
-                    "Phase 1: Erste Notizen machen",
-                    "Phase 1: Lieferumfang - Abgleich mit Herstellerangaben & Besonderheiten",
-                    "Phase 1: Design & Verarbeitung - Material, Verarbeitung, Haptik bewerten",
-                    "Phase 2: Station platzieren, Mopps einsetzen, Wasserbehälter füllen",
-                    "Phase 2: App installieren & Roboter koppeln (Dauer bewerten)",
-                    "Phase 2: Erste Kartierung (Dauer messen & Raumaufteilung prüfen)",
-                    "Phase 3: Test-Parcours vorbereiten (5 große, 5 kleine Hindernisse, Kabel)",
-                    "Phase 3: Hindernistest durchführen (Reaktion & Trefferquote notieren)",
-                    "Phase 4: Hartboden-Test (Staub & Krümel verteilen, 1 Durchgang)",
-                    "Phase 4: Teppich-Test (50g Schmutz abwiegen, Kurz/Hochflor)",
-                    "Phase 5: Wischtest vorbereiten (Kaffee & Ketchup antrocknen lassen)",
-                    "Phase 5: Mehrfachdurchgänge (Durchgang 1, 2 und 4 dokumentieren)",
-                    "Phase 6: Haaraufnahme (Lange Haare verteilen)",
-                    "Phase 6: Ecken & Kanten (10 Haferflocken in Ecke)",
-                    "Phase 7: Automatische Reinigung (Moppreinigung & Lautstärke)",
-                    "Phase 7: Wartungszugang (Filter & Bürste entnehmen)",
-                    "Phase 8: Gerätevergleich & Fazit schreiben"
+                    { phase: "Phase 1: Vorbereitung", items: ["Auspacken: Inhalt prüfen & Vollständigkeit checken", "Auspacken: Erste Notizen machen", "Lieferumfang: Abgleich mit Herstellerangaben & Besonderheiten notieren", "Design und Verarbeitung: Material, Verarbeitung & Haptik bewerten"] },
+                    { phase: "Phase 2: Einrichtung und App", items: ["Station aufstellen: Station platzieren, Mopps einsetzen, Wasser füllen", "App einrichten: App installieren, Roboter koppeln, Dauer bewerten", "Erste Kartierung: Dauer messen, Raumaufteilung prüfen"] },
+                    { phase: "Phase 3: Navigation und Hindernisse", items: ["Test-Parcours: 5 große Hindernisse, 5 kleine (Kabel, Schnürsenkel, etc.) vorbereiten", "Hindernistest: Reaktion beobachten, Trefferquote notieren", "Alltagsnavigation: Verhalten unter Tischen/Stühlen bewerten"] },
+                    { phase: "Phase 4: Saugleistung", items: ["Hartboden-Test: Staub und Krümel verteilen, ein Durchgang", "Teppich-Test: 50 g Schmutz abwiegen (Kurzflor und Hochflor)"] },
+                    { phase: "Phase 5: Wischleistung", items: ["Wischtest vorbereiten: Kaffee und Ketchup antrocknen lassen", "Mehrfachdurchgänge: Durchgang 1, 2 und 4 dokumentieren & bewerten"] },
+                    { phase: "Phase 6: Spezialtests", items: ["Haaraufnahme: Lange Haare verteilen, Anti-Tangle prüfen", "Ecken und Kanten: 10 Haferflocken in Ecke platzieren"] },
+                    { phase: "Phase 7: Station und Wartung", items: ["Automatische Reinigung: Moppreinigung beobachten, Lautstärke einschätzen", "Wartungszugang: Filter entnehmen, Bürste entnehmen, Reinigung bewerten"] },
+                    { phase: "Phase 8: Vergleich und Fazit", items: ["Gerätevergleich: Gen 2 vs Gen 3 vs Konkurrenz bewerten", "Fazit schreiben: Zielgruppe definieren, Empfehlung klar formulieren", "Abschluss-Check: Bilder/Werte konsequent gleichmäßig? Keine Werbesprache?"] }
                 ],
                 shotlist: [
-                    "Karton geöffnet von oben",
-                    "Komplettes Zubehör sauber ausgelegt",
-                    "Basisstation einzeln",
-                    "Roboter einzeln",
-                    "Mopps, Staubbeutel, Reinigungsmittel (Detailaufnahme)",
-                    "Roboter frontal, seitlich & von oben",
-                    "Station frontal & schräg (für Tiefenwirkung)",
-                    "Station am finalen Standort & Mopps von unten",
-                    "Smartphone mit App-Startscreen & Kopplungsvorgang",
-                    "Screenshot: Karte & Raumaufteilung",
-                    "Gesamtübersicht Parcours & Detail flache Hindernisse",
-                    "Roboter vor Hindernis & beim Umfahren",
-                    "App-Screenshot erkannter Objekte",
-                    "Hartboden: Verschmutzung vorher & nachher",
-                    "Teppich: Abgewogener Schmutz & nach Reinigung",
-                    "Wischen: Verschmutzung frisch & angetrocknet",
-                    "Wischen: Gleiche Perspektive nach jedem Durchgang",
-                    "Haaraufnahme: Vorher & Bürste nachher",
-                    "Ecken: Vorher & Nachher",
-                    "Roboter in Station & Mopps nach Reinigung",
-                    "Offener Staubbehälter & herausgenommene Bürste",
-                    "Gerätevergleich: Nebeneinander / neutraler Produktshot"
+                    { phase: "Phase 1: Vorbereitung", items: ["Karton geöffnet von oben", "Komplettes Zubehör sauber ausgelegt", "Basisstation einzeln", "Roboter einzeln", "Mopps, Staubbeutel, Reinigungsmittel als Detailaufnahme", "Roboter frontal, seitlich & von oben", "Station frontal & schräg für Tiefenwirkung"] },
+                    { phase: "Phase 2: Einrichtung und App", items: ["Station am finalen Standort", "Mopps eingesetzt von unten", "Smartphone mit App-Startscreen", "Kopplungsvorgang in der App", "Screenshot der vollständigen Karte", "Screenshot mit Raumaufteilung"] },
+                    { phase: "Phase 3: Navigation und Hindernisse", items: ["Gesamtübersicht Parcours", "Detail flache Hindernisse", "Roboter vor Hindernis", "Roboter beim Umfahren", "App-Screenshot erkannter Objekte"] },
+                    { phase: "Phase 4: Saugleistung", items: ["Verschmutzung vorher (Hartboden)", "Ergebnis nach Reinigung (Hartboden)", "Abgewogener Schmutz (Teppich)", "Teppich nach Reinigung"] },
+                    { phase: "Phase 5: Wischleistung", items: ["Verschmutzung frisch", "Verschmutzung angetrocknet", "Gleiche Perspektive nach jedem Durchgang"] },
+                    { phase: "Phase 6: Spezialtests", items: ["Haare vor Reinigung", "Bürste nach dem Test", "Ecke vorher", "Ecke nachher"] },
+                    { phase: "Phase 7: Station und Wartung", items: ["Roboter in Station", "Mopps nach Reinigung", "Offener Staubbehälter", "Herausgenommene Bürste"] },
+                    { phase: "Phase 8: Vergleich und Fazit", items: ["Geräte nebeneinander (Optional)", "Alternativ neutraler Produktshot"] }
                 ],
                 scores: { verarbeitung: 5, saugleistung: 5, wischleistung: 5, navigation: 5, app: 5, preis_leistung: 5 }
             },
             rasenmaehroboter: {
                 checklist: [
-                    "Phase 1: Unboxing & Lieferumfang (Kabel, Heringe, RTK-Antenne?)",
-                    "Phase 1: Design, Verarbeitung & Messer-Typ prüfen",
-                    "Phase 2: Station aufbauen & Antenne/Kabel verlegen",
-                    "Phase 2: App Kopplung & WLAN/Mobilfunk-Verbindung testen",
-                    "Phase 2: Erste Kartierung (Zonenerstellung, No-Go-Areas)",
-                    "Phase 3: Mähleistung Standard (Trockenes Gras, normale Höhe)",
-                    "Phase 3: Mähleistung Extrem (Hohes Gras, nasses Gras)",
-                    "Phase 4: Kantenmähfunktion & Überfahr-Abstand testen",
-                    "Phase 4: Hinderniserkennung (Gartenschlauch, Spielzeug, Igel-Dummy)",
-                    "Phase 5: Steigungstest (Schafft er die beworbene Steigung?)",
-                    "Phase 6: App Features (Zeitpläne, Schnitthöhenverstellung)",
-                    "Phase 7: Wartung (Reinigung mit Schlauch möglich?, Messerwechsel)",
-                    "Phase 8: Gerätevergleich & Fazit"
+                    { phase: "Phase 1: Vorbereitung & Design", items: ["Unboxing & Lieferumfang prüfen (Kabel, Heringe, RTK-Antenne?)", "Design, Verarbeitung & Messer-Typ prüfen"] },
+                    { phase: "Phase 2: Setup & App", items: ["Station aufbauen & Antenne/Kabel verlegen", "App Kopplung & WLAN/Mobilfunk-Verbindung testen", "Erste Kartierung (Zonenerstellung, No-Go-Areas)"] },
+                    { phase: "Phase 3: Mähleistung", items: ["Mähleistung Standard (Trockenes Gras, normale Höhe)", "Mähleistung Extrem (Hohes Gras, nasses Gras)"] },
+                    { phase: "Phase 4: Navigation & Hindernisse", items: ["Kantenmähfunktion & Überfahr-Abstand testen", "Hinderniserkennung (Gartenschlauch, Spielzeug, Igel-Dummy)", "Steigungstest (Schafft er die beworbene Steigung?)"] },
+                    { phase: "Phase 5: Wartung & Fazit", items: ["App Features prüfen (Zeitpläne, Schnitthöhenverstellung)", "Wartung (Reinigung mit Schlauch möglich?, Messerwechsel)", "Gerätevergleich & Fazit"] }
                 ],
                 shotlist: [
-                    "Unboxing & Lieferumfang",
-                    "Roboter & Station (Produktshots)",
-                    "Messerwerk von unten (Detail)",
-                    "Station im Garten aufgebaut",
-                    "Screenshot: App-Karte mit Zonen",
-                    "Aktion: Roboter mäht Rasenkante",
-                    "Aktion: Roboter weicht Hindernis aus",
-                    "Schnittbild Rasen (Vorher/Nachher Detail)",
-                    "Roboter an Steigung",
-                    "Wartungszugang (z.B. Reinigung)"
+                    { phase: "Phase 1: Vorbereitung & Design", items: ["Unboxing & Lieferumfang", "Roboter & Station (Produktshots)", "Messerwerk von unten (Detail)"] },
+                    { phase: "Phase 2: Setup & App", items: ["Station im Garten aufgebaut", "Screenshot: App-Karte mit Zonen"] },
+                    { phase: "Phase 3: Mähleistung", items: ["Schnittbild Rasen (Vorher/Nachher Detail)", "Aktion: Roboter mäht Rasenkante"] },
+                    { phase: "Phase 4: Navigation & Hindernisse", items: ["Aktion: Roboter weicht Hindernis aus", "Roboter an Steigung"] },
+                    { phase: "Phase 5: Wartung & Fazit", items: ["Wartungszugang (z.B. Reinigung mit Schlauch)"] }
                 ],
                 scores: { verarbeitung: 5, maehleisung: 5, navigation: 5, app: 5, preis_leistung: 5 }
             },
             technik: {
                 checklist: [
-                    "Phase 1: Unboxing & Erster Eindruck",
-                    "Phase 1: Verarbeitungsqualität & Materialcheck",
-                    "Phase 2: Setup & Einrichtungsprozess",
-                    "Phase 3: Display / Bedienelemente prüfen",
-                    "Phase 4: Kernfunktionen Praxistest",
-                    "Phase 5: Akkulaufzeit & Ladezeit messen",
-                    "Phase 6: Software, Menüführung & App-Anbindung",
-                    "Phase 7: Stärken / Schwächen Analyse",
-                    "Phase 8: Vergleich & Fazit"
+                    { phase: "Phase 1: Unboxing & Design", items: ["Unboxing & Erster Eindruck", "Verarbeitungsqualität & Materialcheck"] },
+                    { phase: "Phase 2: Setup & Basics", items: ["Setup & Einrichtungsprozess", "Display / Bedienelemente prüfen"] },
+                    { phase: "Phase 3: Praxistest", items: ["Kernfunktionen testen", "Akkulaufzeit & Ladezeit messen", "Software, Menüführung & App-Anbindung prüfen"] },
+                    { phase: "Phase 4: Fazit", items: ["Stärken / Schwächen Analyse", "Vergleich & Fazit"] }
                 ],
                 shotlist: [
-                    "Lieferumfang Übersicht",
-                    "Gerät Frontal & Rückseite",
-                    "Detailaufnahme Anschlüsse/Buttons",
-                    "Gerät in Action / im Einsatz",
-                    "Screenshot/Foto vom Setup-Prozess",
-                    "Größenvergleich mit bekanntem Objekt"
+                    { phase: "Phase 1: Unboxing & Design", items: ["Lieferumfang Übersicht", "Gerät Frontal & Rückseite", "Detailaufnahme Anschlüsse/Buttons"] },
+                    { phase: "Phase 2 & 3: Praxistest", items: ["Gerät in Action / im Einsatz", "Screenshot/Foto vom Setup-Prozess"] },
+                    { phase: "Phase 4: Fazit", items: ["Größenvergleich mit bekanntem Objekt"] }
                 ],
                 scores: { design_verarbeitung: 5, bedienung: 5, leistung: 5, akku: 5, preis_leistung: 5 }
             }
@@ -322,11 +272,14 @@
             const [isEditingTitle, setIsEditingTitle] = useState(false);
             const [editTitleValue, setEditTitleValue] = useState('');
 
-            // Inline Input States
-            const [newChecklistText, setNewChecklistText] = useState('');
-            const [newSpecKey, setNewSpecKey] = useState('');
-            const [newShotlistText, setNewShotlistText] = useState('');
+            // List UI States
+            const [newChecklistText, setNewChecklistText] = useState({});
+            const [newShotlistText, setNewShotlistText] = useState({});
             const [expandedChecklistId, setExpandedChecklistId] = useState(null);
+            const [collapsedPhases, setCollapsedPhases] = useState({}); // { checklist_phaseIndex: boolean }
+
+            // Inline Input States
+            const [newSpecKey, setNewSpecKey] = useState('');
             const [newProText, setNewProText] = useState('');
             const [newConText, setNewConText] = useState('');
 
@@ -345,26 +298,40 @@
 
             const currentProject = projects.find(p => p.id === currentProjectId);
 
-            // Data Migration for older projects (pros/cons from string to array)
+            // Data Migration for older projects (pros/cons from string to array, and checklist to nested phases)
             useEffect(() => {
-                if (currentProject && typeof currentProject.data.pros === 'string') {
-                    const migratedProjects = projects.map(p => {
-                        if (typeof p.data.pros === 'string') {
-                            return {
-                                ...p,
-                                data: {
-                                    ...p.data,
-                                    pros: p.data.pros ? p.data.pros.split('\n').filter(Boolean) : [],
-                                    cons: p.data.cons ? p.data.cons.split('\n').filter(Boolean) : [],
-                                    conditions: p.data.conditions || 'Standard Laborumgebung'
-                                }
-                            }
-                        }
-                        return p;
-                    });
-                    setProjects(migratedProjects);
-                }
-            }, [currentProjectId]);
+                if (!projects || projects.length === 0) return;
+                let needsMigration = false;
+                
+                const migratedProjects = projects.map(p => {
+                    let updated = { ...p };
+                    
+                    // Migrate Pros/Cons
+                    if (typeof updated.data?.pros === 'string') {
+                        needsMigration = true;
+                        updated.data = {
+                            ...updated.data,
+                            pros: updated.data.pros ? updated.data.pros.split('\n').filter(Boolean) : [],
+                            cons: updated.data.cons ? updated.data.cons.split('\n').filter(Boolean) : [],
+                            conditions: updated.data.conditions || 'Standard Laborumgebung'
+                        };
+                    }
+
+                    // Migrate Checklist to Phased Structure
+                    if (updated.checklist && updated.checklist.length > 0 && !updated.checklist[0].phase && !updated.checklist[0].items) {
+                        needsMigration = true;
+                        updated.checklist = [{ phase: "Allgemeine Tests", items: updated.checklist }];
+                    }
+                    if (updated.shotlist && updated.shotlist.length > 0 && !updated.shotlist[0].phase && !updated.shotlist[0].items) {
+                        needsMigration = true;
+                        updated.shotlist = [{ phase: "Allgemeine Motive", items: updated.shotlist }];
+                    }
+
+                    return updated;
+                });
+
+                if (needsMigration) setProjects(migratedProjects);
+            }, [projects.length]); // Only run on mount or project creation
 
             // Auto-calculate Score
             const calculatedScore = useMemo(() => {
@@ -381,7 +348,6 @@
                 
                 let catId = newProjectCategory;
 
-                // Handle Custom Category Creation
                 if (isCreatingCategory && newCustomCategory.trim()) {
                     catId = newCustomCategory.trim().toLowerCase().replace(/[^a-z0-9]/g, '_');
                     if (!categories.find(c => c.id === catId)) {
@@ -397,8 +363,15 @@
                     title: newProjectTitle,
                     category: catId,
                     createdAt: new Date().toISOString(),
-                    checklist: workflowTemplate.checklist.map(text => ({ id: generateId(), text, done: false, note: '' })),
-                    shotlist: workflowTemplate.shotlist.map(text => ({ id: generateId(), text, done: false })),
+                    // Map the phased template to instances with IDs
+                    checklist: workflowTemplate.checklist.map(phaseBlock => ({
+                        phase: phaseBlock.phase,
+                        items: phaseBlock.items.map(text => ({ id: generateId(), text, done: false, note: '' }))
+                    })),
+                    shotlist: workflowTemplate.shotlist.map(phaseBlock => ({
+                        phase: phaseBlock.phase,
+                        items: phaseBlock.items.map(text => ({ id: generateId(), text, done: false }))
+                    })),
                     scores: { ...workflowTemplate.scores },
                     data: { pros: [], cons: [], notes: '', conditions: 'Firmware: \nTestdauer: \nBodenbeläge: Hartboden, Teppich' },
                     comparison: {
@@ -437,48 +410,89 @@
                 setIsEditingTitle(false);
             };
 
-            // Drag and Drop Logic
-            const dragItemIndex = useRef(null);
-            const dragOverItemIndex = useRef(null);
+            // --- DRAG AND DROP: PROJECTS ---
+            const dragProjectIndex = useRef(null);
+            const dragOverProjectIndex = useRef(null);
 
-            const handleDragStart = (e, index) => {
-                dragItemIndex.current = index;
-                e.target.classList.add('opacity-50', 'scale-95');
+            const handleProjectDragStart = (e, index) => {
+                dragProjectIndex.current = index;
+                e.currentTarget.classList.add('opacity-40', 'scale-95');
             };
-            const handleDragEnter = (e, index) => { dragOverItemIndex.current = index; };
-            const handleDragEnd = (e, listKey) => {
-                e.target.classList.remove('opacity-50', 'scale-95');
-                if (dragItemIndex.current === null || dragOverItemIndex.current === null) return;
+            const handleProjectDragEnter = (e, index) => { dragOverProjectIndex.current = index; };
+            const handleProjectDragEnd = (e) => {
+                e.currentTarget.classList.remove('opacity-40', 'scale-95');
+                if (dragProjectIndex.current === null || dragOverProjectIndex.current === null) return;
+                if (dragProjectIndex.current === dragOverProjectIndex.current) return;
                 
+                const newProjects = [...projects];
+                const draggedProject = newProjects.splice(dragProjectIndex.current, 1)[0];
+                newProjects.splice(dragOverProjectIndex.current, 0, draggedProject);
+                
+                setProjects(newProjects);
+                dragProjectIndex.current = null;
+                dragOverProjectIndex.current = null;
+            };
+
+            // --- DRAG AND DROP: NESTED LISTS (Checklist & Shotlist) ---
+            const dragNestedItem = useRef({ phaseIndex: null, itemIndex: null });
+            const dragOverNestedItem = useRef({ phaseIndex: null, itemIndex: null });
+
+            const handleNestedDragStart = (e, phaseIndex, itemIndex) => {
+                dragNestedItem.current = { phaseIndex, itemIndex };
+                e.currentTarget.classList.add('dragging');
+            };
+            const handleNestedDragEnter = (e, phaseIndex, itemIndex) => { 
+                dragOverNestedItem.current = { phaseIndex, itemIndex }; 
+            };
+            const handleNestedDragEnd = (e, listKey) => {
+                e.currentTarget.classList.remove('dragging');
+                const { phaseIndex: fromPhase, itemIndex: fromItem } = dragNestedItem.current;
+                const { phaseIndex: toPhase, itemIndex: toItem } = dragOverNestedItem.current;
+
+                if (fromPhase === null || toPhase === null) return;
+
                 const newList = [...currentProject[listKey]];
-                const draggedItem = newList.splice(dragItemIndex.current, 1)[0];
-                newList.splice(dragOverItemIndex.current, 0, draggedItem);
+                // Remove from source
+                const draggedItem = newList[fromPhase].items.splice(fromItem, 1)[0];
+                // Insert to target
+                newList[toPhase].items.splice(toItem, 0, draggedItem);
                 
                 updateCurrentProject({ [listKey]: newList });
-                dragItemIndex.current = null;
-                dragOverItemIndex.current = null;
+                dragNestedItem.current = { phaseIndex: null, itemIndex: null };
+                dragOverNestedItem.current = { phaseIndex: null, itemIndex: null };
             };
 
-            // Checklists & Shotlists updates
-            const updateListItem = (listKey, id, field, value) => {
-                const list = currentProject[listKey] || [];
-                const newList = list.map(item => item.id === id ? { ...item, [field]: value } : item);
+            // Nested List Data Handlers
+            const updateNestedItem = (listKey, phaseIndex, itemId, field, value) => {
+                const newList = [...currentProject[listKey]];
+                newList[phaseIndex].items = newList[phaseIndex].items.map(item => 
+                    item.id === itemId ? { ...item, [field]: value } : item
+                );
                 updateCurrentProject({ [listKey]: newList });
             };
 
-            const addListItem = (listKey, textVal, setTextFn) => {
-                if(textVal.trim()) {
-                    const list = currentProject[listKey] || [];
-                    updateCurrentProject({ 
-                        [listKey]: [...list, { id: generateId(), text: textVal, done: false, note: '' }] 
-                    });
-                    setTextFn('');
+            const addNestedItem = (listKey, phaseIndex, textVal, setInputState) => {
+                if(textVal && textVal.trim()) {
+                    const newList = [...currentProject[listKey]];
+                    const newItem = { id: generateId(), text: textVal.trim(), done: false };
+                    if (listKey === 'checklist') newItem.note = '';
+                    
+                    newList[phaseIndex].items.push(newItem);
+                    updateCurrentProject({ [listKey]: newList });
+                    
+                    setInputState(prev => ({...prev, [phaseIndex]: ''}));
                 }
             };
 
-            const deleteListItem = (listKey, id) => {
-                const list = currentProject[listKey] || [];
-                updateCurrentProject({ [listKey]: list.filter(item => item.id !== id) });
+            const deleteNestedItem = (listKey, phaseIndex, itemId) => {
+                const newList = [...currentProject[listKey]];
+                newList[phaseIndex].items = newList[phaseIndex].items.filter(item => item.id !== itemId);
+                updateCurrentProject({ [listKey]: newList });
+            };
+
+            const togglePhaseCollapse = (listKey, phaseIndex) => {
+                const key = `${listKey}_${phaseIndex}`;
+                setCollapsedPhases(prev => ({ ...prev, [key]: !prev[key] }));
             };
 
             // Array Manipulations for Pros/Cons
@@ -557,11 +571,9 @@ Wenn du Werte nicht genau kennst, nutze realistische Schätzungen oder schreibe 
                     
                     if (!generatedText) throw new Error("Keine Antwort von der KI erhalten.");
 
-                    // Clean up potential markdown blocks from Gemini
                     generatedText = generatedText.replace(/```json/g, '').replace(/```/g, '').trim();
                     const parsedData = JSON.parse(generatedText);
 
-                    // Update State
                     const updatedSpecs = currentProject.comparison.specs.map(spec => {
                         const aiSpec = parsedData.specs[spec.key];
                         if (aiSpec) {
@@ -600,39 +612,52 @@ Wenn du Werte nicht genau kennst, nutze realistische Schätzungen oder schreibe 
                 setIsGenerating(true);
                 setAiError('');
                 
-                const checklistNotes = (currentProject.checklist || []).filter(c => c.done).map(c => `- ${c.text}${c.note ? ` (Notiz: ${c.note})` : ''}`).join('\n');
+                const catName = categories.find(c => c.id === currentProject.category)?.name || currentProject.category;
+
+                // Format checklists beautifully for the AI
+                let checklistNotes = "";
+                (currentProject.checklist || []).forEach(phase => {
+                    const completedItems = phase.items.filter(i => i.done);
+                    if(completedItems.length > 0) {
+                        checklistNotes += `\n[${phase.phase}]\n`;
+                        completedItems.forEach(i => {
+                            checklistNotes += `* ${i.text}${i.note ? ` (Detail-Notiz: ${i.note})` : ''}\n`;
+                        });
+                    }
+                });
+
                 const proConsText = `Stärken: ${currentProject.data.pros.join(', ')}\nSchwächen: ${currentProject.data.cons.join(', ')}`;
 
                 const promptText = `Du bist Henne, ein professioneller, direkter Technik Redakteur für Testsieger TV. 
-Schreibe ein detailliertes, flüssig lesbares Review zum Projekt "${currentProject.title}" (Kategorie: ${categories.find(c => c.id === currentProject.category)?.name || currentProject.category}).
+Schreibe einen detaillierten, flüssig lesbaren Testbericht zum Projekt "${currentProject.title}" (Kategorie: ${catName}).
 
-Hier ist meine errechnete Gesamtnote: ${calculatedScore} / 10.
-Hier sind meine detaillierten Bewertungen:
-${JSON.stringify(currentProject.scores, null, 2)}
+WICHTIGSTE REGELN FÜR DEINEN SCHREIBSTIL:
+1. Nutze NIEMALS Gedankenstriche. Lass sie immer weg.
+2. Sei ein kritischer Sparringspartner. Benenne Schwächen schonungslos ehrlich, aber bleib fair und konstruktiv. Kein Marketing-Sprech.
+3. Dein Ton ist natürlich, direkt, gewitzt und professionell, als würdest du mit einem anderen Profi sprechen.
+4. Strukturiere den Text mit starken, leserfreundlichen Zwischenüberschriften.
 
-Testbedingungen:
-${currentProject.data.conditions}
+ORIENTIERE DICH AN DIESER STRUKTUR (Beispiel Saugroboter, passe es sinngemäß auf die Kategorie an):
+1. Catchy Intro: Kontext zum Hersteller, hohe Erwartungen wecken, zentrale Frage des Tests aufwerfen.
+2. Technische Details & Lieferumfang: Fokus auf das Wesentliche. Fehlt etwas für den Preis?
+3. Design und Verarbeitung: Optik, Haptik, praktische Implikationen des Designs.
+4. Die All-in-One-Station (falls vorhanden): Autonomie-Check. Was macht sie wirklich selbst?
+5. Einrichtung & App: Usability, Stabilität, fehlende Features.
+6. Navigation & Hinderniserkennung: Souveränität im Alltag vs. Test-Parcours. Schwächen aufzeigen.
+7. Praxistest Saugen & Wischen: Hartboden, Teppich, Ecken, Haaraufnahme. Wie geht das Gerät mit echten Herausforderungen um?
+8. Wartung & Lautstärke: Alltagstauglichkeit.
+9. Gerätevergleich: Wie schlägt sich das Gerät gegen Vorgänger (${currentProject.comparison.predecessor || 'k.A.'}) und Konkurrenz (${currentProject.comparison.competitor || 'k.A.'})?
+10. Klares Fazit: Zielgruppe definieren, klare Empfehlung oder Nicht-Empfehlung (inklusive Gesamtnote ${calculatedScore}/10).
 
-Stärken und Schwächen:
+DATEN FÜR DEINEN BERICHT:
+Testbedingungen: ${currentProject.data.conditions}
+Gesamtnote: ${calculatedScore}/10
 ${proConsText}
+Spezifikationen: ${JSON.stringify(currentProject.comparison.specs)}
 
-Hier ist meine abgearbeitete Checkliste mit Detail-Notizen. Baue diese Aspekte organisch in den Text ein:
+CHECKLISTEN-NOTIZEN UND ERGEBNISSE AUS DEM LABOR (Zwingend organisch in den Text einbauen!):
 ${checklistNotes}
-
-Hier ist der technische Vergleich. Nutze diese Daten für einen eigenen Absatz "Vergleich mit Vorgänger und Konkurrenz":
-Vorgänger: ${currentProject.comparison.predecessor || 'Nicht definiert'}
-Konkurrent: ${currentProject.comparison.competitor || 'Nicht definiert'}
-Spezifikationen:
-${JSON.stringify(currentProject.comparison.specs, null, 2)}
-
-Strukturvorgabe:
-1. Knackiges Intro
-2. Praxistest (basierend auf der Checkliste und Notizen)
-3. Stärken und Schwächen
-4. Vergleich mit Vorgänger und Konkurrenz
-5. Klares, ehrliches Fazit (beziehe die Note ${calculatedScore} mit ein)
-
-Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche immer weg.`;
+`;
 
                 try {
                     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
@@ -640,7 +665,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             contents: [{ parts: [{ text: promptText }] }],
-                            systemInstruction: { parts: [{ text: "Du bist ein professioneller Technik Redakteur. Nutze einen direkten, lockeren Ton. Verwende niemals Gedankenstriche." }] }
+                            systemInstruction: { parts: [{ text: "Du bist ein professioneller Technik Redakteur. Nutze einen direkten, lockeren Ton. Verwende NIEMALS Gedankenstriche." }] }
                         })
                     });
                     const data = await response.json();
@@ -686,25 +711,38 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                         </div>
 
                         <div className="flex-1 overflow-y-auto px-3 pb-6">
-                            <div className="text-xs font-bold uppercase text-slate-500 dark:text-white/40 px-3 mb-3 tracking-widest">Deine Projekte</div>
-                            {projects.map(p => (
-                                <div 
-                                    key={p.id} 
-                                    onClick={() => setCurrentProjectId(p.id)}
-                                    className={`group flex items-center justify-between p-3 mb-2 rounded-xl cursor-pointer transition-all duration-300 ${currentProjectId === p.id ? 'bg-brandOrange/10 dark:bg-brandOrange/20 border border-brandOrange/50 shadow-[0_0_20px_rgba(255,123,0,0.15)] text-slate-900 dark:text-white' : 'hover:bg-white/40 dark:hover:bg-white/10 border border-transparent text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white'}`}
-                                >
-                                    <div className="truncate text-sm font-medium">{p.title}</div>
-                                    <button 
-                                        onClick={(e) => { e.stopPropagation(); setProjectToDelete(p.id); }}
-                                        className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-500 hover:bg-red-100 dark:hover:bg-red-500/20 rounded-md transition"
+                            <div className="text-xs font-bold uppercase text-slate-500 dark:text-white/40 px-3 mb-3 tracking-widest flex items-center justify-between">
+                                Deine Projekte
+                                <IconGrip className="w-3 h-3 opacity-50" />
+                            </div>
+                            <div className="space-y-2">
+                                {projects.map((p, index) => (
+                                    <div 
+                                        key={p.id}
+                                        draggable
+                                        onDragStart={(e) => handleProjectDragStart(e, index)}
+                                        onDragEnter={(e) => handleProjectDragEnter(e, index)}
+                                        onDragEnd={handleProjectDragEnd}
+                                        onDragOver={(e) => e.preventDefault()}
+                                        onClick={() => setCurrentProjectId(p.id)}
+                                        className={`group flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all duration-200 ${currentProjectId === p.id ? 'bg-brandOrange/10 dark:bg-brandOrange/20 border border-brandOrange/50 shadow-[0_0_20px_rgba(255,123,0,0.15)] text-slate-900 dark:text-white' : 'hover:bg-white/40 dark:hover:bg-white/10 border border-transparent text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white'}`}
                                     >
-                                        <IconTrash />
-                                    </button>
-                                </div>
-                            ))}
-                            {projects.length === 0 && (
-                                <div className="text-sm text-slate-500 dark:text-white/30 text-center mt-10 px-4 border border-dashed border-slate-300 dark:border-white/10 rounded-xl p-6">Keine Projekte vorhanden. <br/>Klick auf 'Neues Projekt'.</div>
-                            )}
+                                        <div className="flex items-center gap-2 overflow-hidden">
+                                            <div className="cursor-grab active:cursor-grabbing text-slate-300 dark:text-white/20 hover:text-brandOrange"><IconGrip /></div>
+                                            <div className="truncate text-sm font-medium">{p.title}</div>
+                                        </div>
+                                        <button 
+                                            onClick={(e) => { e.stopPropagation(); setProjectToDelete(p.id); }}
+                                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-500 hover:bg-red-100 dark:hover:bg-red-500/20 rounded-md transition"
+                                        >
+                                            <IconTrash />
+                                        </button>
+                                    </div>
+                                ))}
+                                {projects.length === 0 && (
+                                    <div className="text-sm text-slate-500 dark:text-white/30 text-center mt-10 px-4 border border-dashed border-slate-300 dark:border-white/10 rounded-xl p-6">Keine Projekte vorhanden. <br/>Klick auf 'Neues Projekt'.</div>
+                                )}
+                            </div>
                         </div>
                     </aside>
 
@@ -782,121 +820,182 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                             <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl relative overflow-hidden">
                                                 <div className="absolute top-0 right-0 w-64 h-64 bg-cyanAccent/20 dark:bg-cyanAccent/10 blur-[100px] pointer-events-none rounded-full"></div>
                                                 
-                                                <h3 className="text-xl font-bold mb-8 text-slate-800 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-white/60">Test Checkliste & Labor-Notizen</h3>
+                                                <h3 className="text-xl font-bold mb-8 text-slate-800 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-white/60">Strukturierte Test Checkliste</h3>
                                                 
-                                                <div className="space-y-4 mb-8">
-                                                    {(currentProject.checklist || []).map((item, index) => (
-                                                        <div key={item.id} className={`glass-panel !bg-white/40 dark:!bg-white/5 !border-slate-300/50 dark:!border-white/10 rounded-xl overflow-hidden transition-all duration-300 ${item.done ? 'opacity-60 bg-slate-200/50 dark:bg-black/20' : ''}`}>
+                                                <div className="space-y-6 mb-8">
+                                                    {(currentProject.checklist || []).map((phaseBlock, phaseIndex) => {
+                                                        const isCollapsed = collapsedPhases[`checklist_${phaseIndex}`];
+                                                        const completedCount = phaseBlock.items.filter(i => i.done).length;
+                                                        const totalCount = phaseBlock.items.length;
+                                                        const isPhaseDone = totalCount > 0 && completedCount === totalCount;
+
+                                                        return (
+                                                        <div key={phaseIndex} className={`glass-panel !bg-white/40 dark:!bg-white/5 !border-slate-300/50 dark:!border-white/10 rounded-2xl overflow-hidden transition-all duration-300`}>
+                                                            {/* Phase Header */}
                                                             <div 
-                                                                draggable
-                                                                onDragStart={(e) => handleDragStart(e, index)}
-                                                                onDragEnter={(e) => handleDragEnter(e, index)}
-                                                                onDragEnd={(e) => handleDragEnd(e, 'checklist')}
-                                                                onDragOver={(e) => e.preventDefault()}
-                                                                className="flex items-center gap-4 p-4"
+                                                                onClick={() => togglePhaseCollapse('checklist', phaseIndex)}
+                                                                className={`flex items-center justify-between p-4 cursor-pointer hover:bg-white/50 dark:hover:bg-white/10 transition-colors ${isPhaseDone ? 'bg-green-500/10' : ''}`}
                                                             >
-                                                                <div className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-white/30 hover:text-slate-600 dark:hover:text-white transition">
-                                                                    <IconGrip />
+                                                                <div className="flex items-center gap-3">
+                                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${isPhaseDone ? 'bg-green-500 text-white' : 'bg-slate-300 dark:bg-white/20 text-slate-700 dark:text-white'}`}>
+                                                                        {isPhaseDone ? '✓' : completedCount}
+                                                                    </div>
+                                                                    <h4 className={`font-bold text-lg ${isPhaseDone ? 'text-green-600 dark:text-green-400' : 'text-slate-800 dark:text-white'}`}>{phaseBlock.phase}</h4>
+                                                                    <span className="text-xs text-slate-500 dark:text-white/40">({completedCount}/{totalCount})</span>
                                                                 </div>
-                                                                <input 
-                                                                    type="checkbox" 
-                                                                    checked={item.done}
-                                                                    onChange={(e) => updateListItem('checklist', item.id, 'done', e.target.checked)}
-                                                                    className="w-5 h-5 rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black/50 text-cyanAccent focus:ring-cyanAccent accent-cyanAccent cursor-pointer"
-                                                                />
-                                                                <span className={`flex-1 font-medium text-lg ${item.done ? 'line-through text-slate-500 dark:text-white/50' : ''}`}>{item.text}</span>
-                                                                
-                                                                <button 
-                                                                    onClick={() => setExpandedChecklistId(expandedChecklistId === item.id ? null : item.id)} 
-                                                                    className={`p-2 rounded-lg bg-white/50 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 transition flex items-center gap-2 text-sm ${expandedChecklistId === item.id ? 'text-cyanAccent border border-cyanAccent/30' : 'text-slate-500 dark:text-white/60'}`}
-                                                                >
-                                                                    {item.note ? 'Notizen ansehen' : 'Notiz +'} <IconChevronDown />
-                                                                </button>
-                                                                
-                                                                <button onClick={() => deleteListItem('checklist', item.id)} className="text-slate-400 dark:text-white/30 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-100 dark:hover:bg-red-500/20 p-2 rounded-lg transition">
-                                                                    <IconTrash />
-                                                                </button>
+                                                                <IconChevronDown className={`transition-transform duration-300 text-slate-500 dark:text-white/50 ${isCollapsed ? '' : 'rotate-180'}`} />
                                                             </div>
 
-                                                            {/* EXPANDED NOTES AREA */}
-                                                            {expandedChecklistId === item.id && (
-                                                                <div className="px-14 pb-5 pt-2 border-t border-slate-200/50 dark:border-white/5 bg-slate-100/50 dark:bg-black/20">
-                                                                    <label className="block text-xs uppercase tracking-widest text-cyanAccent/80 dark:text-cyanAccent/80 mb-2 font-semibold">Freitext / Detail-Ergebnis</label>
-                                                                    <textarea 
-                                                                        value={item.note || ''}
-                                                                        onChange={(e) => updateListItem('checklist', item.id, 'note', e.target.value)}
-                                                                        placeholder="Z.B. Kabel hat sich verfangen. Die Kantenreinigung war nur okay..."
-                                                                        className="w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/10 rounded-lg p-3 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/30 focus:border-cyanAccent/50 outline-none min-h-[100px] shadow-inner"
-                                                                    />
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    ))}
-                                                </div>
+                                                            {/* Phase Items */}
+                                                            <div className={`transition-all duration-500 overflow-hidden ${isCollapsed ? 'max-h-0' : 'max-h-[2000px]'}`}>
+                                                                <div className="p-4 pt-0 space-y-3">
+                                                                    {phaseBlock.items.map((item, itemIndex) => (
+                                                                        <div 
+                                                                            key={item.id} 
+                                                                            draggable
+                                                                            onDragStart={(e) => handleNestedDragStart(e, phaseIndex, itemIndex)}
+                                                                            onDragEnter={(e) => handleNestedDragEnter(e, phaseIndex, itemIndex)}
+                                                                            onDragEnd={(e) => handleNestedDragEnd(e, 'checklist')}
+                                                                            onDragOver={(e) => e.preventDefault()}
+                                                                            className={`group bg-white/60 dark:bg-black/20 border border-slate-300/50 dark:border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-cyanAccent/30 ${item.done ? 'opacity-60 bg-slate-200/50 dark:bg-black/40' : ''}`}
+                                                                        >
+                                                                            <div className="flex items-center gap-4 p-3">
+                                                                                <div className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-white/30 hover:text-cyanAccent transition">
+                                                                                    <IconGrip />
+                                                                                </div>
+                                                                                <input 
+                                                                                    type="checkbox" 
+                                                                                    checked={item.done}
+                                                                                    onChange={(e) => updateNestedItem('checklist', phaseIndex, item.id, 'done', e.target.checked)}
+                                                                                    className="w-5 h-5 rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black/50 text-cyanAccent focus:ring-cyanAccent accent-cyanAccent cursor-pointer"
+                                                                                />
+                                                                                <span className={`flex-1 font-medium text-[15px] ${item.done ? 'line-through text-slate-500 dark:text-white/50' : 'text-slate-700 dark:text-white/90'}`}>{item.text}</span>
+                                                                                
+                                                                                <button 
+                                                                                    onClick={() => setExpandedChecklistId(expandedChecklistId === item.id ? null : item.id)} 
+                                                                                    className={`p-1.5 rounded-lg hover:bg-white dark:hover:bg-white/10 transition flex items-center gap-2 text-xs font-bold uppercase tracking-wider ${expandedChecklistId === item.id ? 'text-cyanAccent bg-cyanAccent/10' : 'text-slate-500 dark:text-white/60'}`}
+                                                                                >
+                                                                                    {item.note ? 'Notiz ansehen' : 'Notiz +'}
+                                                                                </button>
+                                                                                
+                                                                                <button onClick={() => deleteNestedItem('checklist', phaseIndex, item.id)} className="opacity-0 group-hover:opacity-100 text-slate-400 dark:text-white/30 hover:text-red-500 dark:hover:text-red-400 p-1.5 rounded-lg transition">
+                                                                                    <IconTrash />
+                                                                                </button>
+                                                                            </div>
 
-                                                <div className="flex items-center gap-4 pt-6 border-t border-slate-300/50 dark:border-white/10">
-                                                    <input 
-                                                        value={newChecklistText}
-                                                        onChange={(e) => setNewChecklistText(e.target.value)}
-                                                        onKeyDown={(e) => e.key === 'Enter' && addListItem('checklist', newChecklistText, setNewChecklistText)}
-                                                        placeholder="Neuen Testpunkt eingeben..."
-                                                        className="flex-1 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/20 rounded-xl p-4 text-sm outline-none focus:border-cyanAccent transition-all shadow-inner"
-                                                    />
-                                                    <button onClick={() => addListItem('checklist', newChecklistText, setNewChecklistText)} className="bg-white/50 dark:bg-white/10 hover:bg-brandOrange/20 border border-slate-300/50 dark:border-white/20 hover:border-brandOrange/50 text-slate-800 dark:text-white px-6 py-4 rounded-xl text-sm font-bold flex items-center gap-2 transition-all">
-                                                        <IconPlus /> Hinzufügen
-                                                    </button>
+                                                                            {/* EXPANDED NOTES AREA */}
+                                                                            {expandedChecklistId === item.id && (
+                                                                                <div className="px-12 pb-4 pt-1 bg-slate-100/50 dark:bg-black/40">
+                                                                                    <label className="block text-[10px] uppercase tracking-widest text-cyanAccent/80 dark:text-cyanAccent/80 mb-2 font-semibold">Ergebnis / Detail-Notiz für KI</label>
+                                                                                    <textarea 
+                                                                                        value={item.note || ''}
+                                                                                        onChange={(e) => updateNestedItem('checklist', phaseIndex, item.id, 'note', e.target.value)}
+                                                                                        placeholder="Ergebnis eintragen. Z.B. Kabel hat sich verfangen..."
+                                                                                        className="w-full bg-white/80 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-lg p-3 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/30 focus:border-cyanAccent/50 outline-none min-h-[80px] shadow-inner"
+                                                                                    />
+                                                                                </div>
+                                                                            )}
+                                                                        </div>
+                                                                    ))}
+                                                                    
+                                                                    {/* Add new item to phase */}
+                                                                    <div className="flex items-center gap-2 mt-2">
+                                                                        <input 
+                                                                            value={newChecklistText[phaseIndex] || ''}
+                                                                            onChange={(e) => setNewChecklistText(prev => ({...prev, [phaseIndex]: e.target.value}))}
+                                                                            onKeyDown={(e) => e.key === 'Enter' && addNestedItem('checklist', phaseIndex, newChecklistText[phaseIndex], setNewChecklistText)}
+                                                                            placeholder="Neuen Testpunkt anhängen..."
+                                                                            className="flex-1 bg-white/40 dark:bg-white/5 border border-transparent rounded-lg p-2.5 text-sm outline-none focus:border-cyanAccent/50 focus:bg-white/80 dark:focus:bg-black/40 transition-all"
+                                                                        />
+                                                                        <button onClick={() => addNestedItem('checklist', phaseIndex, newChecklistText[phaseIndex], setNewChecklistText)} className="text-cyanAccent hover:bg-cyanAccent/10 p-2 rounded-lg transition"><IconPlus /></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )})}
                                                 </div>
                                             </div>
                                         )}
 
                                         {/* TAB: SHOTLIST */}
                                         {activeTab === 'shotlist' && (
-                                            <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl">
+                                            <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl relative overflow-hidden">
+                                                <div className="absolute top-0 right-0 w-64 h-64 bg-purpleAccent/20 dark:bg-purpleAccent/10 blur-[100px] pointer-events-none rounded-full"></div>
+
                                                 <div className="flex justify-between items-center mb-6">
                                                     <h3 className="text-xl font-bold text-purpleAccent dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-purpleAccent dark:to-cyanAccent flex items-center gap-3">
-                                                        <IconCamera /> Media Shotlist
+                                                        <IconCamera /> Strukturierte Media Shotlist
                                                     </h3>
                                                     <span className="text-xs bg-purpleAccent/10 dark:bg-purpleAccent/20 text-purpleAccent border border-purpleAccent/30 px-3 py-1 rounded-full uppercase tracking-wider font-bold">Vergiss keine Fotos!</span>
                                                 </div>
-                                                <p className="text-slate-600 dark:text-white/60 text-sm mb-8">Hake ab, welche Fotos, B-Rolls oder Screenshots du für deinen Artikel bereits gemacht hast.</p>
+                                                <p className="text-slate-600 dark:text-white/60 text-sm mb-8">Hake ab, welche Fotos, B-Rolls oder Screenshots du in der jeweiligen Testphase bereits gemacht hast.</p>
 
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                                                    {(currentProject.shotlist || []).map((item, index) => (
-                                                        <div 
-                                                            key={item.id}
-                                                            draggable
-                                                            onDragStart={(e) => handleDragStart(e, index)}
-                                                            onDragEnter={(e) => handleDragEnter(e, index)}
-                                                            onDragEnd={(e) => handleDragEnd(e, 'shotlist')}
-                                                            onDragOver={(e) => e.preventDefault()}
-                                                            className={`flex items-center gap-3 p-4 rounded-xl border border-slate-300/50 dark:border-white/10 bg-white/40 dark:bg-black/20 transition-all ${item.done ? 'opacity-50 border-green-500/30 bg-green-100 dark:bg-green-900/10' : 'hover:bg-white/60 dark:hover:bg-white/5'}`}
-                                                        >
-                                                            <div className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-white/30"><IconGrip /></div>
-                                                            <input 
-                                                                type="checkbox" 
-                                                                checked={item.done}
-                                                                onChange={(e) => updateListItem('shotlist', item.id, 'done', e.target.checked)}
-                                                                className="w-5 h-5 rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black/50 accent-purpleAccent cursor-pointer"
-                                                            />
-                                                            <span className={`flex-1 font-medium ${item.done ? 'line-through text-slate-500 dark:text-white/50' : ''}`}>{item.text}</span>
-                                                            <button onClick={() => deleteListItem('shotlist', item.id)} className="text-slate-400 dark:text-white/30 hover:text-red-500 dark:hover:text-red-400 p-1">
-                                                                <IconTrash />
-                                                            </button>
+                                                <div className="space-y-6 mb-8">
+                                                    {(currentProject.shotlist || []).map((phaseBlock, phaseIndex) => {
+                                                        const isCollapsed = collapsedPhases[`shotlist_${phaseIndex}`];
+                                                        const completedCount = phaseBlock.items.filter(i => i.done).length;
+                                                        const totalCount = phaseBlock.items.length;
+                                                        const isPhaseDone = totalCount > 0 && completedCount === totalCount;
+
+                                                        return (
+                                                        <div key={phaseIndex} className={`glass-panel !bg-white/40 dark:!bg-white/5 !border-slate-300/50 dark:!border-white/10 rounded-2xl overflow-hidden transition-all duration-300`}>
+                                                            {/* Phase Header */}
+                                                            <div 
+                                                                onClick={() => togglePhaseCollapse('shotlist', phaseIndex)}
+                                                                className={`flex items-center justify-between p-4 cursor-pointer hover:bg-white/50 dark:hover:bg-white/10 transition-colors ${isPhaseDone ? 'bg-green-500/10' : ''}`}
+                                                            >
+                                                                <div className="flex items-center gap-3">
+                                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${isPhaseDone ? 'bg-green-500 text-white' : 'bg-slate-300 dark:bg-white/20 text-slate-700 dark:text-white'}`}>
+                                                                        {isPhaseDone ? '✓' : completedCount}
+                                                                    </div>
+                                                                    <h4 className={`font-bold text-lg ${isPhaseDone ? 'text-green-600 dark:text-green-400' : 'text-slate-800 dark:text-white'}`}>{phaseBlock.phase}</h4>
+                                                                    <span className="text-xs text-slate-500 dark:text-white/40">({completedCount}/{totalCount})</span>
+                                                                </div>
+                                                                <IconChevronDown className={`transition-transform duration-300 text-slate-500 dark:text-white/50 ${isCollapsed ? '' : 'rotate-180'}`} />
+                                                            </div>
+
+                                                            {/* Phase Items */}
+                                                            <div className={`transition-all duration-500 overflow-hidden ${isCollapsed ? 'max-h-0' : 'max-h-[2000px]'}`}>
+                                                                <div className="p-4 pt-0 grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                                    {phaseBlock.items.map((item, itemIndex) => (
+                                                                        <div 
+                                                                            key={item.id} 
+                                                                            draggable
+                                                                            onDragStart={(e) => handleNestedDragStart(e, phaseIndex, itemIndex)}
+                                                                            onDragEnter={(e) => handleNestedDragEnter(e, phaseIndex, itemIndex)}
+                                                                            onDragEnd={(e) => handleNestedDragEnd(e, 'shotlist')}
+                                                                            onDragOver={(e) => e.preventDefault()}
+                                                                            className={`group flex items-center gap-3 p-3 rounded-xl border border-slate-300/50 dark:border-white/10 bg-white/60 dark:bg-black/20 transition-all hover:border-purpleAccent/30 ${item.done ? 'opacity-50 border-green-500/30 bg-green-100 dark:bg-green-900/10' : ''}`}
+                                                                        >
+                                                                            <div className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-white/30 hover:text-purpleAccent transition"><IconGrip /></div>
+                                                                            <input 
+                                                                                type="checkbox" 
+                                                                                checked={item.done}
+                                                                                onChange={(e) => updateNestedItem('shotlist', phaseIndex, item.id, 'done', e.target.checked)}
+                                                                                className="w-5 h-5 rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black/50 accent-purpleAccent cursor-pointer"
+                                                                            />
+                                                                            <span className={`flex-1 font-medium text-sm ${item.done ? 'line-through text-slate-500 dark:text-white/50' : 'text-slate-700 dark:text-white/90'}`}>{item.text}</span>
+                                                                            <button onClick={() => deleteNestedItem('shotlist', phaseIndex, item.id)} className="opacity-0 group-hover:opacity-100 text-slate-400 dark:text-white/30 hover:text-red-500 dark:hover:text-red-400 p-1 rounded-lg transition">
+                                                                                <IconTrash />
+                                                                            </button>
+                                                                        </div>
+                                                                    ))}
+                                                                    
+                                                                    {/* Add new item to phase */}
+                                                                    <div className="flex items-center gap-2 col-span-full mt-1">
+                                                                        <input 
+                                                                            value={newShotlistText[phaseIndex] || ''}
+                                                                            onChange={(e) => setNewShotlistText(prev => ({...prev, [phaseIndex]: e.target.value}))}
+                                                                            onKeyDown={(e) => e.key === 'Enter' && addNestedItem('shotlist', phaseIndex, newShotlistText[phaseIndex], setNewShotlistText)}
+                                                                            placeholder="Neues Motiv anhängen..."
+                                                                            className="flex-1 bg-white/40 dark:bg-white/5 border border-transparent rounded-lg p-2.5 text-sm outline-none focus:border-purpleAccent/50 focus:bg-white/80 dark:focus:bg-black/40 transition-all"
+                                                                        />
+                                                                        <button onClick={() => addNestedItem('shotlist', phaseIndex, newShotlistText[phaseIndex], setNewShotlistText)} className="text-purpleAccent hover:bg-purpleAccent/10 p-2 rounded-lg transition"><IconPlus /></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    ))}
-                                                </div>
-
-                                                <div className="flex items-center gap-4 pt-6 border-t border-slate-300/50 dark:border-white/10">
-                                                    <input 
-                                                        value={newShotlistText}
-                                                        onChange={(e) => setNewShotlistText(e.target.value)}
-                                                        onKeyDown={(e) => e.key === 'Enter' && addListItem('shotlist', newShotlistText, setNewShotlistText)}
-                                                        placeholder="Neues Motiv (z.B. Makro Anschluss)..."
-                                                        className="flex-1 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/20 rounded-xl p-4 text-sm outline-none focus:border-purpleAccent transition-all shadow-inner"
-                                                    />
-                                                    <button onClick={() => addListItem('shotlist', newShotlistText, setNewShotlistText)} className="bg-white/50 dark:bg-white/10 hover:bg-purpleAccent/20 border border-slate-300/50 dark:border-white/20 hover:border-purpleAccent/50 text-slate-800 dark:text-white px-6 py-4 rounded-xl text-sm font-bold flex items-center gap-2 transition-all">
-                                                        <IconPlus /> Motiv hinzufügen
-                                                    </button>
+                                                    )})}
                                                 </div>
                                             </div>
                                         )}
@@ -1091,7 +1190,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                         disabled={isGenerating}
                                                         className="bg-gradient-to-r from-brandOrange to-purpleAccent text-white px-8 py-3 rounded-xl font-bold shadow-[0_0_20px_rgba(255,123,0,0.4)] hover:shadow-[0_0_30px_rgba(255,123,0,0.6)] transition-all disabled:opacity-50 flex items-center gap-2 transform hover:scale-105 active:scale-95"
                                                     >
-                                                        {isGenerating ? 'Generiere magischen Text...' : 'Review schreiben lassen'}
+                                                        {isGenerating ? 'Tippt dein Meisterwerk...' : 'Review schreiben lassen'}
                                                     </button>
                                                 </div>
                                                 
@@ -1099,7 +1198,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                     className="flex-1 w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/10 rounded-2xl p-6 resize-none outline-none focus:border-brandOrange/50 shadow-inner text-slate-800 dark:text-white/90 leading-relaxed text-lg font-serif"
                                                     value={currentProject.aiDraft}
                                                     onChange={(e) => updateCurrentProject({ aiDraft: e.target.value })}
-                                                    placeholder="Klicke auf 'Review schreiben lassen'. Dein Meisterwerk erscheint hier..."
+                                                    placeholder="Klicke auf 'Review schreiben lassen'. Dein Meisterwerk erscheint hier... (ohne Gedankenstriche!)"
                                                 ></textarea>
                                             </div>
                                         )}
