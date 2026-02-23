@@ -66,17 +66,22 @@
         .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); }
         ::-webkit-scrollbar-thumb:hover { background: #FF7B00; }
         
+        /* LIQUID GLASS DESIGN */
         .glass-panel {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            border-top: 1px solid rgba(255,255,255,0.8);
+            border-left: 1px solid rgba(255,255,255,0.6);
         }
         
         .dark .glass-panel {
             background: linear-gradient(135deg, rgba(20, 25, 40, 0.6), rgba(10, 15, 25, 0.4));
             border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255,255,255,0.15);
+            border-left: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
 
@@ -99,20 +104,20 @@
             opacity: 0.2;
             animation: blob 15s infinite alternate;
         }
-        .bg-mesh::before { background: #B026FF; width: 50vw; height: 50vw; top: -10vw; left: -10vw; }
-        .bg-mesh::after { background: #FF7B00; width: 40vw; height: 40vw; bottom: -5vw; right: -10vw; animation-delay: -5s; }
-
-        .recording-pulse {
-            animation: pulse-red 1.5s infinite;
+        .bg-mesh::before {
+            background: #B026FF;
+            width: 50vw; height: 50vw;
+            top: -10vw; left: -10vw;
         }
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        .bg-mesh::after {
+            background: #FF7B00;
+            width: 40vw; height: 40vw;
+            bottom: -5vw; right: -10vw;
+            animation-delay: -5s;
         }
     </style>
 </head>
-<body class="text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-hidden font-sans">
+<body class="text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-hidden">
     
     <div class="bg-mesh"></div>
     <div id="root"></div>
@@ -123,7 +128,7 @@
         // --- ICONS ---
         const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>;
         const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg>;
-        const IconGrip = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-grab text-slate-400 dark:text-white/30 hover:text-brandOrange"><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="19" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="19" r="1"></circle></svg>;
+        const IconGrip = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-white/30 hover:text-brandOrange transition-colors"><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="19" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="19" r="1"></circle></svg>;
         const IconList = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>;
         const IconData = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>;
         const IconCompare = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg>;
@@ -146,8 +151,31 @@
         const IconPlay = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>;
         const IconPause = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>;
         const IconStop = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>;
-        const IconMic = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>;
-        const IconSandglass = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 2h14"></path><path d="M5 22h14"></path><path d="M6 2v6.7a6 6 0 0 0 3 5.2l3 1.7-3 1.7a6 6 0 0 0-3 5.2V22"></path><path d="M18 2v6.7a6 6 0 0 1-3 5.2l-3 1.7 3 1.7a6 6 0 0 1 3 5.2V22"></path></svg>;
+
+        // --- BRAND LOGO COMPONENT ---
+        const BrandLogo = () => (
+            <div className="flex items-center gap-2 select-none pointer-events-none">
+                <svg width="44" height="28" viewBox="0 0 100 60" fill="none" stroke="#FF7B00" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M 30 20 L 70 20 L 60 30 L 40 30 Z" fill="#FF7B00" />
+                    <line x1="8" y1="14" x2="35" y2="14" />
+                    <line x1="65" y1="14" x2="92" y2="14" />
+                    <line x1="20" y1="14" x2="20" y2="22" />
+                    <line x1="80" y1="14" x2="80" y2="22" />
+                    <path d="M 40 30 L 25 45 M 60 30 L 75 45" />
+                    <line x1="20" y1="45" x2="30" y2="45" />
+                    <line x1="70" y1="45" x2="80" y2="45" />
+                    <rect x="38" y="36" width="24" height="18" rx="4" fill="none" />
+                    <polygon points="46,40 56,45 46,50" fill="#FF7B00" stroke="none" />
+                </svg>
+                <div className="flex flex-col justify-center leading-none mt-1">
+                    <span className="text-brandOrange font-black text-[11px] tracking-widest uppercase" style={{ letterSpacing: '0.15em' }}>Test</span>
+                    <div className="flex items-center gap-1.5 -mt-0.5">
+                        <span className="text-slate-900 dark:text-white font-black text-xl tracking-tight leading-none">SIEGER</span>
+                        <span className="bg-brandOrange text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md leading-none">TV</span>
+                    </div>
+                </div>
+            </div>
+        );
 
         // --- DYNAMIC CONFIG & TEMPLATES ---
         const INITIAL_CATEGORIES = [
@@ -157,60 +185,170 @@
             { id: 'technik', name: 'Technik generell' }
         ];
 
+        const DEFAULT_SPECS_TEMPLATES = {
+            saugroboter: ['Saugkraft (Pa)', 'Navigationstechnik', 'Hinderniserkennung (Kamera/Laser)', 'Wischsystem (Rotierend/Vibrierend)', 'Station (Absaugung/Wasser/Trocknung)', 'Akkukapazität (mAh)', 'Bauhöhe (cm)', 'Preis (UVP)'],
+            rasenmaehroboter: ['Max. Flächenleistung (m²)', 'Navigation (RTK/Kabel/Kamera)', 'Max. Steigung (%)', 'Schnitthöhe (mm)', 'Schnittbreite (cm)', 'Diebstahlschutz', 'Regensensor', 'Preis (UVP)'],
+            smarthome: ['Funkstandard (Zigbee/Matter/WiFi)', 'Stromversorgung', 'Kompatibilität (Alexa/HomeKit/Google)', 'Montageaufwand', 'App Funktionen', 'Besonderheit 1', 'Preis (UVP)'],
+            technik: ['Prozessor / SoC', 'Arbeitsspeicher (RAM)', 'Interner Speicher', 'Display (Typ, Hz, Auflösung)', 'Akku / Ladeleistung', 'Gewicht (g)', 'Besonderheit 1', 'Preis (UVP)']
+        };
+
         const WORKFLOWS = {
             saugroboter: {
                 checklist: [
-                    { phase: "Phase 1: Vorbereitung", items: [{ text: "Auspacken: Inhalt prüfen" }, { text: "Lieferumfang notieren" }, { text: "Design/Haptik bewerten" }] },
-                    { phase: "Phase 2: Einrichtung und App", items: [{ text: "Station aufstellen" }, { text: "App Kopplung" }, { text: "Erste Kartierung", defaultMeasurements: "Kartierungsdauer (Minuten): \nRaumaufteilung korrekt?: " }] },
-                    { phase: "Phase 3: Navigation", items: [{ text: "Test Parcours (groß/klein)", defaultMeasurements: "5 große Hindernisse:\nBerührt: \n\n5 kleine Hindernisse:\nBerührt: " }] },
-                    { phase: "Phase 4: Saugleistung", items: [{ text: "Hartboden Test", defaultMeasurements: "1. Durchgang: \n2. Durchgang: " }, { text: "Teppich Test (50g)", defaultMeasurements: "Verteilt: 50g\nAufgenommen: g\nQuote: %" }] },
-                    { phase: "Phase 5: Wischleistung", items: [{ text: "Wischtest (Kaffee/Ketchup)", defaultMeasurements: "1. Durchgang: \n2. Durchgang: \n4. Durchgang: " }] }
+                    { phase: "Phase 1: Vorbereitung", items: [
+                        { text: "Auspacken: Inhalt prüfen und Vollständigkeit checken" },
+                        { text: "Auspacken: Erste Notizen machen" },
+                        { text: "Lieferumfang: Abgleich mit Herstellerangaben und Besonderheiten notieren" },
+                        { text: "Design und Verarbeitung: Material, Verarbeitung und Haptik bewerten" }
+                    ]},
+                    { phase: "Phase 2: Einrichtung und App", items: [
+                        { text: "Station aufstellen: Station platzieren, Mopps einsetzen, Wasser füllen" },
+                        { text: "App einrichten: App installieren, Roboter koppeln, Dauer bewerten" },
+                        { text: "Erste Kartierung: Dauer messen, Raumaufteilung prüfen", defaultMeasurements: "Kartierungsdauer (Minuten): \nRaumaufteilung korrekt? (Ja/Nein): " }
+                    ]},
+                    { phase: "Phase 3: Navigation und Hindernisse", items: [
+                        { text: "Test Parcours: 5 große Hindernisse, 5 kleine vorbereiten" },
+                        { text: "Hindernistest: Reaktion beobachten, Trefferquote notieren", defaultMeasurements: "5 große Hindernisse:\nDavon berührt/umgefahren: \n\n5 kleine Hindernisse:\nDavon berührt/überfahren: \n\nKabel erkannt?: " },
+                        { text: "Alltagsnavigation: Verhalten unter Tischen/Stühlen bewerten" }
+                    ]},
+                    { phase: "Phase 4: Saugleistung", items: [
+                        { text: "Hartboden Test: Staub und Krümel verteilen, Durchgänge prüfen", defaultMeasurements: "1. Durchgang (Sichtprüfung): \n2. Durchgang (Sichtprüfung): \n3. Durchgang (Sichtprüfung): " },
+                        { text: "Teppich Test: 50 g Schmutz abwiegen (Kurzflor und Hochflor)", defaultMeasurements: "Verteilt: 50g\nAufgenommen (Kurzflor): g\nQuote (Kurzflor): %\n\nAufgenommen (Hochflor): g\nQuote (Hochflor): %" }
+                    ]},
+                    { phase: "Phase 5: Wischleistung", items: [
+                        { text: "Wischtest vorbereiten: Kaffee und Ketchup antrocknen lassen" },
+                        { text: "Mehrfachdurchgänge: Durchgang 1, 2 und 4 dokumentieren", defaultMeasurements: "1. Durchgang Ergebnis: \n2. Durchgang Ergebnis: \n4. Durchgang Ergebnis: \n\nWasserfilm (gleichmäßig?): " }
+                    ]},
+                    { phase: "Phase 6: Spezialtests", items: [
+                        { text: "Haaraufnahme: Lange Haare verteilen, Anti Tangle prüfen", defaultMeasurements: "Haare um Bürste gewickelt?: " },
+                        { text: "Ecken und Kanten: 10 Haferflocken in Ecke platzieren", defaultMeasurements: "Verteilt in Ecke: 10 Stk.\nAufgenommen: Stk." }
+                    ]},
+                    { phase: "Phase 7: Station und Wartung", items: [
+                        { text: "Automatische Reinigung: Moppreinigung beobachten", defaultMeasurements: "Reinigungsdauer Mopps: \nLautstärke Absaugung (dB): " },
+                        { text: "Wartungszugang: Filter entnehmen, Bürste entnehmen" }
+                    ]},
+                    { phase: "Phase 8: Vergleich und Fazit", items: [
+                        { text: "Gerätevergleich: Gen 2 vs Gen 3 vs Konkurrenz bewerten" },
+                        { text: "Fazit schreiben: Zielgruppe definieren" },
+                        { text: "Abschluss Check: Bilder/Werte konsequent gleichmäßig?" }
+                    ]}
                 ],
                 shotlist: [
-                    { phase: "Phase 1: Vorbereitung", items: ["Karton offen", "Zubehör ausgelegt", "Roboter Frontal"] },
-                    { phase: "Phase 2: Action", items: ["Roboter im Parcours", "Wischbild Detail"] }
+                    { phase: "Phase 1: Vorbereitung", items: ["Karton geöffnet von oben", "Komplettes Zubehör sauber ausgelegt", "Basisstation einzeln", "Roboter einzeln", "Mopps, Staubbeutel, Reinigungsmittel", "Roboter frontal, seitlich und von oben", "Station frontal und schräg für Tiefenwirkung"] },
+                    { phase: "Phase 2: Einrichtung und App", items: ["Station am finalen Standort", "Mopps eingesetzt von unten", "Smartphone mit App Startscreen", "Kopplungsvorgang in der App", "Screenshot der vollständigen Karte"] },
+                    { phase: "Phase 3: Navigation", items: ["Gesamtübersicht Parcours", "Detail flache Hindernisse", "Roboter vor Hindernis", "Roboter beim Umfahren", "App Screenshot erkannter Objekte"] },
+                    { phase: "Phase 4: Saugleistung", items: ["Verschmutzung vorher (Hartboden)", "Ergebnis nach Reinigung (Hartboden)", "Abgewogener Schmutz (Teppich)", "Teppich nach Reinigung"] },
+                    { phase: "Phase 5: Wischleistung", items: ["Verschmutzung frisch", "Verschmutzung angetrocknet", "Gleiche Perspektive nach jedem Durchgang"] },
+                    { phase: "Phase 6: Spezialtests", items: ["Haare vor Reinigung", "Bürste nach dem Test", "Ecke vorher", "Ecke nachher"] },
+                    { phase: "Phase 7: Station", items: ["Roboter in Station", "Mopps nach Reinigung", "Offener Staubbehälter", "Herausgenommene Bürste"] },
+                    { phase: "Phase 8: Fazit", items: ["Geräte nebeneinander", "Neutraler Produktshot"] }
                 ],
                 scores: { verarbeitung: 5, saugleistung: 5, wischleistung: 5, navigation: 5, app: 5, preis_leistung: 5 }
             },
+            rasenmaehroboter: {
+                checklist: [
+                    { phase: "Phase 1: Vorbereitung und Design", items: [{ text: "Unboxing und Lieferumfang prüfen" }, { text: "Design, Verarbeitung und Messer Typ prüfen" }] },
+                    { phase: "Phase 2: Setup und App", items: [{ text: "Station aufbauen und Antenne/Kabel verlegen" }, { text: "App Kopplung und Erste Kartierung", defaultMeasurements: "Dauer Kartierung: \nSignalstärke RTK: " }] },
+                    { phase: "Phase 3: Mähleistung", items: [{ text: "Mähleistung Standard" }, { text: "Mähleistung Extrem (Hohes Gras, nasses Gras)", defaultMeasurements: "Schnitthöhe eingestellt: \nErgebnis Standard Rasen: \nErgebnis Hohes/Nasses Gras: " }] },
+                    { phase: "Phase 4: Navigation und Hindernisse", items: [{ text: "Kantenmähfunktion und Überfahr Abstand testen", defaultMeasurements: "Ungemähter Rand (cm): " }, { text: "Hinderniserkennung testen" }, { text: "Steigungstest prüfen" }] },
+                    { phase: "Phase 5: Wartung und Fazit", items: [{ text: "App Features prüfen" }, { text: "Wartung und Reinigung testen" }, { text: "Gerätevergleich und Fazit" }] }
+                ],
+                shotlist: [
+                    { phase: "Phase 1: Vorbereitung", items: ["Unboxing und Lieferumfang", "Roboter und Station (Produktshots)", "Messerwerk von unten (Detail)"] },
+                    { phase: "Phase 2: Setup", items: ["Station im Garten aufgebaut", "Screenshot App Karte mit Zonen"] },
+                    { phase: "Phase 3: Mähleistung", items: ["Schnittbild Rasen", "Aktion Roboter mäht Rasenkante"] },
+                    { phase: "Phase 4: Navigation", items: ["Aktion Roboter weicht Hindernis aus", "Roboter an Steigung"] },
+                    { phase: "Phase 5: Wartung", items: ["Wartungszugang"] }
+                ],
+                scores: { verarbeitung: 5, maehleisung: 5, navigation: 5, app: 5, preis_leistung: 5 }
+            },
+            smarthome: {
+                checklist: [
+                    { phase: "Phase 1: Vorbereitung", items: [{ text: "Lieferumfang prüfen" }, { text: "Material und Verarbeitung bewerten" }] },
+                    { phase: "Phase 2: Einrichtung", items: [{ text: "App Installation und Pairing" }, { text: "Integration in Smart Home Systeme testen" }] },
+                    { phase: "Phase 3: Praxistest", items: [{ text: "Reaktionszeit testen", defaultMeasurements: "Reaktionszeit (Schalter zu Aktion): " }, { text: "Automationen und Routinen anlegen" }] },
+                    { phase: "Phase 4: Zuverlässigkeit", items: [{ text: "Verbindungstests über mehrere Tage" }, { text: "Reichweite prüfen" }] },
+                    { phase: "Phase 5: Fazit", items: [{ text: "Preis Leistungs Verhältnis bewerten" }, { text: "Zielgruppe definieren" }] }
+                ],
+                shotlist: [
+                    { phase: "Phase 1: Unboxing", items: ["Verpackung", "Kompletter Lieferumfang"] },
+                    { phase: "Phase 2: Details", items: ["Nahaufnahme Anschlüsse/Buttons", "Größenvergleich"] },
+                    { phase: "Phase 3: App", items: ["Screenshot Setup", "Screenshot Automationen"] },
+                    { phase: "Phase 4: In Aktion", items: ["Produkt am Einsatzort", "Nutzungsszenario"] }
+                ],
+                scores: { verarbeitung: 5, einrichtung: 5, funktionsumfang: 5, zuverlaessigkeit: 5, preis_leistung: 5 }
+            },
             technik: {
-                checklist: [{ phase: "Test", items: [{text: "Standardtest"}] }],
-                shotlist: [{ phase: "Fotos", items: ["Produktbild"] }],
-                scores: { leistung: 5, design: 5, preis_leistung: 5 }
+                checklist: [
+                    { phase: "Phase 1: Unboxing und Design", items: [{ text: "Unboxing und Erster Eindruck" }, { text: "Verarbeitungsqualität und Materialcheck" }] },
+                    { phase: "Phase 2: Setup und Basics", items: [{ text: "Setup und Einrichtungsprozess" }, { text: "Display / Bedienelemente prüfen" }] },
+                    { phase: "Phase 3: Praxistest", items: [{ text: "Kernfunktionen testen" }, { text: "Akkulaufzeit und Ladezeit messen", defaultMeasurements: "Akkukapazität: \nLadezeit (0-100%): \nLaufzeit im Test: " }, { text: "Software und App Anbindung prüfen" }] },
+                    { phase: "Phase 4: Fazit", items: [{ text: "Stärken und Schwächen Analyse" }, { text: "Vergleich und Fazit" }] }
+                ],
+                shotlist: [
+                    { phase: "Phase 1: Unboxing", items: ["Lieferumfang Übersicht", "Gerät Frontal und Rückseite", "Detailaufnahme Anschlüsse/Buttons"] },
+                    { phase: "Phase 2: Praxistest", items: ["Gerät in Action / im Einsatz", "Screenshot/Foto vom Setup Prozess"] },
+                    { phase: "Phase 3: Fazit", items: ["Größenvergleich mit bekanntem Objekt"] }
+                ],
+                scores: { design_verarbeitung: 5, bedienung: 5, leistung: 5, akku: 5, preis_leistung: 5 }
             }
         };
 
         const generateId = () => Math.random().toString(36).substr(2, 9);
 
-        // --- MAIN APP ---
+        // --- COMPONENTS ---
+
         const App = () => {
+            // State
             const [theme, setTheme] = useState(() => localStorage.getItem('ttv_theme') || 'dark');
             const [categories, setCategories] = useState(() => JSON.parse(localStorage.getItem('ttv_categories')) || INITIAL_CATEGORIES);
             const [projects, setProjects] = useState(() => JSON.parse(localStorage.getItem('ttv_projects')) || []);
             const [currentProjectId, setCurrentProjectId] = useState(null);
-            const [activeTab, setActiveTab] = useState('checklist');
+            const [activeTab, setActiveTab] = useState('checklist'); // 'checklist', 'shotlist', 'data', 'compare', 'report'
+            
+            // Sidebar State
             const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+            
+            // Focus / Lab Mode State
             const [isFocusModeOpen, setIsFocusModeOpen] = useState(false);
+
+            // Global Logbuch State
             const [globalNotes, setGlobalNotes] = useState(() => localStorage.getItem('ttv_global_notes') || '');
             const [isLogbuchOpen, setIsLogbuchOpen] = useState(false);
-            const [isRecording, setIsRecording] = useState(false);
+            
+            // Notification State
             const [toastMessage, setToastMessage] = useState(null);
 
-            // STOPWATCH & TIMER STATE
-            const [isTimerOpen, setIsTimerOpen] = useState(false);
-            const [timerMode, setTimerMode] = useState('stopwatch'); // 'stopwatch' or 'countdown'
-            const [isRunning, setIsRunning] = useState(false);
-            const [time, setTime] = useState(0); // in seconds
-            const [timerInput, setTimerInput] = useState(5); // initial countdown minutes
+            // Stopwatch State
+            const [stopwatchTime, setStopwatchTime] = useState(0);
+            const [isStopwatchRunning, setIsStopwatchRunning] = useState(false);
 
-            // MODALS
+            // UI Modal States
             const [showNewProjectModal, setShowNewProjectModal] = useState(false);
             const [newProjectTitle, setNewProjectTitle] = useState('');
-            const [newProjectCategory, setNewProjectCategory] = useState('saugroboter');
+            const [newProjectCategory, setNewProjectCategory] = useState(categories[0]?.id || 'saugroboter');
+            const [isCreatingCategory, setIsCreatingCategory] = useState(false);
+            const [newCustomCategory, setNewCustomCategory] = useState('');
             const [projectToDelete, setProjectToDelete] = useState(null);
+
+            // Editing Title State
+            const [isEditingTitle, setIsEditingTitle] = useState(false);
+            const [editTitleValue, setEditTitleValue] = useState('');
+
+            // List UI States
+            const [newChecklistText, setNewChecklistText] = useState({});
+            const [newShotlistText, setNewShotlistText] = useState({});
+            const [expandedChecklistId, setExpandedChecklistId] = useState(null);
+            const [collapsedPhases, setCollapsedPhases] = useState({});
+
+            // Inline Input States
+            const [newSpecKey, setNewSpecKey] = useState('');
+            const [newProText, setNewProText] = useState('');
+            const [newConText, setNewConText] = useState('');
 
             const fileInputRef = useRef(null);
 
-            // Theme Effect
+            // Apply Theme
             useEffect(() => {
                 if (theme === 'dark') document.documentElement.classList.add('dark');
                 else document.documentElement.classList.remove('dark');
@@ -221,30 +359,23 @@
             useEffect(() => {
                 localStorage.setItem('ttv_categories', JSON.stringify(categories));
                 localStorage.setItem('ttv_projects', JSON.stringify(projects));
-                localStorage.setItem('ttv_global_notes', globalNotes);
-            }, [categories, projects, globalNotes]);
+            }, [categories, projects]);
 
-            // STOPWATCH / TIMER LOGIC
+            // Persist Global Notes
+            useEffect(() => {
+                localStorage.setItem('ttv_global_notes', globalNotes);
+            }, [globalNotes]);
+
+            // Stopwatch Logic
             useEffect(() => {
                 let interval;
-                if (isRunning) {
+                if (isStopwatchRunning) {
                     interval = setInterval(() => {
-                        if (timerMode === 'stopwatch') {
-                            setTime(prev => prev + 1);
-                        } else {
-                            setTime(prev => {
-                                if (prev <= 0) {
-                                    setIsRunning(false);
-                                    showToast("Timer abgelaufen!");
-                                    return 0;
-                                }
-                                return prev - 1;
-                            });
-                        }
+                        setStopwatchTime(prev => prev + 1);
                     }, 1000);
                 }
                 return () => clearInterval(interval);
-            }, [isRunning, timerMode]);
+            }, [isStopwatchRunning]);
 
             const currentProject = projects.find(p => p.id === currentProjectId);
 
@@ -253,66 +384,301 @@
                 setTimeout(() => setToastMessage(null), 3000);
             };
 
+            // Handle Project Switching
+            const switchProject = (id) => {
+                setCurrentProjectId(id);
+                setActiveTab('checklist');
+            };
+
+            // Persistent Timer Logic
+            useEffect(() => {
+                if (!currentProjectId || !currentProject || currentProject.status === 'done') return;
+                const interval = setInterval(() => {
+                    setProjects(prevProjects => prevProjects.map(p => {
+                        if (p.id === currentProjectId) {
+                            return { ...p, timeSpent: (p.timeSpent || 0) + 1 };
+                        }
+                        return p;
+                    }));
+                }, 1000);
+                return () => clearInterval(interval);
+            }, [currentProjectId, currentProject?.status]);
+
+            // Formatters
             const formatTime = (secs) => {
-                const m = Math.floor(secs / 60).toString().padStart(2, '0');
-                const s = (secs % 60).toString().padStart(2, '0');
+                if (!secs) return "0T 0h";
+                const totalHours = Math.floor(secs / 3600);
+                const d = Math.floor(totalHours / 24);
+                const h = totalHours % 24;
+                return `${d}T ${h}h`;
+            };
+
+            const formatStopwatch = (totalSeconds) => {
+                const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+                const s = (totalSeconds % 60).toString().padStart(2, '0');
                 return `${m}:${s}`;
             };
 
-            const handleStartCountdown = () => {
-                setTime(timerInput * 60);
-                setIsRunning(true);
+            const toggleProjectStatus = () => {
+                if (!currentProject) return;
+                const newStatus = currentProject.status === 'done' ? 'draft' : 'done';
+                updateCurrentProject({ status: newStatus });
             };
 
-            // DICTATION LOGIC
-            const startDictation = () => {
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                if (!SpeechRecognition) {
-                    showToast("Diktierfunktion wird nicht unterstützt.");
-                    return;
-                }
-                const recognition = new SpeechRecognition();
-                recognition.lang = 'de-DE';
-                recognition.interimResults = false;
+            // Auto-calculate Score
+            const calculatedScore = useMemo(() => {
+                if (!currentProject || !currentProject.scores) return "0.0";
+                const values = Object.values(currentProject.scores);
+                if (values.length === 0) return "0.0";
+                const sum = values.reduce((a, b) => a + b, 0);
+                return (sum / values.length).toFixed(1);
+            }, [currentProject?.scores]);
 
-                recognition.onstart = () => setIsRecording(true);
-                recognition.onend = () => setIsRecording(false);
-                recognition.onresult = (event) => {
-                    const transcript = event.results[0][0].transcript;
-                    setGlobalNotes(prev => prev + (prev ? '\n' : '') + transcript);
-                    showToast("Sprache erkannt.");
-                };
-                recognition.start();
-            };
+            // Calculate Dynamic Progress for Top Bar
+            const { totalTasks, completedTasks } = useMemo(() => {
+                if (!currentProject) return { totalTasks: 0, completedTasks: 0 };
+                let t = 0;
+                let c = 0;
+                (currentProject.checklist || []).forEach(phase => {
+                    t += phase.items.length;
+                    c += phase.items.filter(i => i.done).length;
+                });
+                (currentProject.shotlist || []).forEach(phase => {
+                    t += phase.items.length;
+                    c += phase.items.filter(i => i.done).length;
+                });
+                return { totalTasks: t, completedTasks: c };
+            }, [currentProject?.checklist, currentProject?.shotlist]);
+            
+            const progressPercent = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
 
+            // IMPORT / EXPORT Logic
             const exportData = () => {
                 const data = { projects, categories, globalNotes };
                 const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url;
-                a.download = `TTV_Export_${new Date().toLocaleDateString()}.json`;
+                a.download = `TestsiegerTV_Backup_${new Date().toISOString().split('T')[0]}.json`;
                 a.click();
+                URL.revokeObjectURL(url);
+                showToast("Backup erfolgreich exportiert!");
             };
 
             const importData = (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
                 const reader = new FileReader();
-                reader.onload = (ev) => {
+                reader.onload = (event) => {
                     try {
-                        const data = JSON.parse(ev.target.result);
+                        const data = JSON.parse(event.target.result);
                         if (data.projects) setProjects(data.projects);
                         if (data.categories) setCategories(data.categories);
-                        if (data.globalNotes) setGlobalNotes(data.globalNotes);
-                        showToast("Daten importiert!");
-                    } catch(e) { showToast("Fehler beim Import."); }
+                        if (data.globalNotes !== undefined) setGlobalNotes(data.globalNotes);
+                        showToast("Backup erfolgreich importiert!");
+                    } catch (err) {
+                        showToast("Fehler beim Import: Datei ungültig.");
+                    }
                 };
                 reader.readAsText(file);
+                e.target.value = null; // reset
+            };
+
+            // Markdown Export Logic
+            const handleExportMarkdown = () => {
+                if (!currentProject) return;
+                
+                let md = `# Datenblatt: ${currentProject.title}\n\n`;
+                const catName = categories.find(c => c.id === currentProject.category)?.name || currentProject.category;
+                
+                md += `**Kategorie:** ${catName}\n`;
+                md += `**Zeit im Test:** ${formatTime(currentProject.timeSpent)}\n`;
+                md += `**Gesamtnote:** ${calculatedScore} / 10\n\n`;
+
+                md += `## 🎯 Stärken & Schwächen\n`;
+                md += `**🟢 Pro:**\n${currentProject.data.pros.map(x => `* ${x}`).join('\n') || '* Keine erfasst'}\n\n`;
+                md += `**🔴 Contra:**\n${currentProject.data.cons.map(x => `* ${x}`).join('\n') || '* Keine erfasst'}\n\n`;
+
+                md += `## 📋 Testbedingungen\n${currentProject.data.conditions || 'Keine erfasst'}\n\n`;
+
+                md += `## 🔬 Labor Notizen & Auffälligkeiten\n`;
+                let hasAnyNotesGlobal = false;
+                
+                currentProject.checklist.forEach(phase => {
+                    const phaseNotes = phase.items.filter(i => i.note || i.measurements || i.issues);
+                    if (phaseNotes.length > 0) {
+                        hasAnyNotesGlobal = true;
+                        md += `### ${phase.phase}\n`;
+                        phaseNotes.forEach(item => {
+                            md += `**${item.text}**\n`;
+                            if (item.note) md += `> Beobachtung: ${item.note}\n`;
+                            if (item.measurements) md += `> Messwerte: ${item.measurements}\n`;
+                            if (item.issues) md += `> Probleme: ${item.issues}\n`;
+                            md += `\n`;
+                        });
+                    }
+                });
+                if (!hasAnyNotesGlobal) md += `*Keine detaillierten Notizen erfasst.*\n\n`;
+
+                md += `## ⚖️ Spezifikationen & Vergleich\n`;
+                md += `| Eigenschaft | ${currentProject.title} | ${currentProject.comparison.predecessor || 'Vorgänger'} | ${currentProject.comparison.competitor || 'Konkurrent'} |\n`;
+                md += `|---|---|---|---|\n`;
+                currentProject.comparison.specs.forEach(s => {
+                    md += `| ${s.key || 'k.A.'} | ${s.current || '-'} | ${s.pred || '-'} | ${s.comp || '-'} |\n`;
+                });
+
+                const textArea = document.createElement("textarea");
+                textArea.value = md;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast("Markdown in Zwischenablage kopiert!");
+                } catch (err) {
+                    console.error('Kopieren fehlgeschlagen', err);
+                }
+                document.body.removeChild(textArea);
+            };
+
+            // Project Management
+            const handleCreateProject = () => {
+                if (!newProjectTitle.trim()) return;
+                
+                let catId = newProjectCategory;
+
+                if (isCreatingCategory && newCustomCategory.trim()) {
+                    catId = newCustomCategory.trim().toLowerCase().replace(/[^a-z0-9]/g, '_');
+                    if (!categories.find(c => c.id === catId)) {
+                        setCategories([...categories, { id: catId, name: newCustomCategory.trim() }]);
+                    }
+                }
+
+                const workflowTemplate = WORKFLOWS[catId] || WORKFLOWS.technik;
+                const specKeys = DEFAULT_SPECS_TEMPLATES[catId] || DEFAULT_SPECS_TEMPLATES.technik;
+
+                const newProject = {
+                    id: generateId(),
+                    title: newProjectTitle,
+                    category: catId,
+                    status: 'draft',
+                    timeSpent: 0,
+                    createdAt: new Date().toISOString(),
+                    checklist: workflowTemplate.checklist.map(phaseBlock => ({
+                        phase: phaseBlock.phase,
+                        items: phaseBlock.items.map(defItem => {
+                            const text = typeof defItem === 'string' ? defItem : defItem.text;
+                            const defMeas = typeof defItem === 'string' ? '' : (defItem.defaultMeasurements || '');
+                            return { 
+                                id: generateId(), 
+                                text, 
+                                done: false, 
+                                note: '', 
+                                measurements: defMeas, 
+                                issues: '' 
+                            }
+                        })
+                    })),
+                    shotlist: workflowTemplate.shotlist.map(phaseBlock => ({
+                        phase: phaseBlock.phase,
+                        items: phaseBlock.items.map(defItem => {
+                            const text = typeof defItem === 'string' ? defItem : defItem.text;
+                            return { id: generateId(), text, done: false }
+                        })
+                    })),
+                    scores: { ...workflowTemplate.scores },
+                    data: { pros: [], cons: [], notes: '', conditions: 'Firmware: \nTestdauer: \nBodenbeläge: Hartboden, Teppich' },
+                    comparison: {
+                        model: newProjectTitle,
+                        predecessor: '',
+                        competitor: '',
+                        specs: specKeys.map(key => ({ id: generateId(), key, current: '', pred: '', comp: '' }))
+                    }
+                };
+                
+                setProjects([...projects, newProject]);
+                switchProject(newProject.id);
+                setActiveTab('checklist');
+                setShowNewProjectModal(false);
+                setNewProjectTitle('');
+                setIsCreatingCategory(false);
+                setNewCustomCategory('');
+            };
+
+            const confirmDeleteProject = () => {
+                if (!projectToDelete) return;
+                setProjects(projects.filter(p => p.id !== projectToDelete));
+                if (currentProjectId === projectToDelete) setCurrentProjectId(null);
+                setProjectToDelete(null);
             };
 
             const updateCurrentProject = (updates) => {
                 setProjects(prev => prev.map(p => p.id === currentProjectId ? { ...p, ...updates } : p));
+            };
+
+            const handleTitleSave = () => {
+                if (editTitleValue.trim()) {
+                    updateCurrentProject({ title: editTitleValue.trim() });
+                }
+                setIsEditingTitle(false);
+            };
+
+            // --- DRAG AND DROP ---
+            const dragProjectIndex = useRef(null);
+            const dragOverProjectIndex = useRef(null);
+
+            const handleProjectDragStart = (e, index) => {
+                dragProjectIndex.current = index;
+                e.currentTarget.classList.add('opacity-40', 'scale-95');
+            };
+            const handleProjectDragEnter = (e, index) => { dragOverProjectIndex.current = index; };
+            const handleProjectDragEnd = (e) => {
+                e.currentTarget.classList.remove('opacity-40', 'scale-95');
+                if (dragProjectIndex.current === null || dragOverProjectIndex.current === null) return;
+                if (dragProjectIndex.current === dragOverProjectIndex.current) return;
+                
+                const newProjects = [...projects];
+                const draggedProject = newProjects.splice(dragProjectIndex.current, 1)[0];
+                newProjects.splice(dragOverProjectIndex.current, 0, draggedProject);
+                
+                setProjects(newProjects);
+                dragProjectIndex.current = null;
+                dragOverProjectIndex.current = null;
+            };
+
+            const dragNestedItem = useRef({ phaseIndex: null, itemIndex: null });
+            const dragOverNestedItem = useRef({ phaseIndex: null, itemIndex: null });
+
+            const handleNestedDragStart = (e, phaseIndex, itemIndex) => {
+                dragNestedItem.current = { phaseIndex, itemIndex };
+                e.currentTarget.classList.add('dragging');
+            };
+            const handleNestedDragEnter = (e, phaseIndex, itemIndex) => { 
+                dragOverNestedItem.current = { phaseIndex, itemIndex }; 
+            };
+            const handleNestedDragEnd = (e, listKey) => {
+                e.currentTarget.classList.remove('dragging');
+                const { phaseIndex: fromPhase, itemIndex: fromItem } = dragNestedItem.current;
+                const { phaseIndex: toPhase, itemIndex: toItem } = dragOverNestedItem.current;
+
+                if (fromPhase === null || toPhase === null) return;
+
+                const newList = [...currentProject[listKey]];
+                const draggedItem = newList[fromPhase].items.splice(fromItem, 1)[0];
+                newList[toPhase].items.splice(toItem, 0, draggedItem);
+                
+                updateCurrentProject({ [listKey]: newList });
+                dragNestedItem.current = { phaseIndex: null, itemIndex: null };
+                dragOverNestedItem.current = { phaseIndex: null, itemIndex: null };
+            };
+
+            const updateNestedItem = (listKey, phaseIndex, itemId, field, value) => {
+                const newList = [...currentProject[listKey]];
+                newList[phaseIndex].items = newList[phaseIndex].items.map(item => 
+                    item.id === itemId ? { ...item, [field]: value } : item
+                );
+                updateCurrentProject({ [listKey]: newList });
             };
 
             const markPhaseDone = (listKey, phaseIndex, e) => {
@@ -320,231 +686,1022 @@
                 const newList = [...currentProject[listKey]];
                 newList[phaseIndex].items = newList[phaseIndex].items.map(item => ({ ...item, done: true }));
                 updateCurrentProject({ [listKey]: newList });
-                showToast("Phase abgehakt!");
+                showToast("Komplette Phase abgehakt!");
             };
+
+            const addNestedItem = (listKey, phaseIndex, textVal, setInputState) => {
+                if(textVal && textVal.trim()) {
+                    const newList = [...currentProject[listKey]];
+                    const newItem = { id: generateId(), text: textVal.trim(), done: false };
+                    if (listKey === 'checklist') {
+                        newItem.note = '';
+                        newItem.measurements = '';
+                        newItem.issues = '';
+                    }
+                    
+                    newList[phaseIndex].items.push(newItem);
+                    updateCurrentProject({ [listKey]: newList });
+                    setInputState(prev => ({...prev, [phaseIndex]: ''}));
+                }
+            };
+
+            const deleteNestedItem = (listKey, phaseIndex, itemId) => {
+                const newList = [...currentProject[listKey]];
+                newList[phaseIndex].items = newList[phaseIndex].items.filter(item => item.id !== itemId);
+                updateCurrentProject({ [listKey]: newList });
+            };
+
+            const togglePhaseCollapse = (listKey, phaseIndex) => {
+                const key = `${listKey}_${phaseIndex}`;
+                setCollapsedPhases(prev => ({ ...prev, [key]: !prev[key] }));
+            };
+
+            const addProCon = (type, val, setValFn) => {
+                if (val.trim()) {
+                    updateCurrentProject({ data: { ...currentProject.data, [type]: [...currentProject.data[type], val.trim()] } });
+                    setValFn('');
+                }
+            };
+            const removeProCon = (type, index) => {
+                const arr = [...currentProject.data[type]];
+                arr.splice(index, 1);
+                updateCurrentProject({ data: { ...currentProject.data, [type]: arr } });
+            };
+
+            const updateSpec = (specId, field, value) => {
+                const newSpecs = currentProject.comparison.specs.map(s => 
+                    s.id === specId ? { ...s, [field]: value } : s
+                );
+                updateCurrentProject({ comparison: { ...currentProject.comparison, specs: newSpecs } });
+            };
+
+            const addSpecRow = () => {
+                if (newSpecKey.trim()) {
+                    const newSpecs = [...currentProject.comparison.specs, { id: generateId(), key: newSpecKey, current: '', pred: '', comp: '' }];
+                    updateCurrentProject({ comparison: { ...currentProject.comparison, specs: newSpecs } });
+                    setNewSpecKey('');
+                }
+            };
+
+            // FOCUS MODE LOGIC
+            const focusTarget = useMemo(() => {
+                if (!currentProject || !isFocusModeOpen) return null;
+                for (let pIdx = 0; pIdx < currentProject.checklist.length; pIdx++) {
+                    for (let iIdx = 0; iIdx < currentProject.checklist[pIdx].items.length; iIdx++) {
+                        if (!currentProject.checklist[pIdx].items[iIdx].done) {
+                            return { 
+                                phaseIndex: pIdx, 
+                                itemIndex: iIdx, 
+                                item: currentProject.checklist[pIdx].items[iIdx], 
+                                phase: currentProject.checklist[pIdx].phase 
+                            };
+                        }
+                    }
+                }
+                return null;
+            }, [currentProject, isFocusModeOpen]);
 
             return (
                 <div className="flex h-screen overflow-hidden text-slate-800 dark:text-white transition-colors duration-300">
                     
-                    {/* TOAST */}
+                    {/* GLOBAL TOAST */}
                     {toastMessage && (
-                        <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-[100] bg-brandOrange text-white px-6 py-3 rounded-full font-bold shadow-2xl animate-slide-in">
-                            {toastMessage}
+                        <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-[100] bg-slate-900 dark:bg-white text-white dark:text-black px-6 py-3 rounded-full font-bold shadow-[0_10px_30px_rgba(0,0,0,0.3)] flex items-center gap-3 animate-slide-in">
+                            <IconCheckCircle /> {toastMessage}
                         </div>
                     )}
 
-                    {/* SIDEBAR */}
-                    <aside className={`fixed inset-y-0 left-0 z-40 transform transition-transform duration-300 w-[300px] glass-panel border-r border-slate-300/50 dark:border-white/10 flex flex-col bg-white/50 dark:bg-black/80 backdrop-blur-3xl ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-                        <div className="p-6 border-b border-slate-300/50 dark:border-white/10 flex justify-between items-center">
+                    {/* SIDEBAR - Project Manager */}
+                    <aside className={`fixed inset-y-0 left-0 z-40 transform transition-transform duration-300 w-[300px] glass-panel border-r border-slate-300/50 dark:border-white/10 flex flex-col shrink-0 shadow-2xl bg-white/50 dark:bg-black/80 backdrop-blur-3xl ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                        <div className="p-6 border-b border-slate-300/50 dark:border-white/10 flex justify-between items-center bg-white/20 dark:bg-white/5">
                             <BrandLogo />
-                            <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-white/10">
-                                {theme === 'dark' ? <IconSun /> : <IconMoon />}
-                            </button>
+                            <div className="flex gap-2">
+                                <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-white/10 transition">
+                                    {theme === 'dark' ? <IconSun /> : <IconMoon />}
+                                </button>
+                            </div>
                         </div>
                         
-                        <div className="p-5">
-                            <button onClick={() => setShowNewProjectModal(true)} className="w-full bg-brandOrange text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 hover:shadow-lg transition">
+                        <div className="p-5 border-b border-slate-300/50 dark:border-white/10 shrink-0">
+                            <button 
+                                onClick={() => { setIsCreatingCategory(false); setShowNewProjectModal(true); }}
+                                className="w-full bg-white/50 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 border border-slate-300/50 dark:border-brandOrange/50 text-slate-800 dark:text-white py-3 rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all shadow-[0_4px_15px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_15px_rgba(255,123,0,0.15)] hover:shadow-[0_4px_25px_rgba(255,123,0,0.3)] backdrop-blur-sm"
+                            >
                                 <IconPlus /> Neues Projekt
                             </button>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto px-3 space-y-2">
-                            {projects.map((p) => (
-                                <div 
-                                    key={p.id}
-                                    onClick={() => setCurrentProjectId(p.id)}
-                                    className={`group flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all ${currentProjectId === p.id ? 'bg-brandOrange/10 border border-brandOrange/50' : 'hover:bg-white/40 dark:hover:bg-white/10'}`}
-                                >
-                                    <div className="truncate text-sm font-medium">{p.title}</div>
-                                    <button onClick={(e) => {e.stopPropagation(); setProjectToDelete(p.id);}} className="opacity-0 group-hover:opacity-100 p-1 hover:text-red-500 transition"><IconTrash /></button>
-                                </div>
-                            ))}
+                        <div className="flex-1 overflow-y-auto px-3 py-4">
+                            <div className="text-xs font-bold uppercase text-slate-500 dark:text-white/40 px-3 mb-3 tracking-widest flex items-center justify-between">
+                                Deine Projekte
+                                <IconGrip className="w-3 h-3 opacity-50" />
+                            </div>
+                            <div className="space-y-2">
+                                {projects.map((p, index) => (
+                                    <div 
+                                        key={p.id}
+                                        draggable
+                                        onDragStart={(e) => handleProjectDragStart(e, index)}
+                                        onDragEnter={(e) => handleProjectDragEnter(e, index)}
+                                        onDragEnd={handleProjectDragEnd}
+                                        onDragOver={(e) => e.preventDefault()}
+                                        onClick={() => switchProject(p.id)}
+                                        className={`group flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all duration-200 ${currentProjectId === p.id ? 'bg-brandOrange/10 dark:bg-brandOrange/20 border border-brandOrange/50 shadow-[0_0_20px_rgba(255,123,0,0.15)] text-slate-900 dark:text-white' : 'hover:bg-white/40 dark:hover:bg-white/10 border border-transparent text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white'} ${p.status === 'done' ? 'opacity-60 grayscale-[50%]' : ''}`}
+                                    >
+                                        <div className="flex items-center gap-2 overflow-hidden w-full">
+                                            <div className="cursor-grab active:cursor-grabbing text-slate-300 dark:text-white/20 hover:text-brandOrange shrink-0"><IconGrip /></div>
+                                            <div className="flex flex-col flex-1 overflow-hidden">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="truncate text-sm font-medium">{p.title}</div>
+                                                    {p.status === 'done' && <IconCheckCircle className="text-green-500 w-3 h-3 shrink-0" />}
+                                                </div>
+                                                <div className="text-[10px] font-mono text-slate-500 dark:text-white/40 uppercase tracking-wider flex items-center gap-1.5 mt-0.5">
+                                                    <IconClock /> {formatTime(p.timeSpent)}
+                                                    {p.status !== 'done' && currentProjectId === p.id && <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse ml-1"></div>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button 
+                                            onClick={(e) => { e.stopPropagation(); setProjectToDelete(p.id); }}
+                                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-500 hover:bg-red-100 dark:hover:bg-red-500/20 rounded-md transition shrink-0"
+                                        >
+                                            <IconTrash />
+                                        </button>
+                                    </div>
+                                ))}
+                                {projects.length === 0 && (
+                                    <div className="text-sm text-slate-500 dark:text-white/30 text-center mt-10 px-4 border border-dashed border-slate-300 dark:border-white/10 rounded-xl p-6">Keine Projekte vorhanden. <br/>Klick auf 'Neues Projekt'.</div>
+                                )}
+                            </div>
                         </div>
 
-                        <div className="p-4 border-t border-slate-300/50 dark:border-white/10 bg-slate-100/50 dark:bg-black/40">
+                        {/* IMPORT / EXPORT AREA */}
+                        <div className="p-4 border-t border-slate-300/50 dark:border-white/10 bg-slate-100/50 dark:bg-black/40 shrink-0">
+                            <div className="text-[10px] font-bold uppercase text-slate-500 dark:text-white/40 mb-3 tracking-widest px-2">Daten Sync</div>
                             <div className="flex gap-2">
-                                <button onClick={exportData} className="flex-1 bg-white/50 dark:bg-white/10 py-2 rounded-lg text-xs font-bold border border-slate-300/50 dark:border-white/10 flex flex-col items-center gap-1 hover:bg-white dark:hover:bg-white/20">
+                                <button onClick={exportData} className="flex-1 bg-white/50 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 text-slate-700 dark:text-white py-2 rounded-lg text-xs font-bold flex flex-col items-center justify-center gap-1 transition shadow-sm border border-slate-300/50 dark:border-white/10">
                                     <IconDownload /> Backup
                                 </button>
-                                <button onClick={() => fileInputRef.current.click()} className="flex-1 bg-white/50 dark:bg-white/10 py-2 rounded-lg text-xs font-bold border border-slate-300/50 dark:border-white/10 flex flex-col items-center gap-1 hover:bg-white dark:hover:bg-white/20">
+                                <button onClick={() => fileInputRef.current.click()} className="flex-1 bg-white/50 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 text-slate-700 dark:text-white py-2 rounded-lg text-xs font-bold flex flex-col items-center justify-center gap-1 transition shadow-sm border border-slate-300/50 dark:border-white/10">
                                     <IconUpload /> Import
                                 </button>
-                                <input type="file" ref={fileInputRef} onChange={importData} className="hidden" />
+                                <input type="file" accept=".json" ref={fileInputRef} onChange={importData} className="hidden" />
                             </div>
                         </div>
                     </aside>
 
-                    {/* MAIN CONTENT */}
-                    <main className={`flex-1 flex flex-col h-full relative transition-all duration-300 ${isSidebarOpen ? 'md:ml-[300px]' : 'ml-0'}`}>
+                    {/* MAIN WORKSPACE */}
+                    <main className={`flex-1 flex flex-col h-full relative z-10 transition-all duration-300 ${isSidebarOpen ? 'md:ml-[300px]' : 'ml-0'}`}>
                         {currentProject ? (
                             <>
-                                <header className="h-20 border-b border-slate-300/50 dark:border-white/10 px-6 flex items-center justify-between glass-panel !border-none !rounded-none">
+                                {/* Project Header */}
+                                <header className="h-20 border-b border-slate-300/50 dark:border-white/10 px-6 flex items-center justify-between shrink-0 glass-panel !border-l-0 !border-t-0 !border-r-0 !rounded-none z-20">
+                                    
                                     <div className="flex items-center gap-4">
-                                        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 transition"><IconMenu /></button>
-                                        <h2 className="text-2xl font-bold">{currentProject.title}</h2>
+                                        <button 
+                                            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                                            className="p-2 -ml-2 rounded-lg text-slate-600 dark:text-white/70 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
+                                            title="Menü umschalten"
+                                        >
+                                            <IconMenu />
+                                        </button>
+                                        
+                                        {isEditingTitle ? (
+                                            <input 
+                                                autoFocus
+                                                value={editTitleValue}
+                                                onChange={(e) => setEditTitleValue(e.target.value)}
+                                                onBlur={handleTitleSave}
+                                                onKeyDown={(e) => e.key === 'Enter' && handleTitleSave()}
+                                                className="bg-white/50 dark:bg-white/10 border border-brandOrange rounded-lg px-3 py-1.5 text-2xl font-bold text-slate-900 dark:text-white outline-none w-64 shadow-[0_0_15px_rgba(255,123,0,0.2)]"
+                                            />
+                                        ) : (
+                                            <h2 className="text-2xl font-bold flex items-center gap-3 cursor-pointer group" onClick={() => { setEditTitleValue(currentProject.title); setIsEditingTitle(true); }}>
+                                                {currentProject.title}
+                                                <span className="opacity-0 group-hover:opacity-50 text-brandOrange transition"><IconEdit /></span>
+                                            </h2>
+                                        )}
+                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/50 dark:bg-white/10 border border-slate-300 dark:border-white/10 uppercase tracking-widest text-brandOrange shadow-[inset_0_0_10px_rgba(255,255,255,0.05)] hidden sm:inline-block">
+                                            {categories.find(c => c.id === currentProject.category)?.name || currentProject.category}
+                                        </span>
                                     </div>
-                                    <div className="flex items-center gap-3">
-                                        <button onClick={() => setIsFocusModeOpen(true)} className="px-4 py-2 rounded-lg bg-slate-900 text-cyanAccent border border-cyanAccent/30 text-sm font-bold flex items-center gap-2 hover:bg-black transition"><IconTarget /> Labor-Modus</button>
+
+                                    <div className="flex items-center gap-3 bg-white/40 dark:bg-black/20 p-1.5 rounded-xl border border-slate-300/50 dark:border-white/10 backdrop-blur-xl">
+                                        
+                                        <button 
+                                            onClick={() => setIsFocusModeOpen(true)}
+                                            className="px-4 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2 bg-slate-900 text-cyanAccent hover:bg-black transition-all shadow-sm border border-cyanAccent/30"
+                                            title="Labor-Modus aktivieren (Ablenkungsfreies Testen)"
+                                        >
+                                            <IconTarget /> Labor-Modus
+                                        </button>
+
+                                        <button 
+                                            onClick={handleExportMarkdown}
+                                            className="px-4 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2 bg-slate-200/50 dark:bg-white/10 hover:bg-brandOrange hover:text-white text-slate-700 dark:text-white transition-all shadow-sm"
+                                            title="Alle Daten in die Zwischenablage kopieren (Markdown Format)"
+                                        >
+                                            <IconCopy /> Export
+                                        </button>
+
+                                        <div className="w-px h-6 bg-slate-300 dark:bg-white/20 mx-1"></div>
+
+                                        <div className={`px-2 py-1.5 flex items-center gap-2 font-mono text-lg font-bold ${currentProject.status === 'done' ? 'text-green-500 dark:text-green-400' : 'text-slate-800 dark:text-white'}`}>
+                                            <IconClock /> {formatTime(currentProject.timeSpent)}
+                                            {currentProject.status !== 'done' && <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>}
+                                        </div>
+                                        <button 
+                                            onClick={toggleProjectStatus}
+                                            className={`px-4 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2 transition-all ${currentProject.status === 'done' ? 'bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-white hover:bg-slate-300 dark:hover:bg-white/20' : 'bg-green-500 text-white shadow-[0_0_15px_rgba(34,197,94,0.4)] hover:shadow-[0_0_20px_rgba(34,197,94,0.6)]'}`}
+                                        >
+                                            {currentProject.status === 'done' ? 'Wieder öffnen' : <><IconCheckCircle /> Fertig</>}
+                                        </button>
                                     </div>
+                                    
                                 </header>
 
-                                <div className="flex-1 overflow-auto p-8">
-                                    <div className="max-w-4xl mx-auto space-y-8">
-                                        {/* Phases rendering */}
-                                        {currentProject.checklist.map((phase, pIdx) => (
-                                            <div key={pIdx} className="glass-panel rounded-2xl overflow-hidden">
-                                                <div className="bg-slate-100/50 dark:bg-white/5 p-4 flex justify-between items-center">
-                                                    <h3 className="font-bold text-lg">{phase.phase}</h3>
-                                                    <button 
-                                                        onClick={(e) => markPhaseDone('checklist', pIdx, e)}
-                                                        className="text-[10px] font-bold uppercase tracking-widest bg-green-500/20 text-green-600 px-3 py-1 rounded-md border border-green-500/30 hover:bg-green-500 hover:text-white transition"
-                                                    >
-                                                        <IconCheckDouble /> Alles abhaken
-                                                    </button>
-                                                </div>
-                                                <div className="p-4 space-y-2">
-                                                    {phase.items.map((item, iIdx) => (
-                                                        <div key={iIdx} className="flex items-center gap-3 p-2 hover:bg-white/20 dark:hover:bg-white/5 rounded-lg transition">
-                                                            <input type="checkbox" checked={item.done} onChange={(e) => {
-                                                                const newList = [...currentProject.checklist];
-                                                                newList[pIdx].items[iIdx].done = e.target.checked;
-                                                                updateCurrentProject({ checklist: newList });
-                                                            }} className="w-5 h-5 accent-cyanAccent" />
-                                                            <span className={item.done ? 'line-through text-slate-400' : ''}>{item.text}</span>
+                                {/* Pulsating Progress Bar */}
+                                <div className="w-full h-1.5 bg-slate-200 dark:bg-black/40 relative overflow-hidden z-20">
+                                    <div 
+                                        className="h-full bg-gradient-to-r from-cyanAccent to-purpleAccent animate-glow-pulse transition-all duration-700 ease-out"
+                                        style={{ width: `${progressPercent}%` }}
+                                    ></div>
+                                </div>
+
+                                {/* Toolbar Tabs */}
+                                <div className="px-8 pt-6 pb-2 flex justify-between items-center">
+                                    <div className="flex gap-2">
+                                        <button onClick={() => setActiveTab('report')} className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'report' ? 'bg-brandOrange text-white shadow-[0_4px_12px_rgba(255,123,0,0.3)] border border-transparent' : 'text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/5 border border-transparent'}`}>
+                                            <IconFileText /> Bericht
+                                        </button>
+                                        <div className="w-px h-6 bg-slate-300 dark:bg-white/20 mx-1 self-center"></div>
+                                        <button onClick={() => setActiveTab('checklist')} className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'checklist' ? 'bg-white/80 dark:bg-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.3)] border border-slate-300/50 dark:border-white/20 text-slate-900 dark:text-white' : 'text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/5 border border-transparent'}`}>
+                                            <IconList /> Checkliste
+                                        </button>
+                                        <button onClick={() => setActiveTab('shotlist')} className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'shotlist' ? 'bg-white/80 dark:bg-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.3)] border border-slate-300/50 dark:border-white/20 text-slate-900 dark:text-white' : 'text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/5 border border-transparent'}`}>
+                                            <IconCamera /> Shotlist
+                                        </button>
+                                        <button onClick={() => setActiveTab('data')} className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'data' ? 'bg-white/80 dark:bg-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.3)] border border-slate-300/50 dark:border-white/20 text-slate-900 dark:text-white' : 'text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/5 border border-transparent'}`}>
+                                            <IconData /> Base Data
+                                        </button>
+                                        <button onClick={() => setActiveTab('compare')} className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'compare' ? 'bg-white/80 dark:bg-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.3)] border border-slate-300/50 dark:border-white/20 text-slate-900 dark:text-white' : 'text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/5 border border-transparent'}`}>
+                                            <IconCompare /> Vergleich
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Tab Content Area */}
+                                <div className="flex-1 overflow-auto p-8 pt-2 relative z-10">
+                                    <div className="max-w-5xl mx-auto pb-20">
+
+                                        {/* TAB: REPORT */}
+                                        {activeTab === 'report' && (
+                                            <div className="space-y-6 animate-fade-in">
+                                                <div className="glass-panel p-10 rounded-3xl shadow-xl dark:shadow-2xl relative overflow-hidden bg-white/90 dark:bg-black/60">
+                                                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brandOrange/10 dark:bg-brandOrange/5 blur-[120px] pointer-events-none rounded-full"></div>
+                                                    
+                                                    {/* Header Area */}
+                                                    <div className="flex justify-between items-start border-b border-slate-300/50 dark:border-white/10 pb-8 mb-8">
+                                                        <div>
+                                                            <div className="text-sm font-bold text-brandOrange uppercase tracking-widest mb-2">Executive Test Report</div>
+                                                            <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-2">{currentProject.title}</h2>
+                                                            <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-white/60">
+                                                                <span className="flex items-center gap-1.5"><IconClock /> {formatTime(currentProject.timeSpent)}</span>
+                                                                <span>&bull;</span>
+                                                                <span className="uppercase tracking-widest">{categories.find(c => c.id === currentProject.category)?.name || currentProject.category}</span>
+                                                            </div>
                                                         </div>
-                                                    ))}
+                                                        <div className="bg-slate-100 dark:bg-white/5 border border-slate-300/50 dark:border-white/10 px-8 py-4 rounded-2xl flex flex-col items-center shadow-inner">
+                                                            <span className="text-xs font-bold text-slate-500 dark:text-white/50 uppercase tracking-widest mb-1">Gesamtnote</span>
+                                                            <span className="text-5xl font-black text-slate-800 dark:text-white">{calculatedScore}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Pros / Cons Area */}
+                                                    <div className="grid grid-cols-2 gap-10 mb-10">
+                                                        <div>
+                                                            <h4 className="text-lg font-bold text-green-600 dark:text-green-400 mb-4 flex items-center gap-2"><div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>Stärken (Pro)</h4>
+                                                            <ul className="space-y-2">
+                                                                {currentProject.data.pros.length > 0 ? currentProject.data.pros.map((p, i) => (
+                                                                    <li key={i} className="text-sm text-slate-700 dark:text-white/80 bg-green-50 dark:bg-green-900/10 px-4 py-2.5 rounded-lg border border-green-200/50 dark:border-green-500/20">{p}</li>
+                                                                )) : <li className="text-sm italic text-slate-400">Keine Stärken erfasst.</li>}
+                                                            </ul>
+                                                        </div>
+                                                        <div>
+                                                            <h4 className="text-lg font-bold text-red-600 dark:text-red-400 mb-4 flex items-center gap-2"><div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>Schwächen (Contra)</h4>
+                                                            <ul className="space-y-2">
+                                                                {currentProject.data.cons.length > 0 ? currentProject.data.cons.map((c, i) => (
+                                                                    <li key={i} className="text-sm text-slate-700 dark:text-white/80 bg-red-50 dark:bg-red-900/10 px-4 py-2.5 rounded-lg border border-red-200/50 dark:border-red-500/20">{c}</li>
+                                                                )) : <li className="text-sm italic text-slate-400">Keine Schwächen erfasst.</li>}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Zentrale Notizen & Messwerte */}
+                                                    <div>
+                                                        <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-6 pb-2 border-b border-slate-300/50 dark:border-white/10">Gesammelte Labor-Notizen & Messwerte</h4>
+                                                        <div className="space-y-8">
+                                                            {currentProject.checklist.map((phase, pIdx) => {
+                                                                const notesInPhase = phase.items.filter(i => i.note || i.measurements || i.issues);
+                                                                if (notesInPhase.length === 0) return null;
+                                                                
+                                                                return (
+                                                                    <div key={pIdx}>
+                                                                        <h5 className="text-sm font-bold text-slate-500 dark:text-white/50 uppercase tracking-widest mb-4">{phase.phase}</h5>
+                                                                        <div className="space-y-4">
+                                                                            {notesInPhase.map((item, iIdx) => (
+                                                                                <div key={iIdx} className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-5">
+                                                                                    <div className="font-bold text-slate-800 dark:text-white mb-3 text-base">{item.text}</div>
+                                                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                                        {item.note && (
+                                                                                            <div className="col-span-full bg-white dark:bg-black/30 p-3 rounded-lg border-l-2 border-cyanAccent">
+                                                                                                <span className="text-[10px] uppercase font-bold text-cyanAccent block mb-1">Beobachtung</span>
+                                                                                                <span className="text-sm text-slate-700 dark:text-white/80 whitespace-pre-line">{item.note}</span>
+                                                                                            </div>
+                                                                                        )}
+                                                                                        {item.measurements && (
+                                                                                            <div className="bg-white dark:bg-black/30 p-3 rounded-lg border-l-2 border-brandOrange">
+                                                                                                <span className="text-[10px] uppercase font-bold text-brandOrange block mb-1">Messwerte / Daten</span>
+                                                                                                <span className="text-sm text-slate-700 dark:text-white/80 whitespace-pre-line">{item.measurements}</span>
+                                                                                            </div>
+                                                                                        )}
+                                                                                        {item.issues && (
+                                                                                            <div className="bg-white dark:bg-black/30 p-3 rounded-lg border-l-2 border-red-500">
+                                                                                                <span className="text-[10px] uppercase font-bold text-red-500 block mb-1">Probleme / Bugs</span>
+                                                                                                <span className="text-sm text-slate-700 dark:text-white/80 whitespace-pre-line">{item.issues}</span>
+                                                                                            </div>
+                                                                                        )}
+                                                                                    </div>
+                                                                                </div>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                            
+                                                            {!currentProject.checklist.some(p => p.items.some(i => i.note || i.measurements || i.issues)) && (
+                                                                <div className="text-center p-8 border border-dashed border-slate-300 dark:border-white/20 rounded-xl text-slate-500 dark:text-white/40 italic">
+                                                                    In der Checkliste wurden noch keine Detail-Notizen hinterlegt.
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
-                                        ))}
+                                        )}
+
+                                        {/* TAB: CHECKLIST */}
+                                        {activeTab === 'checklist' && (
+                                            <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl relative overflow-hidden animate-fade-in">
+                                                <div className="absolute top-0 right-0 w-64 h-64 bg-cyanAccent/20 dark:bg-cyanAccent/10 blur-[100px] pointer-events-none rounded-full"></div>
+                                                
+                                                <h3 className="text-xl font-bold mb-8 text-slate-800 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-white/60">Strukturierte Test Checkliste</h3>
+                                                
+                                                <div className="space-y-6 mb-8">
+                                                    {(currentProject.checklist || []).map((phaseBlock, phaseIndex) => {
+                                                        const isCollapsed = collapsedPhases[`checklist_${phaseIndex}`];
+                                                        const completedCount = phaseBlock.items.filter(i => i.done).length;
+                                                        const totalCount = phaseBlock.items.length;
+                                                        const isPhaseDone = totalCount > 0 && completedCount === totalCount;
+
+                                                        return (
+                                                        <div key={phaseIndex} className={`glass-panel !bg-white/40 dark:!bg-white/5 !border-slate-300/50 dark:!border-white/10 rounded-2xl overflow-hidden transition-all duration-300`}>
+                                                            {/* Phase Header */}
+                                                            <div 
+                                                                onClick={() => togglePhaseCollapse('checklist', phaseIndex)}
+                                                                className={`flex items-center justify-between p-4 cursor-pointer hover:bg-white/50 dark:hover:bg-white/10 transition-colors ${isPhaseDone ? 'bg-green-500/10' : ''}`}
+                                                            >
+                                                                <div className="flex items-center gap-3">
+                                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${isPhaseDone ? 'bg-green-500 text-white' : 'bg-slate-300 dark:bg-white/20 text-slate-700 dark:text-white'}`}>
+                                                                        {isPhaseDone ? '✓' : completedCount}
+                                                                    </div>
+                                                                    <h4 className={`font-bold text-lg ${isPhaseDone ? 'text-green-600 dark:text-green-400' : 'text-slate-800 dark:text-white'}`}>{phaseBlock.phase}</h4>
+                                                                    <span className="text-xs text-slate-500 dark:text-white/40">({completedCount}/{totalCount})</span>
+                                                                </div>
+                                                                <div className="flex items-center gap-4">
+                                                                    {/* CHECK ALL BUTTON */}
+                                                                    {!isPhaseDone && totalCount > 0 && (
+                                                                        <button 
+                                                                            onClick={(e) => markPhaseDone('checklist', phaseIndex, e)}
+                                                                            className="flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-green-500/20 text-green-600 dark:text-green-400 hover:bg-green-500 hover:text-white transition shadow-sm border border-green-500/30"
+                                                                            title="Gesamte Phase als erledigt markieren"
+                                                                        >
+                                                                            <IconCheckDouble /> Alle abhaken
+                                                                        </button>
+                                                                    )}
+                                                                    <IconChevronDown className={`transition-transform duration-300 text-slate-500 dark:text-white/50 ${isCollapsed ? '' : 'rotate-180'}`} />
+                                                                </div>
+                                                            </div>
+
+                                                            {/* Phase Items */}
+                                                            <div className={`transition-all duration-500 overflow-hidden ${isCollapsed ? 'max-h-0' : 'max-h-[5000px]'}`}>
+                                                                <div className="p-4 pt-0 space-y-3">
+                                                                    {phaseBlock.items.map((item, itemIndex) => {
+                                                                        const hasAnyNotes = item.note || item.measurements || item.issues;
+                                                                        
+                                                                        return (
+                                                                        <div 
+                                                                            key={item.id} 
+                                                                            draggable
+                                                                            onDragStart={(e) => handleNestedDragStart(e, phaseIndex, itemIndex)}
+                                                                            onDragEnter={(e) => handleNestedDragEnter(e, phaseIndex, itemIndex)}
+                                                                            onDragEnd={(e) => handleNestedDragEnd(e, 'checklist')}
+                                                                            onDragOver={(e) => e.preventDefault()}
+                                                                            className={`group bg-white/60 dark:bg-black/20 border border-slate-300/50 dark:border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-cyanAccent/30 ${item.done ? 'opacity-70 bg-slate-200/50 dark:bg-black/40' : ''}`}
+                                                                        >
+                                                                            <div className="flex items-center gap-4 p-3">
+                                                                                <div className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-white/30 hover:text-cyanAccent transition shrink-0">
+                                                                                    <IconGrip />
+                                                                                </div>
+                                                                                <input 
+                                                                                    type="checkbox" 
+                                                                                    checked={item.done}
+                                                                                    onChange={(e) => updateNestedItem('checklist', phaseIndex, item.id, 'done', e.target.checked)}
+                                                                                    className="w-5 h-5 shrink-0 rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black/50 text-cyanAccent focus:ring-cyanAccent accent-cyanAccent cursor-pointer"
+                                                                                />
+                                                                                <span className={`flex-1 font-medium text-[15px] ${item.done ? 'line-through text-slate-500 dark:text-white/50' : 'text-slate-700 dark:text-white/90'}`}>{item.text}</span>
+                                                                                
+                                                                                <button 
+                                                                                    onClick={() => setExpandedChecklistId(expandedChecklistId === item.id ? null : item.id)} 
+                                                                                    className={`p-1.5 rounded-lg hover:bg-white dark:hover:bg-white/10 transition flex items-center gap-2 text-xs font-bold uppercase tracking-wider shrink-0 ${expandedChecklistId === item.id ? 'text-cyanAccent bg-cyanAccent/10' : 'text-slate-500 dark:text-white/60'}`}
+                                                                                >
+                                                                                    {expandedChecklistId === item.id ? 'Schließen' : 'Notiz+'}
+                                                                                </button>
+                                                                                
+                                                                                <button onClick={() => deleteNestedItem('checklist', phaseIndex, item.id)} className="opacity-0 group-hover:opacity-100 text-slate-400 dark:text-white/30 hover:text-red-500 dark:hover:text-red-400 p-1.5 rounded-lg transition shrink-0">
+                                                                                    <IconTrash />
+                                                                                </button>
+                                                                            </div>
+
+                                                                            {/* PERMANENTE NOTIZ SICHTBARKEIT */}
+                                                                            {hasAnyNotes && expandedChecklistId !== item.id && (
+                                                                                <div className="px-[3.25rem] pb-3 flex flex-col gap-1.5">
+                                                                                    {item.note && <div className="text-[12px] text-slate-600 dark:text-white/70 bg-white/50 dark:bg-black/30 px-3 py-1.5 rounded-md border-l-2 border-cyanAccent shadow-sm line-clamp-2"><strong className="uppercase text-[9px] text-cyanAccent mr-2 tracking-widest">Beobachtung:</strong>{item.note}</div>}
+                                                                                    {item.measurements && <div className="text-[12px] text-slate-600 dark:text-white/70 bg-white/50 dark:bg-black/30 px-3 py-1.5 rounded-md border-l-2 border-brandOrange shadow-sm whitespace-pre-line max-h-32 overflow-hidden relative"><strong className="uppercase text-[9px] text-brandOrange mr-2 tracking-widest">Werte:</strong><br/>{item.measurements}<div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white/90 dark:from-[#111] to-transparent"></div></div>}
+                                                                                    {item.issues && <div className="text-[12px] text-slate-600 dark:text-white/70 bg-white/50 dark:bg-black/30 px-3 py-1.5 rounded-md border-l-2 border-red-500 shadow-sm line-clamp-2"><strong className="uppercase text-[9px] text-red-500 mr-2 tracking-widest">Problem:</strong>{item.issues}</div>}
+                                                                                </div>
+                                                                            )}
+
+                                                                            {/* EXPANDED NOTES AREA - INPUT */}
+                                                                            {expandedChecklistId === item.id && (
+                                                                                <div className="px-12 pb-5 pt-2 bg-slate-100/50 dark:bg-black/40 border-t border-slate-300/50 dark:border-white/5 grid grid-cols-1 gap-4">
+                                                                                    
+                                                                                    <div>
+                                                                                        <label className="block text-[10px] uppercase tracking-widest text-slate-500 dark:text-white/60 mb-1.5 font-bold">Beobachtungen (Freitext)</label>
+                                                                                        <textarea 
+                                                                                            value={item.note || ''}
+                                                                                            onChange={(e) => updateNestedItem('checklist', phaseIndex, item.id, 'note', e.target.value)}
+                                                                                            placeholder="Allgemeine Notizen, Auffälligkeiten bei der Benutzung..."
+                                                                                            className="w-full bg-white/80 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-lg p-2.5 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/30 outline-none focus:border-cyanAccent shadow-inner min-h-[60px]"
+                                                                                        />
+                                                                                    </div>
+                                                                                    
+                                                                                    <div className="grid grid-cols-2 gap-4">
+                                                                                        <div>
+                                                                                            <label className="block text-[10px] uppercase tracking-widest text-brandOrange/80 dark:text-brandOrange/80 mb-1.5 font-bold">Messwerte / Daten</label>
+                                                                                            <textarea 
+                                                                                                value={item.measurements || ''}
+                                                                                                onChange={(e) => updateNestedItem('checklist', phaseIndex, item.id, 'measurements', e.target.value)}
+                                                                                                placeholder="z.B. 4500 Pa, 120 Min Laufzeit, 55 dB..."
+                                                                                                className="w-full bg-brandOrange/5 dark:bg-brandOrange/10 border border-brandOrange/30 rounded-lg p-2.5 text-sm text-slate-800 dark:text-white/90 placeholder-brandOrange/40 outline-none focus:border-brandOrange shadow-inner min-h-[120px]"
+                                                                                            />
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            <label className="block text-[10px] uppercase tracking-widest text-red-500/80 dark:text-red-400/80 mb-1.5 font-bold">Probleme / Bugs</label>
+                                                                                            <textarea 
+                                                                                                value={item.issues || ''}
+                                                                                                onChange={(e) => updateNestedItem('checklist', phaseIndex, item.id, 'issues', e.target.value)}
+                                                                                                placeholder="Abstürze, Navigation hängt fest, Spaltmaße..."
+                                                                                                className="w-full bg-red-50 dark:bg-red-900/10 border border-red-300/50 dark:border-red-500/30 rounded-lg p-2.5 text-sm text-slate-800 dark:text-white/90 placeholder-red-400/50 outline-none focus:border-red-500 shadow-inner min-h-[120px]"
+                                                                                            />
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            )}
+                                                                        </div>
+                                                                    )})}
+                                                                    
+                                                                    {/* Add new item to phase */}
+                                                                    <div className="flex items-center gap-2 mt-2">
+                                                                        <input 
+                                                                            value={newChecklistText[phaseIndex] || ''}
+                                                                            onChange={(e) => setNewChecklistText(prev => ({...prev, [phaseIndex]: e.target.value}))}
+                                                                            onKeyDown={(e) => e.key === 'Enter' && addNestedItem('checklist', phaseIndex, newChecklistText[phaseIndex], setNewChecklistText)}
+                                                                            placeholder="Neuen Testpunkt anhängen..."
+                                                                            className="flex-1 bg-white/40 dark:bg-white/5 border border-transparent rounded-lg p-2.5 text-sm outline-none focus:border-cyanAccent/50 focus:bg-white/80 dark:focus:bg-black/40 transition-all"
+                                                                        />
+                                                                        <button onClick={() => addNestedItem('checklist', phaseIndex, newChecklistText[phaseIndex], setNewChecklistText)} className="text-cyanAccent hover:bg-cyanAccent/10 p-2 rounded-lg transition"><IconPlus /></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )})}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* TAB: SHOTLIST */}
+                                        {activeTab === 'shotlist' && (
+                                            <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl relative overflow-hidden animate-fade-in">
+                                                <div className="absolute top-0 right-0 w-64 h-64 bg-purpleAccent/20 dark:bg-purpleAccent/10 blur-[100px] pointer-events-none rounded-full"></div>
+
+                                                <div className="flex justify-between items-center mb-6">
+                                                    <h3 className="text-xl font-bold text-purpleAccent dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-purpleAccent dark:to-cyanAccent flex items-center gap-3">
+                                                        <IconCamera /> Strukturierte Media Shotlist
+                                                    </h3>
+                                                    <span className="text-xs bg-purpleAccent/10 dark:bg-purpleAccent/20 text-purpleAccent border border-purpleAccent/30 px-3 py-1 rounded-full uppercase tracking-wider font-bold">Vergiss keine Fotos!</span>
+                                                </div>
+                                                <p className="text-slate-600 dark:text-white/60 text-sm mb-8">Hake ab, welche Fotos, B-Rolls oder Screenshots du in der jeweiligen Testphase bereits gemacht hast.</p>
+
+                                                <div className="space-y-6 mb-8">
+                                                    {(currentProject.shotlist || []).map((phaseBlock, phaseIndex) => {
+                                                        const isCollapsed = collapsedPhases[`shotlist_${phaseIndex}`];
+                                                        const completedCount = phaseBlock.items.filter(i => i.done).length;
+                                                        const totalCount = phaseBlock.items.length;
+                                                        const isPhaseDone = totalCount > 0 && completedCount === totalCount;
+
+                                                        return (
+                                                        <div key={phaseIndex} className={`glass-panel !bg-white/40 dark:!bg-white/5 !border-slate-300/50 dark:!border-white/10 rounded-2xl overflow-hidden transition-all duration-300`}>
+                                                            {/* Phase Header */}
+                                                            <div 
+                                                                onClick={() => togglePhaseCollapse('shotlist', phaseIndex)}
+                                                                className={`flex items-center justify-between p-4 cursor-pointer hover:bg-white/50 dark:hover:bg-white/10 transition-colors ${isPhaseDone ? 'bg-green-500/10' : ''}`}
+                                                            >
+                                                                <div className="flex items-center gap-3">
+                                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${isPhaseDone ? 'bg-green-500 text-white' : 'bg-slate-300 dark:bg-white/20 text-slate-700 dark:text-white'}`}>
+                                                                        {isPhaseDone ? '✓' : completedCount}
+                                                                    </div>
+                                                                    <h4 className={`font-bold text-lg ${isPhaseDone ? 'text-green-600 dark:text-green-400' : 'text-slate-800 dark:text-white'}`}>{phaseBlock.phase}</h4>
+                                                                    <span className="text-xs text-slate-500 dark:text-white/40">({completedCount}/{totalCount})</span>
+                                                                </div>
+                                                                <div className="flex items-center gap-4">
+                                                                    {!isPhaseDone && totalCount > 0 && (
+                                                                        <button 
+                                                                            onClick={(e) => markPhaseDone('shotlist', phaseIndex, e)}
+                                                                            className="flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-green-500/20 text-green-600 dark:text-green-400 hover:bg-green-500 hover:text-white transition shadow-sm border border-green-500/30"
+                                                                            title="Gesamte Phase als erledigt markieren"
+                                                                        >
+                                                                            <IconCheckDouble /> Alle abhaken
+                                                                        </button>
+                                                                    )}
+                                                                    <IconChevronDown className={`transition-transform duration-300 text-slate-500 dark:text-white/50 ${isCollapsed ? '' : 'rotate-180'}`} />
+                                                                </div>
+                                                            </div>
+
+                                                            {/* Phase Items */}
+                                                            <div className={`transition-all duration-500 overflow-hidden ${isCollapsed ? 'max-h-0' : 'max-h-[2000px]'}`}>
+                                                                <div className="p-4 pt-0 grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                                    {phaseBlock.items.map((item, itemIndex) => (
+                                                                        <div 
+                                                                            key={item.id} 
+                                                                            draggable
+                                                                            onDragStart={(e) => handleNestedDragStart(e, phaseIndex, itemIndex)}
+                                                                            onDragEnter={(e) => handleNestedDragEnter(e, phaseIndex, itemIndex)}
+                                                                            onDragEnd={(e) => handleNestedDragEnd(e, 'shotlist')}
+                                                                            onDragOver={(e) => e.preventDefault()}
+                                                                            className={`group flex items-center gap-3 p-3 rounded-xl border border-slate-300/50 dark:border-white/10 bg-white/60 dark:bg-black/20 transition-all hover:border-purpleAccent/30 ${item.done ? 'opacity-50 border-green-500/30 bg-green-100 dark:bg-green-900/10' : ''}`}
+                                                                        >
+                                                                            <div className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-white/30 hover:text-purpleAccent transition"><IconGrip /></div>
+                                                                            <input 
+                                                                                type="checkbox" 
+                                                                                checked={item.done}
+                                                                                onChange={(e) => updateNestedItem('shotlist', phaseIndex, item.id, 'done', e.target.checked)}
+                                                                                className="w-5 h-5 rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black/50 accent-purpleAccent cursor-pointer"
+                                                                            />
+                                                                            <span className={`flex-1 font-medium text-sm ${item.done ? 'line-through text-slate-500 dark:text-white/50' : 'text-slate-700 dark:text-white/90'}`}>{item.text}</span>
+                                                                            <button onClick={() => deleteNestedItem('shotlist', phaseIndex, item.id)} className="opacity-0 group-hover:opacity-100 text-slate-400 dark:text-white/30 hover:text-red-500 dark:hover:text-red-400 p-1 rounded-lg transition">
+                                                                                <IconTrash />
+                                                                            </button>
+                                                                        </div>
+                                                                    ))}
+                                                                    
+                                                                    {/* Add new item to phase */}
+                                                                    <div className="flex items-center gap-2 col-span-full mt-1">
+                                                                        <input 
+                                                                            value={newShotlistText[phaseIndex] || ''}
+                                                                            onChange={(e) => setNewShotlistText(prev => ({...prev, [phaseIndex]: e.target.value}))}
+                                                                            onKeyDown={(e) => e.key === 'Enter' && addNestedItem('shotlist', phaseIndex, newShotlistText[phaseIndex], setNewShotlistText)}
+                                                                            placeholder="Neues Motiv anhängen..."
+                                                                            className="flex-1 bg-white/40 dark:bg-white/5 border border-transparent rounded-lg p-2.5 text-sm outline-none focus:border-purpleAccent/50 focus:bg-white/80 dark:focus:bg-black/40 transition-all"
+                                                                        />
+                                                                        <button onClick={() => addNestedItem('shotlist', phaseIndex, newShotlistText[phaseIndex], setNewShotlistText)} className="text-purpleAccent hover:bg-purpleAccent/10 p-2 rounded-lg transition"><IconPlus /></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )})}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* TAB: BASE DATA & SMART SCORECARD */}
+                                        {activeTab === 'data' && (
+                                            <div className="space-y-6 animate-fade-in">
+                                                
+                                                {/* Smart Scorecard Box */}
+                                                <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl relative overflow-hidden">
+                                                    <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-brandOrange/10 dark:bg-brandOrange/20 blur-[80px] rounded-full pointer-events-none"></div>
+                                                    
+                                                    <div className="flex justify-between items-start mb-8">
+                                                        <div>
+                                                            <h3 className="text-xl font-bold mb-1">Smart Scorecard</h3>
+                                                            <p className="text-sm text-slate-600 dark:text-white/50">Bewerte die Kriterien per Slider. Die Gesamtnote wird dynamisch berechnet.</p>
+                                                        </div>
+                                                        <div className="bg-white/80 dark:bg-black/40 border border-brandOrange/50 dark:border-brandOrange/30 px-6 py-3 rounded-2xl flex flex-col items-center shadow-[0_0_30px_rgba(255,123,0,0.15)]">
+                                                            <span className="text-xs font-bold text-brandOrange uppercase tracking-widest mb-1">Gesamtnote</span>
+                                                            <span className="text-4xl font-black text-slate-800 dark:text-white">{calculatedScore} <span className="text-lg text-slate-400 dark:text-white/40">/10</span></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                                        {Object.entries(currentProject.scores || {}).map(([key, val]) => (
+                                                            <div key={key} className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-300/50 dark:border-white/10">
+                                                                <div className="flex justify-between items-center mb-3">
+                                                                    <label className="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-white/80">{key.replace(/_/g, ' ')}</label>
+                                                                    <span className="bg-slate-200 dark:bg-black/50 text-brandOrange font-mono px-2 py-1 rounded text-sm">{val} / 10</span>
+                                                                </div>
+                                                                <input 
+                                                                    type="range" min="1" max="10" step="1" value={val}
+                                                                    onChange={(e) => updateCurrentProject({ scores: { ...currentProject.scores, [key]: parseInt(e.target.value) } })}
+                                                                    className="w-full h-2 bg-slate-300 dark:bg-black/50 rounded-lg appearance-none cursor-pointer accent-brandOrange"
+                                                                />
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                {/* DYNAMIC FACT-SHEET */}
+                                                <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl space-y-8">
+                                                    
+                                                    {/* Test Conditions */}
+                                                    <div>
+                                                        <h3 className="text-lg font-bold mb-4 uppercase tracking-widest text-slate-700 dark:text-white/80">Test Bedingungen (Fact Sheet)</h3>
+                                                        <textarea 
+                                                            value={currentProject.data.conditions}
+                                                            onChange={(e) => updateCurrentProject({ data: { ...currentProject.data, conditions: e.target.value }})}
+                                                            className="w-full h-24 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/20 outline-none focus:border-cyanAccent shadow-inner leading-relaxed"
+                                                            placeholder="Firmware Version, Testdauer, Bodenbeläge..."
+                                                        />
+                                                    </div>
+
+                                                    <div className="grid grid-cols-2 gap-8 pt-4 border-t border-slate-300/50 dark:border-white/10">
+                                                        {/* Pros List */}
+                                                        <div>
+                                                            <label className="block text-sm font-bold mb-3 uppercase tracking-widest text-green-600 dark:text-green-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-green-500"></div> Stärken (Pro)</label>
+                                                            <div className="space-y-2 mb-3">
+                                                                {(currentProject.data.pros || []).map((pro, idx) => (
+                                                                    <div key={idx} className="flex items-center gap-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/20 px-3 py-2 rounded-lg text-sm text-slate-800 dark:text-white/90">
+                                                                        <span className="flex-1">{pro}</span>
+                                                                        <button onClick={() => removeProCon('pros', idx)} className="text-slate-400 hover:text-red-500"><IconTrash /></button>
+                                                                    </div>
+                                                                ))}
+                                                                {currentProject.data.pros.length === 0 && <div className="text-sm text-slate-400 dark:text-white/30 italic">Noch keine Stärken erfasst.</div>}
+                                                            </div>
+                                                            <div className="flex gap-2">
+                                                                <input 
+                                                                    value={newProText}
+                                                                    onChange={(e) => setNewProText(e.target.value)}
+                                                                    onKeyDown={(e) => e.key === 'Enter' && addProCon('pros', newProText, setNewProText)}
+                                                                    className="flex-1 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 text-sm outline-none focus:border-green-500 shadow-inner"
+                                                                    placeholder="Neue Stärke..."
+                                                                />
+                                                                <button onClick={() => addProCon('pros', newProText, setNewProText)} className="bg-white/50 dark:bg-white/10 hover:bg-green-100 dark:hover:bg-green-500/20 px-3 py-2 rounded-lg text-slate-600 dark:text-white transition"><IconPlus /></button>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Cons List */}
+                                                        <div>
+                                                            <label className="block text-sm font-bold mb-3 uppercase tracking-widest text-red-600 dark:text-red-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-red-500"></div> Schwächen (Contra)</label>
+                                                            <div className="space-y-2 mb-3">
+                                                                {(currentProject.data.cons || []).map((con, idx) => (
+                                                                    <div key={idx} className="flex items-center gap-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/20 px-3 py-2 rounded-lg text-sm text-slate-800 dark:text-white/90">
+                                                                        <span className="flex-1">{con}</span>
+                                                                        <button onClick={() => removeProCon('cons', idx)} className="text-slate-400 hover:text-red-500"><IconTrash /></button>
+                                                                    </div>
+                                                                ))}
+                                                                {currentProject.data.cons.length === 0 && <div className="text-sm text-slate-400 dark:text-white/30 italic">Noch keine Schwächen erfasst.</div>}
+                                                            </div>
+                                                            <div className="flex gap-2">
+                                                                <input 
+                                                                    value={newConText}
+                                                                    onChange={(e) => setNewConText(e.target.value)}
+                                                                    onKeyDown={(e) => e.key === 'Enter' && addProCon('cons', newConText, setNewConText)}
+                                                                    className="flex-1 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 text-sm outline-none focus:border-red-500 shadow-inner"
+                                                                    placeholder="Neue Schwäche..."
+                                                                />
+                                                                <button onClick={() => addProCon('cons', newConText, setNewConText)} className="bg-white/50 dark:bg-white/10 hover:bg-red-100 dark:hover:bg-red-500/20 px-3 py-2 rounded-lg text-slate-600 dark:text-white transition"><IconPlus /></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* TAB: COMPARE */}
+                                        {activeTab === 'compare' && (
+                                            <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl animate-fade-in">
+                                                <div className="flex justify-between items-center mb-8">
+                                                    <h3 className="text-xl font-bold text-slate-800 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-white/60">Technik Vergleich</h3>
+                                                </div>
+                                                
+                                                <div className="grid grid-cols-3 gap-6 mb-8 bg-white/40 dark:bg-white/5 p-6 rounded-2xl border border-slate-300/50 dark:border-white/10">
+                                                    <div>
+                                                        <label className="block text-xs font-bold mb-2 text-slate-500 dark:text-white/40 uppercase tracking-widest">Aktuelles Modell</label>
+                                                        <div className="w-full bg-slate-100/50 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-xl p-3 text-sm text-slate-700 dark:text-white/70 font-medium">{currentProject.title}</div>
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-xs font-bold mb-2 text-slate-500 dark:text-white/40 uppercase tracking-widest">Vorgänger</label>
+                                                        <input 
+                                                            value={currentProject.comparison.predecessor} 
+                                                            onChange={(e) => updateCurrentProject({ comparison: { ...currentProject.comparison, predecessor: e.target.value }})}
+                                                            className="w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/20 rounded-xl p-3 text-sm outline-none focus:border-brandOrange shadow-inner" 
+                                                            placeholder="z.B. Dreame L10s Ultra" 
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-xs font-bold mb-2 text-slate-500 dark:text-white/40 uppercase tracking-widest">Konkurrent</label>
+                                                        <input 
+                                                            value={currentProject.comparison.competitor} 
+                                                            onChange={(e) => updateCurrentProject({ comparison: { ...currentProject.comparison, competitor: e.target.value }})}
+                                                            className="w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/20 rounded-xl p-3 text-sm outline-none focus:border-brandOrange shadow-inner" 
+                                                            placeholder="z.B. Roborock S8 Pro" 
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="border border-slate-300/50 dark:border-white/10 rounded-2xl overflow-hidden bg-white/40 dark:bg-black/20">
+                                                    <table className="w-full text-sm text-left">
+                                                        <thead className="text-xs uppercase bg-slate-200/50 dark:bg-white/5 text-slate-600 dark:text-white/60 font-bold tracking-widest">
+                                                            <tr>
+                                                                <th className="px-6 py-4 w-1/4">Spezifikation</th>
+                                                                <th className="px-6 py-4 w-1/4 text-brandOrange">Aktuell</th>
+                                                                <th className="px-6 py-4 w-1/4">Vorgänger</th>
+                                                                <th className="px-6 py-4 w-1/4">Konkurrent</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody className="divide-y divide-slate-300/50 dark:divide-white/5">
+                                                            {currentProject.comparison.specs.map((spec) => (
+                                                                <tr key={spec.id} className="hover:bg-white/50 dark:hover:bg-white/5 transition-colors">
+                                                                    <td className="px-6 py-3">
+                                                                        <input value={spec.key} onChange={(e) => updateSpec(spec.id, 'key', e.target.value)} className="w-full bg-transparent border-none outline-none font-bold text-slate-700 dark:text-white/80" />
+                                                                    </td>
+                                                                    <td className="px-6 py-3"><input value={spec.current} onChange={(e) => updateSpec(spec.id, 'current', e.target.value)} className="w-full bg-white/80 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brandOrange text-brandOrange font-medium" placeholder="Wert..." /></td>
+                                                                    <td className="px-6 py-3"><input value={spec.pred} onChange={(e) => updateSpec(spec.id, 'pred', e.target.value)} className="w-full bg-white/80 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brandOrange" placeholder="Wert..." /></td>
+                                                                    <td className="px-6 py-3"><input value={spec.comp} onChange={(e) => updateSpec(spec.id, 'comp', e.target.value)} className="w-full bg-white/80 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brandOrange" placeholder="Wert..." /></td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div className="flex items-center gap-4 mt-6 pt-6 border-t border-slate-300/50 dark:border-white/10">
+                                                    <input 
+                                                        value={newSpecKey}
+                                                        onChange={(e) => setNewSpecKey(e.target.value)}
+                                                        onKeyDown={(e) => e.key === 'Enter' && addSpecRow()}
+                                                        placeholder="Neue Eigenschaft (z.B. Ladezeit)..."
+                                                        className="flex-1 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/20 rounded-xl p-4 text-sm outline-none focus:border-cyanAccent shadow-inner"
+                                                    />
+                                                    <button onClick={addSpecRow} className="bg-white/50 dark:bg-white/10 hover:bg-cyanAccent/20 border border-slate-300/50 dark:border-white/20 hover:border-cyanAccent/50 text-slate-800 dark:text-white px-6 py-4 rounded-xl text-sm font-bold flex items-center gap-2 transition-all">
+                                                        <IconPlus /> Eigenschaft anlegen
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
+
                                     </div>
                                 </div>
                             </>
                         ) : (
-                            <div className="flex-1 flex flex-col items-center justify-center opacity-40">
+                            <div className="flex-1 flex flex-col items-center justify-center opacity-40 dark:opacity-30 transition-all duration-300">
                                 <BrandLogo />
-                                <p className="mt-4">Wähle ein Projekt aus.</p>
+                                <p className="mt-6 text-xl font-light tracking-wide text-slate-600 dark:text-white">Wähle ein Projekt aus der Sidebar oder erstelle ein neues.</p>
                             </div>
                         )}
                     </main>
 
-                    {/* FLOATING TIMER WIDGET (RIGHT SIDE) */}
-                    <div className="fixed bottom-8 right-24 z-50 flex flex-col items-end gap-3">
-                        {isTimerOpen && (
-                            <div className="glass-panel p-5 rounded-3xl shadow-2xl w-64 border border-brandOrange/30 animate-slide-in">
-                                <div className="flex justify-between items-center mb-4">
-                                    <div className="flex gap-2 bg-slate-200 dark:bg-black/50 p-1 rounded-lg">
-                                        <button onClick={() => setTimerMode('stopwatch')} className={`px-2 py-1 rounded text-[10px] font-bold uppercase ${timerMode === 'stopwatch' ? 'bg-brandOrange text-white' : ''}`}>Uhr</button>
-                                        <button onClick={() => setTimerMode('countdown')} className={`px-2 py-1 rounded text-[10px] font-bold uppercase ${timerMode === 'countdown' ? 'bg-brandOrange text-white' : ''}`}>Timer</button>
+                    {/* FOCUS / LAB MODE OVERLAY */}
+                    {isFocusModeOpen && currentProject && (
+                        <div className="fixed inset-0 z-[100] bg-slate-900 dark:bg-black text-white flex flex-col animate-fade-in overflow-hidden">
+                            <div className="p-6 flex justify-between items-center border-b border-white/10 shrink-0">
+                                <div className="flex items-center gap-4">
+                                    <div className="bg-brandOrange text-black px-4 py-1.5 rounded-lg font-black tracking-widest uppercase flex items-center gap-2">
+                                        <IconTarget /> Labor Modus
                                     </div>
-                                    <button onClick={() => setIsTimerOpen(false)} className="text-slate-400 hover:text-white"><IconX /></button>
+                                    <h2 className="text-2xl font-medium opacity-80">{currentProject.title}</h2>
                                 </div>
-
-                                <div className="text-4xl font-mono font-black text-center mb-6 tracking-tighter text-cyanAccent">
-                                    {formatTime(time)}
-                                </div>
-
-                                {timerMode === 'countdown' && !isRunning && (
-                                    <div className="mb-4">
-                                        <label className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Dauer (Minuten)</label>
-                                        <input 
-                                            type="number" 
-                                            value={timerInput} 
-                                            onChange={(e) => setTimerInput(e.target.value)}
-                                            className="w-full bg-black/30 border border-white/10 rounded-lg p-2 text-sm outline-none focus:border-brandOrange"
-                                        />
+                                <div className="flex items-center gap-6">
+                                    <div className="text-4xl font-mono font-bold text-cyanAccent tracking-wider flex items-center gap-3">
+                                        <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                                        {formatTime(currentProject.timeSpent)}
                                     </div>
-                                )}
-
-                                <div className="flex gap-2">
-                                    {!isRunning ? (
-                                        <button 
-                                            onClick={() => timerMode === 'countdown' ? handleStartCountdown() : setIsRunning(true)}
-                                            className="flex-1 bg-green-500 text-black py-3 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-green-400 transition"
-                                        >
-                                            <IconPlay /> Start
-                                        </button>
-                                    ) : (
-                                        <button 
-                                            onClick={() => setIsRunning(false)}
-                                            className="flex-1 bg-brandOrange text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-brandOrange/80 transition"
-                                        >
-                                            <IconPause /> Stop
-                                        </button>
-                                    )}
                                     <button 
-                                        onClick={() => { setIsRunning(false); setTime(0); }}
-                                        className="bg-slate-200 dark:bg-white/10 p-3 rounded-xl hover:bg-red-500 hover:text-white transition"
+                                        onClick={() => setIsFocusModeOpen(false)}
+                                        className="bg-white/10 hover:bg-red-500/20 text-white p-3 rounded-xl transition"
                                     >
-                                        <IconStop />
+                                        <IconX />
                                     </button>
                                 </div>
                             </div>
-                        )}
-                        <button 
-                            onClick={() => setIsTimerOpen(!isTimerOpen)}
-                            className={`p-4 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95 ${isRunning ? 'bg-cyanAccent text-black' : 'bg-slate-900 dark:bg-white text-white dark:text-black'}`}
-                        >
-                            {timerMode === 'stopwatch' ? <IconClock /> : <IconSandglass />}
-                        </button>
+
+                            <div className="flex-1 overflow-auto flex items-center justify-center p-8">
+                                {focusTarget ? (
+                                    <div className="w-full max-w-4xl animate-slide-in">
+                                        <div className="text-brandOrange font-bold tracking-widest uppercase mb-4 text-lg">
+                                            {focusTarget.phase}
+                                        </div>
+                                        <h1 className="text-4xl md:text-5xl font-black mb-10 leading-tight">
+                                            {focusTarget.item.text}
+                                        </h1>
+                                        
+                                        <div className="grid grid-cols-1 gap-6 mb-10">
+                                            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 focus-within:border-cyanAccent/50 focus-within:bg-white/10 transition-all">
+                                                <label className="text-cyanAccent font-bold uppercase tracking-widest mb-3 block">Beobachtungen</label>
+                                                <textarea 
+                                                    value={focusTarget.item.note || ''}
+                                                    onChange={(e) => updateNestedItem('checklist', focusTarget.phaseIndex, focusTarget.item.id, 'note', e.target.value)}
+                                                    className="w-full bg-transparent outline-none text-xl resize-none placeholder-white/20 min-h-[100px]"
+                                                    placeholder="Tippe hier deine Notizen zum aktuellen Testschritt ein..."
+                                                />
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-6">
+                                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 focus-within:border-brandOrange/50 focus-within:bg-white/10 transition-all">
+                                                    <label className="text-brandOrange font-bold uppercase tracking-widest mb-3 block">Messwerte</label>
+                                                    <textarea 
+                                                        value={focusTarget.item.measurements || ''}
+                                                        onChange={(e) => updateNestedItem('checklist', focusTarget.phaseIndex, focusTarget.item.id, 'measurements', e.target.value)}
+                                                        className="w-full bg-transparent outline-none text-xl resize-none placeholder-white/20 min-h-[100px]"
+                                                        placeholder="Messwerte, Zeiten, Lautstärke..."
+                                                    />
+                                                </div>
+                                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 focus-within:border-red-500/50 focus-within:bg-white/10 transition-all">
+                                                    <label className="text-red-500 font-bold uppercase tracking-widest mb-3 block">Probleme</label>
+                                                    <textarea 
+                                                        value={focusTarget.item.issues || ''}
+                                                        onChange={(e) => updateNestedItem('checklist', focusTarget.phaseIndex, focusTarget.item.id, 'issues', e.target.value)}
+                                                        className="w-full bg-transparent outline-none text-xl resize-none placeholder-white/20 min-h-[100px]"
+                                                        placeholder="Fehler, Abstürze, Spaltmaße..."
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button 
+                                            onClick={() => updateNestedItem('checklist', focusTarget.phaseIndex, focusTarget.item.id, 'done', true)}
+                                            className="w-full bg-green-500 hover:bg-green-400 text-black text-2xl font-black py-6 rounded-2xl transition-all shadow-[0_0_30px_rgba(34,197,94,0.3)] hover:shadow-[0_0_50px_rgba(34,197,94,0.6)] flex justify-center items-center gap-3 active:scale-95"
+                                        >
+                                            <IconCheckCircle /> Punkt erledigt & Weiter
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="text-center">
+                                        <div className="w-24 h-24 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                        </div>
+                                        <h2 className="text-4xl font-black mb-4">Checkliste abgeschlossen!</h2>
+                                        <p className="text-white/50 text-xl mb-8">Du hast alle Testpunkte dieses Projekts abgearbeitet.</p>
+                                        <button 
+                                            onClick={() => setIsFocusModeOpen(false)}
+                                            className="bg-white text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-200 transition"
+                                        >
+                                            Zurück zur Übersicht
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* FLOATING STOPWATCH WIDGET */}
+                    <div className="fixed bottom-8 left-8 z-40 flex items-center gap-3 bg-slate-900 dark:bg-white text-white dark:text-black p-3 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
+                        <div className="w-10 h-10 bg-slate-800 dark:bg-slate-200 rounded-xl flex items-center justify-center text-cyanAccent dark:text-brandOrange">
+                            <IconClock />
+                        </div>
+                        <div className="font-mono text-xl font-bold w-16 text-center tracking-wider">
+                            {formatStopwatch(stopwatchTime)}
+                        </div>
+                        <div className="flex items-center gap-1 border-l border-white/20 dark:border-black/20 pl-3">
+                            <button 
+                                onClick={() => setIsStopwatchRunning(!isStopwatchRunning)} 
+                                className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${isStopwatchRunning ? 'bg-brandOrange/20 text-brandOrange hover:bg-brandOrange/30' : 'bg-green-500/20 text-green-500 hover:bg-green-500/30'}`}
+                            >
+                                {isStopwatchRunning ? <IconPause /> : <IconPlay />}
+                            </button>
+                            <button 
+                                onClick={() => { setIsStopwatchRunning(false); setStopwatchTime(0); }} 
+                                className="w-8 h-8 rounded-lg flex items-center justify-center bg-red-500/20 text-red-500 hover:bg-red-500/30 transition-colors"
+                            >
+                                <IconStop />
+                            </button>
+                        </div>
                     </div>
 
-                    {/* LOGBUCH BUTTON */}
+                    {/* FLOATING LOGBUCH BUTTON */}
                     <button 
                         onClick={() => setIsLogbuchOpen(true)}
-                        className={`fixed bottom-8 right-8 z-40 bg-slate-900 dark:bg-white text-white dark:text-black p-4 rounded-full shadow-2xl hover:scale-110 transition ${isLogbuchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+                        className={`fixed bottom-8 right-8 z-40 bg-slate-900 dark:bg-white text-white dark:text-black p-4 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:scale-110 active:scale-95 transition-transform ${isLogbuchOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                        title="Labor Logbuch öffnen"
                     >
                         <IconBook />
                     </button>
 
-                    {/* LOGBUCH PANEL */}
-                    <div className={`fixed inset-y-0 right-0 w-96 glass-panel border-l border-white/10 shadow-2xl z-50 transform transition-transform duration-300 flex flex-col bg-white/90 dark:bg-black/80 backdrop-blur-3xl ${isLogbuchOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                        <div className="p-6 border-b border-white/10 flex justify-between items-center">
-                            <h3 className="text-xl font-bold flex items-center gap-2"><IconBook /> Labor Logbuch</h3>
-                            <button onClick={() => setIsLogbuchOpen(false)}><IconX /></button>
+                    {/* GLOBAL LOGBUCH PANEL */}
+                    <div className={`fixed inset-y-0 right-0 w-96 glass-panel border-l border-white/20 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${isLogbuchOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                        <div className="flex items-center justify-between p-6 border-b border-white/10">
+                            <h3 className="text-xl font-bold flex items-center gap-2">
+                                <IconBook /> Labor Logbuch
+                            </h3>
+                            <button onClick={() => setIsLogbuchOpen(false)} className="p-2 hover:bg-white/10 rounded-lg transition">
+                                <IconX />
+                            </button>
                         </div>
                         <div className="flex-1 p-6 flex flex-col">
-                            <div className="mb-4 flex gap-2">
-                                <button 
-                                    onClick={startDictation}
-                                    className={`flex-1 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${isRecording ? 'bg-red-500 text-white recording-pulse' : 'bg-cyanAccent text-black hover:bg-cyanAccent/80'}`}
-                                >
-                                    <IconMic /> {isRecording ? 'Höre zu...' : 'Diktieren'}
-                                </button>
-                                <button 
-                                    onClick={() => setGlobalNotes('')}
-                                    className="p-3 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition"
-                                    title="Alles löschen"
-                                >
-                                    <IconTrash />
-                                </button>
-                            </div>
+                            <p className="text-sm text-slate-600 dark:text-white/50 mb-4">
+                                Dein globaler Notizzettel. Projektunabhängig. Ideal für PR Kontakte, spontane Ideen oder to do Listen. Speichert automatisch.
+                            </p>
                             <textarea 
                                 value={globalNotes}
                                 onChange={(e) => setGlobalNotes(e.target.value)}
-                                className="flex-1 w-full bg-white/50 dark:bg-black/30 border border-white/10 rounded-xl p-4 text-sm outline-none focus:border-brandOrange resize-none leading-relaxed"
-                                placeholder="Tippe hier oder nutze die Diktierfunktion..."
+                                className="flex-1 w-full bg-white/50 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/30 outline-none focus:border-brandOrange shadow-inner resize-none leading-relaxed"
+                                placeholder="Notizen hier eintragen..."
                             />
                         </div>
                     </div>
 
-                    {/* MODALS (Simplified for speed) */}
+                    {/* MODALS */}
+                    
+                    {/* Create Project Modal */}
                     {showNewProjectModal && (
-                        <div className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
-                            <div className="glass-panel p-8 max-w-sm w-full rounded-3xl animate-slide-in">
-                                <h3 className="text-xl font-bold mb-4">Projekt erstellen</h3>
-                                <input value={newProjectTitle} onChange={e => setNewProjectTitle(e.target.value)} placeholder="Produktname" className="w-full bg-black/30 p-3 rounded-xl mb-4 border border-white/10" />
-                                <select value={newProjectCategory} onChange={e => setNewProjectCategory(e.target.value)} className="w-full bg-black/30 p-3 rounded-xl mb-6 border border-white/10">
-                                    <option value="saugroboter">Saugroboter</option>
-                                    <option value="technik">Technik generell</option>
-                                </select>
-                                <div className="flex gap-3">
-                                    <button onClick={() => setShowNewProjectModal(false)} className="flex-1 py-3">Abbruch</button>
-                                    <button onClick={() => {
-                                        const newProj = { id: generateId(), title: newProjectTitle, category: newProjectCategory, status: 'draft', timeSpent: 0, createdAt: new Date().toISOString(), checklist: WORKFLOWS[newProjectCategory].checklist.map(c => ({...c, items: c.items.map(i => ({...i, id: generateId(), done: false}))})), shotlist: WORKFLOWS[newProjectCategory].shotlist.map(s => ({...s, items: s.items.map(i => ({id: generateId(), text: i, done: false}))})), scores: {...WORKFLOWS[newProjectCategory].scores}, data: {pros: [], cons: [], conditions: 'Firmware: \nTestdauer: '}, comparison: {specs: []}};
-                                        setProjects([...projects, newProj]);
-                                        setCurrentProjectId(newProj.id);
-                                        setShowNewProjectModal(false);
-                                    }} className="flex-1 py-3 bg-brandOrange rounded-xl font-bold">Erstellen</button>
+                        <div className="fixed inset-0 bg-slate-900/50 dark:bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4">
+                            <div className="glass-panel !bg-white/80 dark:!bg-black/50 rounded-3xl p-8 max-w-md w-full shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/50 dark:border-white/20 animate-slide-in">
+                                <h3 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-brandOrange to-purpleAccent">Neues Projekt anlegen</h3>
+                                <div className="space-y-6 mb-8">
+                                    <div>
+                                        <label className="block text-xs font-bold mb-2 text-slate-500 dark:text-white/50 uppercase tracking-widest">Produktname</label>
+                                        <input 
+                                            value={newProjectTitle}
+                                            onChange={(e) => setNewProjectTitle(e.target.value)}
+                                            autoFocus
+                                            className="w-full bg-white/50 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 outline-none focus:border-brandOrange text-slate-900 dark:text-white text-lg shadow-inner"
+                                            placeholder="z.B. Dreame L10s Ultra Gen 3"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-bold mb-2 text-slate-500 dark:text-white/50 uppercase tracking-widest">Kategorie</label>
+                                        <select 
+                                            value={isCreatingCategory ? 'NEW' : newProjectCategory}
+                                            onChange={(e) => {
+                                                if (e.target.value === 'NEW') {
+                                                    setIsCreatingCategory(true);
+                                                    setNewProjectCategory('NEW');
+                                                } else {
+                                                    setIsCreatingCategory(false);
+                                                    setNewProjectCategory(e.target.value);
+                                                }
+                                            }}
+                                            className="w-full bg-white/50 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 outline-none focus:border-brandOrange text-slate-900 dark:text-white text-lg shadow-inner appearance-none cursor-pointer"
+                                        >
+                                            {categories.map(c => (
+                                                <option key={c.id} value={c.id} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">{c.name}</option>
+                                            ))}
+                                            <option value="NEW" className="bg-white dark:bg-slate-900 font-bold text-brandOrange">+ Neue Kategorie anlegen...</option>
+                                        </select>
+                                    </div>
+                                    
+                                    {isCreatingCategory && (
+                                        <div className="animate-[fade-in_0.3s_ease-out]">
+                                            <label className="block text-xs font-bold mb-2 text-brandOrange uppercase tracking-widest">Name der neuen Kategorie</label>
+                                            <input 
+                                                value={newCustomCategory}
+                                                onChange={(e) => setNewCustomCategory(e.target.value)}
+                                                className="w-full bg-brandOrange/5 border border-brandOrange/30 rounded-xl p-4 outline-none focus:border-brandOrange text-slate-900 dark:text-white text-lg shadow-inner"
+                                                placeholder="z.B. E-Scooter"
+                                            />
+                                            <p className="text-xs text-slate-500 dark:text-white/40 mt-2">Die Kategorie wird gespeichert und erhält eine Standard Testvorlage.</p>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="flex justify-end gap-4">
+                                    <button onClick={() => {setShowNewProjectModal(false); setIsCreatingCategory(false);}} className="px-6 py-3 rounded-xl hover:bg-slate-200/50 dark:hover:bg-white/10 transition text-sm font-bold text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white">Abbrechen</button>
+                                    <button onClick={handleCreateProject} className="bg-slate-900 dark:bg-white text-white dark:text-black px-8 py-3 rounded-xl font-black shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,123,0,0.5)] transition transform hover:scale-105 active:scale-95">Erstellen</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Delete Confirm Modal */}
+                    {projectToDelete && (
+                        <div className="fixed inset-0 bg-slate-900/50 dark:bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4">
+                            <div className="glass-panel !bg-white/90 dark:!bg-black/50 rounded-3xl p-8 max-w-sm w-full shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(0,0,0,0.8)] text-center border border-red-500/30 animate-slide-in">
+                                <div className="w-16 h-16 bg-red-100 dark:bg-red-500/20 text-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(239,68,68,0.2)] dark:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                                    <IconTrash />
+                                </div>
+                                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">Projekt wirklich löschen?</h3>
+                                <p className="text-sm text-slate-600 dark:text-white/50 mb-8">Das kann nicht rückgängig gemacht werden. Alle Daten und Notizen gehen verloren.</p>
+                                <div className="flex justify-center gap-4">
+                                    <button onClick={() => setProjectToDelete(null)} className="px-6 py-3 rounded-xl hover:bg-slate-200/50 dark:hover:bg-white/10 transition text-sm font-bold text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white">Abbrechen</button>
+                                    <button onClick={confirmDeleteProject} className="bg-red-500 hover:bg-red-600 dark:hover:bg-red-400 text-white px-8 py-3 rounded-xl font-black shadow-[0_0_20px_rgba(239,68,68,0.4)] transition transform hover:scale-105 active:scale-95">Ja, löschen</button>
                                 </div>
                             </div>
                         </div>
@@ -553,13 +1710,6 @@
                 </div>
             );
         };
-
-        const BrandLogo = () => (
-            <div className="flex items-center gap-2">
-                <div className="text-brandOrange font-black text-xl">TTV</div>
-                <div className="font-bold text-xs uppercase tracking-tighter leading-none">Hub Pro</div>
-            </div>
-        );
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
