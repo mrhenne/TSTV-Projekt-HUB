@@ -563,13 +563,25 @@ Wenn du Werte nicht genau kennst, nutze realistische Schätzungen oder schreibe 
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             contents: [{ parts: [{ text: prompt }] }],
-                            systemInstruction: { parts: [{ text: "Du lieferst ausschließlich reines JSON zurück." }] }
+                            systemInstruction: { parts: [{ text: "Du lieferst ausschließlich reines JSON zurück." }] },
+                            generationConfig: { responseMimeType: "application/json" }
                         })
                     });
+                    
                     const data = await response.json();
+                    
+                    if (!response.ok || data.error) {
+                        throw new Error(data.error?.message || "Fehler bei der Kommunikation mit der API.");
+                    }
+
                     let generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
                     
-                    if (!generatedText) throw new Error("Keine Antwort von der KI erhalten.");
+                    if (!generatedText) {
+                        if (data.candidates?.[0]?.finishReason) {
+                            throw new Error(`Die KI hat die Antwort blockiert/abgebrochen (Grund: ${data.candidates[0].finishReason}).`);
+                        }
+                        throw new Error("Keine Antwort von der KI erhalten.");
+                    }
 
                     generatedText = generatedText.replace(/```json/g, '').replace(/```/g, '').trim();
                     const parsedData = JSON.parse(generatedText);
@@ -598,7 +610,7 @@ Wenn du Werte nicht genau kennst, nutze realistische Schätzungen oder schreibe 
 
                 } catch (error) {
                     console.error("AutoFill Error:", error);
-                    setAiError("Fehler beim Auto-Fill. Die KI hat kein sauberes JSON geliefert oder der Key ist falsch.");
+                    setAiError(`Fehler beim Auto-Fill: ${error.message}`);
                 } finally {
                     setIsAutoFilling(false);
                 }
@@ -668,17 +680,27 @@ ${checklistNotes}
                             systemInstruction: { parts: [{ text: "Du bist ein professioneller Technik Redakteur. Nutze einen direkten, lockeren Ton. Verwende NIEMALS Gedankenstriche." }] }
                         })
                     });
+                    
                     const data = await response.json();
+                    
+                    if (!response.ok || data.error) {
+                        throw new Error(data.error?.message || "Fehler bei der Kommunikation mit der API.");
+                    }
+
                     const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
                     
-                    if (generatedText) {
-                        updateCurrentProject({ aiDraft: generatedText });
-                    } else {
+                    if (!generatedText) {
+                        if (data.candidates?.[0]?.finishReason) {
+                            throw new Error(`Die KI hat die Antwort blockiert/abgebrochen (Grund: ${data.candidates[0].finishReason}).`);
+                        }
                         throw new Error("Konnte keinen Text generieren.");
                     }
+                    
+                    updateCurrentProject({ aiDraft: generatedText });
+                    
                 } catch (error) {
-                    console.error(error);
-                    setAiError("Fehler bei der KI Generierung. Überprüfe deinen API-Key und die Verbindung.");
+                    console.error("Generate Draft Error:", error);
+                    setAiError(`Fehler bei der KI Generierung: ${error.message}`);
                 } finally {
                     setIsGenerating(false);
                 }
@@ -1319,18 +1341,4 @@ ${checklistNotes}
                                 <p className="text-sm text-slate-600 dark:text-white/50 mb-8">Das kann nicht rückgängig gemacht werden. Alle Daten, Notizen und KI-Texte gehen verloren.</p>
                                 <div className="flex justify-center gap-4">
                                     <button onClick={() => setProjectToDelete(null)} className="px-6 py-3 rounded-xl hover:bg-slate-200/50 dark:hover:bg-white/10 transition text-sm font-bold text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white">Abbrechen</button>
-                                    <button onClick={confirmDeleteProject} className="bg-red-500 hover:bg-red-600 dark:hover:bg-red-400 text-white px-8 py-3 rounded-xl font-black shadow-[0_0_20px_rgba(239,68,68,0.4)] transition transform hover:scale-105 active:scale-95">Ja, löschen</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                </div>
-            );
-        };
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
-</html>
+                                    <button onClick={confirmDeleteProject} className="bg-red-500 hover:bg
