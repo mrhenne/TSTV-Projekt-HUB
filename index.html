@@ -24,10 +24,12 @@
                         slateGray: '#1E293B',
                         cyanAccent: '#00F0FF',
                         purpleAccent: '#B026FF',
+                        brandOrange: '#FF7B00',
                         lightBg: '#F8FAFC'
                     },
                     animation: {
                         'blob': 'blob 10s infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         blob: {
@@ -47,7 +49,7 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(100,100,100,0.3); border-radius: 10px; }
         .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); }
-        ::-webkit-scrollbar-thumb:hover { background: #00F0FF; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF7B00; }
         
         /* LIQUID GLASS DESIGN - LIGHT & DARK */
         .glass-panel {
@@ -69,13 +71,13 @@
         }
         
         .glow-focus:focus {
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-            border-color: #00F0FF;
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.3);
+            border-color: #FF7B00;
             outline: none;
             background: rgba(255,255,255,0.5);
         }
         .dark .glow-focus:focus {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
         }
 
         .dragging {
@@ -92,19 +94,19 @@
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             z-index: -1;
-            background-color: #E2E8F0; /* Light Mode base */
+            background-color: #E2E8F0;
             overflow: hidden;
             transition: background-color 0.3s;
         }
         .dark .bg-mesh {
-            background-color: #050A15; /* Dark Mode base */
+            background-color: #050A15;
         }
         .bg-mesh::before, .bg-mesh::after {
             content: '';
             position: absolute;
             border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.3;
+            filter: blur(120px);
+            opacity: 0.2;
             animation: blob 15s infinite alternate;
         }
         .bg-mesh::before {
@@ -113,7 +115,7 @@
             top: -10vw; left: -10vw;
         }
         .bg-mesh::after {
-            background: #00F0FF;
+            background: #FF7B00;
             width: 40vw; height: 40vw;
             bottom: -5vw; right: -10vw;
             animation-delay: -5s;
@@ -122,9 +124,7 @@
 </head>
 <body class="text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-hidden">
     
-    <!-- Mesh Background -->
     <div class="bg-mesh"></div>
-
     <div id="root"></div>
 
     <script type="text/babel">
@@ -133,7 +133,7 @@
         // --- ICONS ---
         const IconSettings = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>;
         const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>;
-        const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>;
+        const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg>;
         const IconGrip = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-grab active:cursor-grabbing text-slate-400"><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="19" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="19" r="1"></circle></svg>;
         const IconList = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>;
         const IconData = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>;
@@ -144,6 +144,38 @@
         const IconCamera = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>;
         const IconSun = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>;
         const IconMoon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>;
+        const IconMagic = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path><path d="M5 6v4"></path><path d="M19 14v4"></path><path d="M10 2v2"></path><path d="M7 8H3"></path><path d="M21 16h-4"></path><path d="M11 3H9"></path></svg>;
+
+        // --- BRAND LOGO COMPONENT ---
+        const BrandLogo = () => (
+            <div className="flex items-center gap-2 select-none pointer-events-none">
+                <svg width="44" height="28" viewBox="0 0 100 60" fill="none" stroke="#FF7B00" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+                    {/* Drone body outline */}
+                    <path d="M 30 20 L 70 20 L 60 30 L 40 30 Z" fill="#FF7B00" />
+                    {/* Props arms */}
+                    <line x1="8" y1="14" x2="35" y2="14" />
+                    <line x1="65" y1="14" x2="92" y2="14" />
+                    {/* Props hubs vertical */}
+                    <line x1="20" y1="14" x2="20" y2="22" />
+                    <line x1="80" y1="14" x2="80" y2="22" />
+                    {/* Legs */}
+                    <path d="M 40 30 L 25 45 M 60 30 L 75 45" />
+                    <line x1="20" y1="45" x2="30" y2="45" />
+                    <line x1="70" y1="45" x2="80" y2="45" />
+                    {/* Camera Unit */}
+                    <rect x="38" y="36" width="24" height="18" rx="4" fill="none" />
+                    {/* Play Button inside camera */}
+                    <polygon points="46,40 56,45 46,50" fill="#FF7B00" stroke="none" />
+                </svg>
+                <div className="flex flex-col justify-center leading-none mt-1">
+                    <span className="text-brandOrange font-black text-[11px] tracking-widest uppercase" style={{ letterSpacing: '0.15em' }}>Test</span>
+                    <div className="flex items-center gap-1.5 -mt-0.5">
+                        <span className="text-slate-900 dark:text-white font-black text-xl tracking-tight leading-none">SIEGER</span>
+                        <span className="bg-brandOrange text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md leading-none">TV</span>
+                    </div>
+                </div>
+            </div>
+        );
 
         // --- DYNAMIC CONFIG & TEMPLATES ---
         const INITIAL_CATEGORIES = [
@@ -151,6 +183,12 @@
             { id: 'rasenmaehroboter', name: 'Rasenmähroboter' },
             { id: 'technik', name: 'Technik generell' }
         ];
+
+        const DEFAULT_SPECS_TEMPLATES = {
+            saugroboter: ['Saugkraft (Pa)', 'Navigationstechnik', 'Hinderniserkennung (Kamera/Laser)', 'Wischsystem (Rotierend/Vibrierend)', 'Station (Absaugung/Wasser/Trocknung)', 'Akkukapazität (mAh)', 'Bauhöhe (cm)', 'Preis (UVP)'],
+            rasenmaehroboter: ['Max. Flächenleistung (m²)', 'Navigation (RTK/Kabel/Kamera)', 'Max. Steigung (%)', 'Schnitthöhe (mm)', 'Schnittbreite (cm)', 'Diebstahlschutz', 'Regensensor', 'Preis (UVP)'],
+            technik: ['Prozessor / SoC', 'Arbeitsspeicher (RAM)', 'Interner Speicher', 'Display (Typ, Hz, Auflösung)', 'Akku / Ladeleistung', 'Gewicht (g)', 'Besonderheit 1', 'Preis (UVP)']
+        };
 
         const WORKFLOWS = {
             saugroboter: {
@@ -267,7 +305,10 @@
             const [activeTab, setActiveTab] = useState('checklist');
             
             const [isGenerating, setIsGenerating] = useState(false);
+            const [isAutoFilling, setIsAutoFilling] = useState(false);
             const [aiError, setAiError] = useState('');
+            const [apiKey, setApiKey] = useState(() => localStorage.getItem('ttv_apikey') || '');
+            const [showSettingsModal, setShowSettingsModal] = useState(false);
 
             // UI Modal States
             const [showNewProjectModal, setShowNewProjectModal] = useState(false);
@@ -286,6 +327,8 @@
             const [newSpecKey, setNewSpecKey] = useState('');
             const [newShotlistText, setNewShotlistText] = useState('');
             const [expandedChecklistId, setExpandedChecklistId] = useState(null);
+            const [newProText, setNewProText] = useState('');
+            const [newConText, setNewConText] = useState('');
 
             // Apply Theme
             useEffect(() => {
@@ -301,6 +344,27 @@
             }, [categories, projects]);
 
             const currentProject = projects.find(p => p.id === currentProjectId);
+
+            // Data Migration for older projects (pros/cons from string to array)
+            useEffect(() => {
+                if (currentProject && typeof currentProject.data.pros === 'string') {
+                    const migratedProjects = projects.map(p => {
+                        if (typeof p.data.pros === 'string') {
+                            return {
+                                ...p,
+                                data: {
+                                    ...p.data,
+                                    pros: p.data.pros ? p.data.pros.split('\n').filter(Boolean) : [],
+                                    cons: p.data.cons ? p.data.cons.split('\n').filter(Boolean) : [],
+                                    conditions: p.data.conditions || 'Standard Laborumgebung'
+                                }
+                            }
+                        }
+                        return p;
+                    });
+                    setProjects(migratedProjects);
+                }
+            }, [currentProjectId]);
 
             // Auto-calculate Score
             const calculatedScore = useMemo(() => {
@@ -325,8 +389,8 @@
                     }
                 }
 
-                // Load templates based on category (fallback to 'technik' if custom)
                 const workflowTemplate = WORKFLOWS[catId] || WORKFLOWS.technik;
+                const specKeys = DEFAULT_SPECS_TEMPLATES[catId] || DEFAULT_SPECS_TEMPLATES.technik;
 
                 const newProject = {
                     id: generateId(),
@@ -336,15 +400,12 @@
                     checklist: workflowTemplate.checklist.map(text => ({ id: generateId(), text, done: false, note: '' })),
                     shotlist: workflowTemplate.shotlist.map(text => ({ id: generateId(), text, done: false })),
                     scores: { ...workflowTemplate.scores },
-                    data: { pros: '', cons: '', notes: '' },
+                    data: { pros: [], cons: [], notes: '', conditions: 'Firmware: \nTestdauer: \nBodenbeläge: Hartboden, Teppich' },
                     comparison: {
                         model: newProjectTitle,
                         predecessor: '',
                         competitor: '',
-                        specs: [
-                            { id: generateId(), key: 'Preis (UVP)', current: '', pred: '', comp: '' },
-                            { id: generateId(), key: 'Besonderheit', current: '', pred: '', comp: '' }
-                        ]
+                        specs: specKeys.map(key => ({ id: generateId(), key, current: '', pred: '', comp: '' }))
                     },
                     aiDraft: ''
                 };
@@ -420,6 +481,19 @@
                 updateCurrentProject({ [listKey]: list.filter(item => item.id !== id) });
             };
 
+            // Array Manipulations for Pros/Cons
+            const addProCon = (type, val, setValFn) => {
+                if (val.trim()) {
+                    updateCurrentProject({ data: { ...currentProject.data, [type]: [...currentProject.data[type], val.trim()] } });
+                    setValFn('');
+                }
+            };
+            const removeProCon = (type, index) => {
+                const arr = [...currentProject.data[type]];
+                arr.splice(index, 1);
+                updateCurrentProject({ data: { ...currentProject.data, [type]: arr } });
+            };
+
             // Compare Logic
             const updateSpec = (specId, field, value) => {
                 const newSpecs = currentProject.comparison.specs.map(s => 
@@ -436,13 +510,98 @@
                 }
             };
 
-            // AI Generation
+            // AI Features
+            const runAutoFillData = async () => {
+                if (!apiKey) {
+                    setShowSettingsModal(true);
+                    return;
+                }
+                setIsAutoFilling(true);
+                setAiError('');
+
+                const catName = categories.find(c => c.id === currentProject.category)?.name || currentProject.category;
+                const specKeysStr = currentProject.comparison.specs.map(s => s.key).join(", ");
+
+                const prompt = `Du bist ein Tech-Experte. Fülle die Daten für das Produkt "${currentProject.title}" (Kategorie: ${catName}) aus.
+Recherchiere die echten Spezifikationen so gut du kannst.
+Antworte AUSSCHLIESSLICH mit einem validen JSON-Objekt. Keine Markdown-Blöcke (\`\`\`json), kein Text davor oder danach.
+
+Struktur des JSON:
+{
+  "predecessor": "Name des direkten Vorgängers (z.B. L10s Ultra)",
+  "competitor": "Name des stärksten direkten Konkurrenten einer anderen Marke",
+  "pros": ["Stärke 1", "Stärke 2", "Stärke 3"],
+  "cons": ["Schwäche 1", "Schwäche 2"],
+  "specs": {
+    "SCHLÜSSEL_AUS_DER_LISTE": {
+      "current": "Wert für ${currentProject.title}",
+      "pred": "Wert für Vorgänger",
+      "comp": "Wert für Konkurrent"
+    }
+  }
+}
+Verwende exakt diese Schlüssel für das specs-Objekt: ${specKeysStr}. 
+Wenn du Werte nicht genau kennst, nutze realistische Schätzungen oder schreibe "k.A.".`;
+
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            systemInstruction: { parts: [{ text: "Du lieferst ausschließlich reines JSON zurück." }] }
+                        })
+                    });
+                    const data = await response.json();
+                    let generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (!generatedText) throw new Error("Keine Antwort von der KI erhalten.");
+
+                    // Clean up potential markdown blocks from Gemini
+                    generatedText = generatedText.replace(/```json/g, '').replace(/```/g, '').trim();
+                    const parsedData = JSON.parse(generatedText);
+
+                    // Update State
+                    const updatedSpecs = currentProject.comparison.specs.map(spec => {
+                        const aiSpec = parsedData.specs[spec.key];
+                        if (aiSpec) {
+                            return { ...spec, current: aiSpec.current || '', pred: aiSpec.pred || '', comp: aiSpec.comp || '' };
+                        }
+                        return spec;
+                    });
+
+                    updateCurrentProject({
+                        comparison: {
+                            ...currentProject.comparison,
+                            predecessor: parsedData.predecessor || currentProject.comparison.predecessor,
+                            competitor: parsedData.competitor || currentProject.comparison.competitor,
+                            specs: updatedSpecs
+                        },
+                        data: {
+                            ...currentProject.data,
+                            pros: parsedData.pros || currentProject.data.pros,
+                            cons: parsedData.cons || currentProject.data.cons
+                        }
+                    });
+
+                } catch (error) {
+                    console.error("AutoFill Error:", error);
+                    setAiError("Fehler beim Auto-Fill. Die KI hat kein sauberes JSON geliefert oder der Key ist falsch.");
+                } finally {
+                    setIsAutoFilling(false);
+                }
+            };
+
             const generateDraft = async () => {
+                if (!apiKey) {
+                    setShowSettingsModal(true);
+                    return;
+                }
                 setIsGenerating(true);
                 setAiError('');
-                const apiKey = ""; 
                 
                 const checklistNotes = (currentProject.checklist || []).filter(c => c.done).map(c => `- ${c.text}${c.note ? ` (Notiz: ${c.note})` : ''}`).join('\n');
+                const proConsText = `Stärken: ${currentProject.data.pros.join(', ')}\nSchwächen: ${currentProject.data.cons.join(', ')}`;
 
                 const promptText = `Du bist Henne, ein professioneller, direkter Technik Redakteur für Testsieger TV. 
 Schreibe ein detailliertes, flüssig lesbares Review zum Projekt "${currentProject.title}" (Kategorie: ${categories.find(c => c.id === currentProject.category)?.name || currentProject.category}).
@@ -451,8 +610,11 @@ Hier ist meine errechnete Gesamtnote: ${calculatedScore} / 10.
 Hier sind meine detaillierten Bewertungen:
 ${JSON.stringify(currentProject.scores, null, 2)}
 
-Hier sind meine Test Notizen und Stärken/Schwächen:
-${JSON.stringify(currentProject.data, null, 2)}
+Testbedingungen:
+${currentProject.data.conditions}
+
+Stärken und Schwächen:
+${proConsText}
 
 Hier ist meine abgearbeitete Checkliste mit Detail-Notizen. Baue diese Aspekte organisch in den Text ein:
 ${checklistNotes}
@@ -478,7 +640,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             contents: [{ parts: [{ text: promptText }] }],
-                            systemInstruction: { parts: [{ text: "Du bist ein professioneller Technik Redakteur. Nutze einen direkten, lockeren Ton." }] }
+                            systemInstruction: { parts: [{ text: "Du bist ein professioneller Technik Redakteur. Nutze einen direkten, lockeren Ton. Verwende niemals Gedankenstriche." }] }
                         })
                     });
                     const data = await response.json();
@@ -491,7 +653,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                     }
                 } catch (error) {
                     console.error(error);
-                    setAiError("Fehler bei der KI Generierung. Bitte versuche es später nochmal.");
+                    setAiError("Fehler bei der KI Generierung. Überprüfe deinen API-Key und die Verbindung.");
                 } finally {
                     setIsGenerating(false);
                 }
@@ -501,23 +663,23 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                 <div className="flex h-screen overflow-hidden text-slate-800 dark:text-white transition-colors duration-300">
                     
                     {/* SIDEBAR - Project Manager */}
-                    <aside className="w-72 glass-panel border-r border-slate-300/50 dark:border-white/10 flex flex-col shrink-0 z-20 shadow-2xl">
+                    <aside className="w-[300px] glass-panel border-r border-slate-300/50 dark:border-white/10 flex flex-col shrink-0 z-20 shadow-2xl">
                         <div className="p-6 border-b border-slate-300/50 dark:border-white/10 flex justify-between items-center bg-white/20 dark:bg-white/5">
-                            <h1 className="font-bold text-xl tracking-tight flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyanAccent to-purpleAccent flex items-center justify-center text-white font-black text-sm shadow-[0_0_15px_rgba(0,240,255,0.5)]">
-                                    TV
-                                </div>
-                                Pro Hub
-                            </h1>
-                            <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-white/10 transition">
-                                {theme === 'dark' ? <IconSun /> : <IconMoon />}
-                            </button>
+                            <BrandLogo />
+                            <div className="flex gap-2">
+                                <button onClick={() => setShowSettingsModal(true)} className="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-white/10 transition">
+                                    <IconSettings />
+                                </button>
+                                <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-white/10 transition">
+                                    {theme === 'dark' ? <IconSun /> : <IconMoon />}
+                                </button>
+                            </div>
                         </div>
                         
                         <div className="p-5">
                             <button 
                                 onClick={() => { setIsCreatingCategory(false); setShowNewProjectModal(true); }}
-                                className="w-full bg-white/50 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 border border-slate-300/50 dark:border-white/20 text-slate-800 dark:text-white py-2.5 rounded-xl text-sm font-medium flex justify-center items-center gap-2 transition-all shadow-[0_4px_15px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_15px_rgba(0,0,0,0.2)] hover:shadow-[0_4px_25px_rgba(0,240,255,0.3)] backdrop-blur-sm"
+                                className="w-full bg-white/50 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 border border-slate-300/50 dark:border-brandOrange/50 text-slate-800 dark:text-white py-3 rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all shadow-[0_4px_15px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_15px_rgba(255,123,0,0.15)] hover:shadow-[0_4px_25px_rgba(255,123,0,0.3)] backdrop-blur-sm"
                             >
                                 <IconPlus /> Neues Projekt
                             </button>
@@ -529,7 +691,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                 <div 
                                     key={p.id} 
                                     onClick={() => setCurrentProjectId(p.id)}
-                                    className={`group flex items-center justify-between p-3 mb-2 rounded-xl cursor-pointer transition-all duration-300 ${currentProjectId === p.id ? 'bg-cyanAccent/10 dark:bg-cyanAccent/20 border border-cyanAccent/50 shadow-[0_0_20px_rgba(0,240,255,0.15)] text-slate-900 dark:text-white' : 'hover:bg-white/40 dark:hover:bg-white/10 border border-transparent text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white'}`}
+                                    className={`group flex items-center justify-between p-3 mb-2 rounded-xl cursor-pointer transition-all duration-300 ${currentProjectId === p.id ? 'bg-brandOrange/10 dark:bg-brandOrange/20 border border-brandOrange/50 shadow-[0_0_20px_rgba(255,123,0,0.15)] text-slate-900 dark:text-white' : 'hover:bg-white/40 dark:hover:bg-white/10 border border-transparent text-slate-600 dark:text-white/70 hover:text-slate-900 dark:hover:text-white'}`}
                                 >
                                     <div className="truncate text-sm font-medium">{p.title}</div>
                                     <button 
@@ -553,7 +715,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                 {/* Project Header & Tabs */}
                                 <header className="h-20 border-b border-slate-300/50 dark:border-white/10 px-8 flex items-center justify-between shrink-0 glass-panel !border-l-0 !border-t-0 !border-r-0 !rounded-none z-20">
                                     
-                                    {/* Editable Title */}
+                                    {/* Editable Title & Magic Wand */}
                                     <div className="flex items-center gap-4">
                                         {isEditingTitle ? (
                                             <input 
@@ -562,17 +724,27 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                 onChange={(e) => setEditTitleValue(e.target.value)}
                                                 onBlur={handleTitleSave}
                                                 onKeyDown={(e) => e.key === 'Enter' && handleTitleSave()}
-                                                className="bg-white/50 dark:bg-white/10 border border-cyanAccent rounded-lg px-3 py-1.5 text-2xl font-bold text-slate-900 dark:text-white outline-none w-64 shadow-[0_0_15px_rgba(0,240,255,0.2)]"
+                                                className="bg-white/50 dark:bg-white/10 border border-brandOrange rounded-lg px-3 py-1.5 text-2xl font-bold text-slate-900 dark:text-white outline-none w-64 shadow-[0_0_15px_rgba(255,123,0,0.2)]"
                                             />
                                         ) : (
                                             <h2 className="text-2xl font-bold flex items-center gap-3 cursor-pointer group" onClick={() => { setEditTitleValue(currentProject.title); setIsEditingTitle(true); }}>
                                                 {currentProject.title}
-                                                <span className="opacity-0 group-hover:opacity-50 text-cyanAccent transition"><IconEdit /></span>
+                                                <span className="opacity-0 group-hover:opacity-50 text-brandOrange transition"><IconEdit /></span>
                                             </h2>
                                         )}
-                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/50 dark:bg-white/10 border border-slate-300 dark:border-white/10 uppercase tracking-widest text-cyanAccent shadow-[inset_0_0_10px_rgba(255,255,255,0.05)]">
+                                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/50 dark:bg-white/10 border border-slate-300 dark:border-white/10 uppercase tracking-widest text-brandOrange shadow-[inset_0_0_10px_rgba(255,255,255,0.05)]">
                                             {categories.find(c => c.id === currentProject.category)?.name || currentProject.category}
                                         </span>
+
+                                        {/* AUTO-FILL BUTTON */}
+                                        <button 
+                                            onClick={runAutoFillData}
+                                            disabled={isAutoFilling}
+                                            className="ml-4 flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-brandOrange to-purpleAccent text-white px-4 py-1.5 rounded-full shadow-[0_0_15px_rgba(255,123,0,0.4)] hover:shadow-[0_0_25px_rgba(255,123,0,0.6)] transition-all disabled:opacity-50"
+                                            title="KI lädt Vorgänger, Konkurrenten und Specs automatisch"
+                                        >
+                                            <IconMagic /> {isAutoFilling ? 'Recherchiere...' : 'KI Auto-Fill'}
+                                        </button>
                                     </div>
                                     
                                     {/* Glass Tabs */}
@@ -589,7 +761,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                         <button onClick={() => setActiveTab('compare')} className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'compare' ? 'bg-white/80 dark:bg-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.3)] border border-white/50 dark:border-white/20' : 'text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/5'}`}>
                                             <IconCompare /> Vergleich
                                         </button>
-                                        <button onClick={() => setActiveTab('ai')} className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'ai' ? 'bg-gradient-to-r from-cyanAccent/80 to-purpleAccent/80 shadow-[0_4px_20px_rgba(0,240,255,0.4)] border border-cyanAccent/50 text-white' : 'text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/5'}`}>
+                                        <button onClick={() => setActiveTab('ai')} className={`px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${activeTab === 'ai' ? 'bg-gradient-to-r from-brandOrange/90 to-purpleAccent/90 shadow-[0_4px_20px_rgba(255,123,0,0.4)] border border-brandOrange/50 text-white' : 'text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/5'}`}>
                                             <IconZap /> KI Editor
                                         </button>
                                     </div>
@@ -599,6 +771,12 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                 <div className="flex-1 overflow-auto p-8 relative z-10">
                                     <div className="max-w-5xl mx-auto">
                                         
+                                        {aiError && (
+                                            <div className="mb-6 bg-red-100 dark:bg-red-900/40 p-4 rounded-xl border border-red-500/30 text-sm text-red-600 dark:text-red-200">
+                                                {aiError}
+                                            </div>
+                                        )}
+
                                         {/* TAB: CHECKLIST */}
                                         {activeTab === 'checklist' && (
                                             <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl relative overflow-hidden">
@@ -664,7 +842,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                         placeholder="Neuen Testpunkt eingeben..."
                                                         className="flex-1 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/20 rounded-xl p-4 text-sm outline-none focus:border-cyanAccent transition-all shadow-inner"
                                                     />
-                                                    <button onClick={() => addListItem('checklist', newChecklistText, setNewChecklistText)} className="bg-white/50 dark:bg-white/10 hover:bg-cyanAccent/20 border border-slate-300/50 dark:border-white/20 hover:border-cyanAccent/50 text-slate-800 dark:text-white px-6 py-4 rounded-xl text-sm font-bold flex items-center gap-2 transition-all">
+                                                    <button onClick={() => addListItem('checklist', newChecklistText, setNewChecklistText)} className="bg-white/50 dark:bg-white/10 hover:bg-brandOrange/20 border border-slate-300/50 dark:border-white/20 hover:border-brandOrange/50 text-slate-800 dark:text-white px-6 py-4 rounded-xl text-sm font-bold flex items-center gap-2 transition-all">
                                                         <IconPlus /> Hinzufügen
                                                     </button>
                                                 </div>
@@ -729,15 +907,15 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                 
                                                 {/* Smart Scorecard Box */}
                                                 <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl relative overflow-hidden">
-                                                    <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-purpleAccent/10 dark:bg-purpleAccent/20 blur-[80px] rounded-full pointer-events-none"></div>
+                                                    <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-brandOrange/10 dark:bg-brandOrange/20 blur-[80px] rounded-full pointer-events-none"></div>
                                                     
                                                     <div className="flex justify-between items-start mb-8">
                                                         <div>
                                                             <h3 className="text-xl font-bold mb-1">Smart Scorecard</h3>
                                                             <p className="text-sm text-slate-600 dark:text-white/50">Bewerte die Kriterien per Slider. Die Gesamtnote wird dynamisch berechnet.</p>
                                                         </div>
-                                                        <div className="bg-white/80 dark:bg-black/40 border border-cyanAccent/50 dark:border-cyanAccent/30 px-6 py-3 rounded-2xl flex flex-col items-center shadow-[0_0_30px_rgba(0,240,255,0.15)]">
-                                                            <span className="text-xs font-bold text-cyanAccent uppercase tracking-widest mb-1">Gesamtnote</span>
+                                                        <div className="bg-white/80 dark:bg-black/40 border border-brandOrange/50 dark:border-brandOrange/30 px-6 py-3 rounded-2xl flex flex-col items-center shadow-[0_0_30px_rgba(255,123,0,0.15)]">
+                                                            <span className="text-xs font-bold text-brandOrange uppercase tracking-widest mb-1">Gesamtnote</span>
                                                             <span className="text-4xl font-black text-slate-800 dark:text-white">{calculatedScore} <span className="text-lg text-slate-400 dark:text-white/40">/10</span></span>
                                                         </div>
                                                     </div>
@@ -747,38 +925,79 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                             <div key={key} className="bg-white/40 dark:bg-white/5 p-4 rounded-xl border border-slate-300/50 dark:border-white/10">
                                                                 <div className="flex justify-between items-center mb-3">
                                                                     <label className="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-white/80">{key.replace('_', ' ')}</label>
-                                                                    <span className="bg-slate-200 dark:bg-black/50 text-cyanAccent font-mono px-2 py-1 rounded text-sm">{val} / 10</span>
+                                                                    <span className="bg-slate-200 dark:bg-black/50 text-brandOrange font-mono px-2 py-1 rounded text-sm">{val} / 10</span>
                                                                 </div>
                                                                 <input 
                                                                     type="range" min="1" max="10" step="1" value={val}
                                                                     onChange={(e) => updateCurrentProject({ scores: { ...currentProject.scores, [key]: parseInt(e.target.value) } })}
-                                                                    className="w-full h-2 bg-slate-300 dark:bg-black/50 rounded-lg appearance-none cursor-pointer accent-cyanAccent"
+                                                                    className="w-full h-2 bg-slate-300 dark:bg-black/50 rounded-lg appearance-none cursor-pointer accent-brandOrange"
                                                                 />
                                                             </div>
                                                         ))}
                                                     </div>
                                                 </div>
 
-                                                {/* Text Notes Box */}
+                                                {/* DYNAMIC FACT-SHEET (Replaces old static text areas) */}
                                                 <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl space-y-8">
-                                                    <div className="grid grid-cols-2 gap-8">
+                                                    
+                                                    {/* Test Conditions */}
+                                                    <div>
+                                                        <h3 className="text-lg font-bold mb-4 uppercase tracking-widest text-slate-700 dark:text-white/80">Test-Bedingungen (Fact-Sheet)</h3>
+                                                        <textarea 
+                                                            value={currentProject.data.conditions}
+                                                            onChange={(e) => updateCurrentProject({ data: { ...currentProject.data, conditions: e.target.value }})}
+                                                            className="w-full h-24 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/20 outline-none focus:border-cyanAccent shadow-inner leading-relaxed"
+                                                            placeholder="Firmware Version, Testdauer, Bodenbeläge..."
+                                                        />
+                                                    </div>
+
+                                                    <div className="grid grid-cols-2 gap-8 pt-4 border-t border-slate-300/50 dark:border-white/10">
+                                                        {/* Pros List */}
                                                         <div>
                                                             <label className="block text-sm font-bold mb-3 uppercase tracking-widest text-green-600 dark:text-green-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-green-500"></div> Stärken (Pro)</label>
-                                                            <textarea 
-                                                                value={currentProject.data.pros}
-                                                                onChange={(e) => updateCurrentProject({ data: { ...currentProject.data, pros: e.target.value }})}
-                                                                className="w-full h-40 bg-white/60 dark:bg-black/30 border border-green-500/30 dark:border-green-400/20 rounded-xl p-4 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/20 outline-none focus:border-green-500 shadow-inner"
-                                                                placeholder="- Geniale Saugleistung&#10;- Leise Station"
-                                                            />
+                                                            <div className="space-y-2 mb-3">
+                                                                {(currentProject.data.pros || []).map((pro, idx) => (
+                                                                    <div key={idx} className="flex items-center gap-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-500/20 px-3 py-2 rounded-lg text-sm text-slate-800 dark:text-white/90">
+                                                                        <span className="flex-1">{pro}</span>
+                                                                        <button onClick={() => removeProCon('pros', idx)} className="text-slate-400 hover:text-red-500"><IconTrash /></button>
+                                                                    </div>
+                                                                ))}
+                                                                {currentProject.data.pros.length === 0 && <div className="text-sm text-slate-400 dark:text-white/30 italic">Noch keine Stärken erfasst.</div>}
+                                                            </div>
+                                                            <div className="flex gap-2">
+                                                                <input 
+                                                                    value={newProText}
+                                                                    onChange={(e) => setNewProText(e.target.value)}
+                                                                    onKeyDown={(e) => e.key === 'Enter' && addProCon('pros', newProText, setNewProText)}
+                                                                    className="flex-1 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 text-sm outline-none focus:border-green-500 shadow-inner"
+                                                                    placeholder="Neue Stärke..."
+                                                                />
+                                                                <button onClick={() => addProCon('pros', newProText, setNewProText)} className="bg-white/50 dark:bg-white/10 hover:bg-green-100 dark:hover:bg-green-500/20 px-3 py-2 rounded-lg text-slate-600 dark:text-white transition"><IconPlus /></button>
+                                                            </div>
                                                         </div>
+
+                                                        {/* Cons List */}
                                                         <div>
                                                             <label className="block text-sm font-bold mb-3 uppercase tracking-widest text-red-600 dark:text-red-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-red-500"></div> Schwächen (Contra)</label>
-                                                            <textarea 
-                                                                value={currentProject.data.cons}
-                                                                onChange={(e) => updateCurrentProject({ data: { ...currentProject.data, cons: e.target.value }})}
-                                                                className="w-full h-40 bg-white/60 dark:bg-black/30 border border-red-500/30 dark:border-red-400/20 rounded-xl p-4 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/20 outline-none focus:border-red-500 shadow-inner"
-                                                                placeholder="- App ist unübersichtlich&#10;- Zu teuer"
-                                                            />
+                                                            <div className="space-y-2 mb-3">
+                                                                {(currentProject.data.cons || []).map((con, idx) => (
+                                                                    <div key={idx} className="flex items-center gap-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/20 px-3 py-2 rounded-lg text-sm text-slate-800 dark:text-white/90">
+                                                                        <span className="flex-1">{con}</span>
+                                                                        <button onClick={() => removeProCon('cons', idx)} className="text-slate-400 hover:text-red-500"><IconTrash /></button>
+                                                                    </div>
+                                                                ))}
+                                                                {currentProject.data.cons.length === 0 && <div className="text-sm text-slate-400 dark:text-white/30 italic">Noch keine Schwächen erfasst.</div>}
+                                                            </div>
+                                                            <div className="flex gap-2">
+                                                                <input 
+                                                                    value={newConText}
+                                                                    onChange={(e) => setNewConText(e.target.value)}
+                                                                    onKeyDown={(e) => e.key === 'Enter' && addProCon('cons', newConText, setNewConText)}
+                                                                    className="flex-1 bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 text-sm outline-none focus:border-red-500 shadow-inner"
+                                                                    placeholder="Neue Schwäche..."
+                                                                />
+                                                                <button onClick={() => addProCon('cons', newConText, setNewConText)} className="bg-white/50 dark:bg-white/10 hover:bg-red-100 dark:hover:bg-red-500/20 px-3 py-2 rounded-lg text-slate-600 dark:text-white transition"><IconPlus /></button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -788,7 +1007,12 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                         {/* TAB: COMPARE */}
                                         {activeTab === 'compare' && (
                                             <div className="glass-panel p-8 rounded-3xl shadow-xl dark:shadow-2xl">
-                                                <h3 className="text-xl font-bold mb-8 text-slate-800 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-white/60">Automatischer Technik Vergleich</h3>
+                                                <div className="flex justify-between items-center mb-8">
+                                                    <h3 className="text-xl font-bold text-slate-800 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-white/60">Technik Vergleich</h3>
+                                                    <button onClick={runAutoFillData} disabled={isAutoFilling} className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white/50 dark:bg-white/10 hover:bg-brandOrange/20 dark:hover:bg-brandOrange/30 border border-brandOrange/30 text-brandOrange px-4 py-2 rounded-xl transition-all disabled:opacity-50">
+                                                        <IconMagic /> {isAutoFilling ? 'KI lädt...' : 'KI Auto-Fill starten'}
+                                                    </button>
+                                                </div>
                                                 
                                                 <div className="grid grid-cols-3 gap-6 mb-8 bg-white/40 dark:bg-white/5 p-6 rounded-2xl border border-slate-300/50 dark:border-white/10">
                                                     <div>
@@ -800,7 +1024,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                         <input 
                                                             value={currentProject.comparison.predecessor} 
                                                             onChange={(e) => updateCurrentProject({ comparison: { ...currentProject.comparison, predecessor: e.target.value }})}
-                                                            className="w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/20 rounded-xl p-3 text-sm outline-none focus:border-cyanAccent shadow-inner" 
+                                                            className="w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/20 rounded-xl p-3 text-sm outline-none focus:border-brandOrange shadow-inner" 
                                                             placeholder="z.B. Dreame L10s Ultra" 
                                                         />
                                                     </div>
@@ -809,7 +1033,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                         <input 
                                                             value={currentProject.comparison.competitor} 
                                                             onChange={(e) => updateCurrentProject({ comparison: { ...currentProject.comparison, competitor: e.target.value }})}
-                                                            className="w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/20 rounded-xl p-3 text-sm outline-none focus:border-cyanAccent shadow-inner" 
+                                                            className="w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/20 rounded-xl p-3 text-sm outline-none focus:border-brandOrange shadow-inner" 
                                                             placeholder="z.B. Roborock S8 Pro" 
                                                         />
                                                     </div>
@@ -819,8 +1043,8 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                     <table className="w-full text-sm text-left">
                                                         <thead className="text-xs uppercase bg-slate-200/50 dark:bg-white/5 text-slate-600 dark:text-white/60 font-bold tracking-widest">
                                                             <tr>
-                                                                <th className="px-6 py-4 w-1/4">Eigenschaft</th>
-                                                                <th className="px-6 py-4 w-1/4 text-cyanAccent">Aktuell</th>
+                                                                <th className="px-6 py-4 w-1/4">Spezifikation</th>
+                                                                <th className="px-6 py-4 w-1/4 text-brandOrange">Aktuell</th>
                                                                 <th className="px-6 py-4 w-1/4">Vorgänger</th>
                                                                 <th className="px-6 py-4 w-1/4">Konkurrent</th>
                                                             </tr>
@@ -831,9 +1055,9 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                                     <td className="px-6 py-3">
                                                                         <input value={spec.key} onChange={(e) => updateSpec(spec.id, 'key', e.target.value)} className="w-full bg-transparent border-none outline-none font-bold text-slate-700 dark:text-white/80" />
                                                                     </td>
-                                                                    <td className="px-6 py-3"><input value={spec.current} onChange={(e) => updateSpec(spec.id, 'current', e.target.value)} className="w-full bg-white/80 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:border-cyanAccent text-cyanAccent/90" placeholder="Wert..." /></td>
-                                                                    <td className="px-6 py-3"><input value={spec.pred} onChange={(e) => updateSpec(spec.id, 'pred', e.target.value)} className="w-full bg-white/80 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:border-cyanAccent" placeholder="Wert..." /></td>
-                                                                    <td className="px-6 py-3"><input value={spec.comp} onChange={(e) => updateSpec(spec.id, 'comp', e.target.value)} className="w-full bg-white/80 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:border-cyanAccent" placeholder="Wert..." /></td>
+                                                                    <td className="px-6 py-3"><input value={spec.current} onChange={(e) => updateSpec(spec.id, 'current', e.target.value)} className="w-full bg-white/80 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brandOrange text-brandOrange font-medium" placeholder="Wert..." /></td>
+                                                                    <td className="px-6 py-3"><input value={spec.pred} onChange={(e) => updateSpec(spec.id, 'pred', e.target.value)} className="w-full bg-white/80 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brandOrange" placeholder="Wert..." /></td>
+                                                                    <td className="px-6 py-3"><input value={spec.comp} onChange={(e) => updateSpec(spec.id, 'comp', e.target.value)} className="w-full bg-white/80 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brandOrange" placeholder="Wert..." /></td>
                                                                 </tr>
                                                             ))}
                                                         </tbody>
@@ -865,20 +1089,14 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                     <button 
                                                         onClick={generateDraft}
                                                         disabled={isGenerating}
-                                                        className="bg-gradient-to-r from-cyanAccent to-purpleAccent text-white px-8 py-3 rounded-xl font-bold shadow-[0_0_20px_rgba(176,38,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] transition-all disabled:opacity-50 flex items-center gap-2 transform hover:scale-105 active:scale-95"
+                                                        className="bg-gradient-to-r from-brandOrange to-purpleAccent text-white px-8 py-3 rounded-xl font-bold shadow-[0_0_20px_rgba(255,123,0,0.4)] hover:shadow-[0_0_30px_rgba(255,123,0,0.6)] transition-all disabled:opacity-50 flex items-center gap-2 transform hover:scale-105 active:scale-95"
                                                     >
                                                         {isGenerating ? 'Generiere magischen Text...' : 'Review schreiben lassen'}
                                                     </button>
                                                 </div>
                                                 
-                                                {aiError && (
-                                                    <div className="text-sm text-red-600 dark:text-red-200 mb-6 bg-red-100 dark:bg-red-900/40 p-4 rounded-xl border border-red-500/30 backdrop-blur-sm">
-                                                        {aiError}
-                                                    </div>
-                                                )}
-                                                
                                                 <textarea
-                                                    className="flex-1 w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/10 rounded-2xl p-6 resize-none outline-none focus:border-cyanAccent/50 shadow-inner text-slate-800 dark:text-white/90 leading-relaxed text-lg font-serif"
+                                                    className="flex-1 w-full bg-white/60 dark:bg-black/40 border border-slate-300/50 dark:border-white/10 rounded-2xl p-6 resize-none outline-none focus:border-brandOrange/50 shadow-inner text-slate-800 dark:text-white/90 leading-relaxed text-lg font-serif"
                                                     value={currentProject.aiDraft}
                                                     onChange={(e) => updateCurrentProject({ aiDraft: e.target.value })}
                                                     placeholder="Klicke auf 'Review schreiben lassen'. Dein Meisterwerk erscheint hier..."
@@ -891,28 +1109,61 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                             </>
                         ) : (
                             <div className="flex-1 flex flex-col items-center justify-center opacity-40 dark:opacity-30">
-                                <IconZap />
-                                <p className="mt-4 text-xl font-light tracking-wide text-slate-600 dark:text-white">Wähle ein Projekt aus der Sidebar oder erstelle ein neues.</p>
+                                <BrandLogo />
+                                <p className="mt-6 text-xl font-light tracking-wide text-slate-600 dark:text-white">Wähle ein Projekt aus der Sidebar oder erstelle ein neues.</p>
                             </div>
                         )}
                     </main>
 
                     {/* MODALS */}
                     
+                    {/* Settings Modal */}
+                    {showSettingsModal && (
+                        <div className="fixed inset-0 bg-slate-900/50 dark:bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4">
+                            <div className="glass-panel !bg-white/90 dark:!bg-black/50 rounded-3xl p-8 max-w-md w-full shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/50 dark:border-white/20">
+                                <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Einstellungen</h3>
+                                <p className="text-sm text-slate-500 dark:text-white/50 mb-6">Hinterlege hier deinen Google Gemini API Key für die Auto-Fill und Review-Funktionen.</p>
+                                
+                                <div className="space-y-6 mb-8">
+                                    <div>
+                                        <label className="block text-xs font-bold mb-2 text-slate-500 dark:text-white/50 uppercase tracking-widest">Gemini API Key</label>
+                                        <input 
+                                            type="password"
+                                            value={apiKey}
+                                            onChange={(e) => setApiKey(e.target.value)}
+                                            className="w-full bg-white/50 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 outline-none focus:border-brandOrange text-slate-900 dark:text-white text-lg shadow-inner"
+                                            placeholder="AIzaSy..."
+                                        />
+                                        <p className="text-xs text-slate-400 dark:text-white/40 mt-2">Der Key wird lokal in deinem Browser gespeichert (localStorage).</p>
+                                    </div>
+                                </div>
+                                <div className="flex justify-end gap-4">
+                                    <button onClick={() => setShowSettingsModal(false)} className="px-6 py-3 rounded-xl hover:bg-slate-200/50 dark:hover:bg-white/10 transition text-sm font-bold text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white">Schließen</button>
+                                    <button 
+                                        onClick={() => { localStorage.setItem('ttv_apikey', apiKey); setShowSettingsModal(false); }} 
+                                        className="bg-brandOrange hover:bg-[#E66E00] text-white px-8 py-3 rounded-xl font-black shadow-[0_0_20px_rgba(255,123,0,0.3)] transition transform hover:scale-105 active:scale-95"
+                                    >
+                                        Speichern
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     {/* Create Project Modal */}
                     {showNewProjectModal && (
                         <div className="fixed inset-0 bg-slate-900/50 dark:bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4">
                             <div className="glass-panel !bg-white/80 dark:!bg-black/50 rounded-3xl p-8 max-w-md w-full shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/50 dark:border-white/20">
-                                <h3 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyanAccent to-purpleAccent">Neues Projekt anlegen</h3>
+                                <h3 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-brandOrange to-purpleAccent">Neues Projekt anlegen</h3>
                                 <div className="space-y-6 mb-8">
                                     <div>
-                                        <label className="block text-xs font-bold mb-2 text-slate-500 dark:text-white/50 uppercase tracking-widest">Projektname</label>
+                                        <label className="block text-xs font-bold mb-2 text-slate-500 dark:text-white/50 uppercase tracking-widest">Produktname</label>
                                         <input 
                                             value={newProjectTitle}
                                             onChange={(e) => setNewProjectTitle(e.target.value)}
                                             autoFocus
-                                            className="w-full bg-white/50 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 outline-none focus:border-cyanAccent text-slate-900 dark:text-white text-lg shadow-inner"
-                                            placeholder="z.B. Dreame L20 Ultra"
+                                            className="w-full bg-white/50 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 outline-none focus:border-brandOrange text-slate-900 dark:text-white text-lg shadow-inner"
+                                            placeholder="z.B. Dreame L10s Ultra Gen 3"
                                         />
                                     </div>
                                     <div>
@@ -928,22 +1179,22 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                                     setNewProjectCategory(e.target.value);
                                                 }
                                             }}
-                                            className="w-full bg-white/50 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 outline-none focus:border-cyanAccent text-slate-900 dark:text-white text-lg shadow-inner appearance-none"
+                                            className="w-full bg-white/50 dark:bg-black/50 border border-slate-300/50 dark:border-white/10 rounded-xl p-4 outline-none focus:border-brandOrange text-slate-900 dark:text-white text-lg shadow-inner appearance-none cursor-pointer"
                                         >
                                             {categories.map(c => (
                                                 <option key={c.id} value={c.id} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">{c.name}</option>
                                             ))}
-                                            <option value="NEW" className="bg-white dark:bg-slate-900 font-bold text-cyanAccent">+ Neue Kategorie anlegen...</option>
+                                            <option value="NEW" className="bg-white dark:bg-slate-900 font-bold text-brandOrange">+ Neue Kategorie anlegen...</option>
                                         </select>
                                     </div>
                                     
                                     {isCreatingCategory && (
                                         <div className="animate-[fade-in_0.3s_ease-out]">
-                                            <label className="block text-xs font-bold mb-2 text-cyanAccent uppercase tracking-widest">Name der neuen Kategorie</label>
+                                            <label className="block text-xs font-bold mb-2 text-brandOrange uppercase tracking-widest">Name der neuen Kategorie</label>
                                             <input 
                                                 value={newCustomCategory}
                                                 onChange={(e) => setNewCustomCategory(e.target.value)}
-                                                className="w-full bg-cyanAccent/5 border border-cyanAccent/30 rounded-xl p-4 outline-none focus:border-cyanAccent text-slate-900 dark:text-white text-lg shadow-inner"
+                                                className="w-full bg-brandOrange/5 border border-brandOrange/30 rounded-xl p-4 outline-none focus:border-brandOrange text-slate-900 dark:text-white text-lg shadow-inner"
                                                 placeholder="z.B. E-Scooter"
                                             />
                                             <p className="text-xs text-slate-500 dark:text-white/40 mt-2">Die Kategorie wird gespeichert und erhält eine Standard-Testvorlage.</p>
@@ -952,7 +1203,7 @@ Stil: Direkt, fachlich fundiert, keine unnötigen Floskeln. Lass Gedankenstriche
                                 </div>
                                 <div className="flex justify-end gap-4">
                                     <button onClick={() => {setShowNewProjectModal(false); setIsCreatingCategory(false);}} className="px-6 py-3 rounded-xl hover:bg-slate-200/50 dark:hover:bg-white/10 transition text-sm font-bold text-slate-600 dark:text-white/60 hover:text-slate-900 dark:hover:text-white">Abbrechen</button>
-                                    <button onClick={handleCreateProject} className="bg-slate-900 dark:bg-white text-white dark:text-black px-8 py-3 rounded-xl font-black shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition transform hover:scale-105 active:scale-95">Erstellen</button>
+                                    <button onClick={handleCreateProject} className="bg-slate-900 dark:bg-white text-white dark:text-black px-8 py-3 rounded-xl font-black shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,123,0,0.5)] transition transform hover:scale-105 active:scale-95">Erstellen</button>
                                 </div>
                             </div>
                         </div>
