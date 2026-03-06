@@ -138,7 +138,9 @@
         const IconBook = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>;
         const IconX = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
         const IconFileText = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>;
-        const IconTarget = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>;
+        const IconTarget = () => null; // removed — kept stub so no reference errors
+        const IconHome = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>;
+        const IconSparkles = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>;
         const IconDownload = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>;
         const IconUpload = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>;
         const IconCheckDouble = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></svg>;
@@ -457,7 +459,6 @@
             const [currentProjectId, setCurrentProjectId] = useState(null);
             const [activeTab, setActiveTab] = useState('checklist');
             const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-            const [isFocusModeOpen, setIsFocusModeOpen] = useState(false);
             const [globalNotes, setGlobalNotes] = useState(() => localStorage.getItem('ttv_global_notes') || '');
             const [isLogbuchOpen, setIsLogbuchOpen] = useState(false);
             const [toastMessage, setToastMessage] = useState(null);
@@ -870,19 +871,6 @@
                 setNewSpecKey('');
             }, [newSpecKey, currentProject, updateCurrentProject]);
 
-            // ── Focus Mode ───────────────────────────────────────────────────────────
-            const focusTarget = useMemo(() => {
-                if (!currentProject || !isFocusModeOpen) return null;
-                for (let pIdx = 0; pIdx < currentProject.checklist.length; pIdx++) {
-                    for (let iIdx = 0; iIdx < currentProject.checklist[pIdx].items.length; iIdx++) {
-                        if (!currentProject.checklist[pIdx].items[iIdx].done) {
-                            return { phaseIndex: pIdx, itemIndex: iIdx, item: currentProject.checklist[pIdx].items[iIdx], phase: currentProject.checklist[pIdx].phase };
-                        }
-                    }
-                }
-                return null;
-            }, [currentProject, isFocusModeOpen]);
-
             // ── Render ───────────────────────────────────────────────────────────────
             return (
                 <div className="flex h-screen overflow-hidden text-slate-800 dark:text-white transition-colors duration-300">
@@ -980,8 +968,12 @@
                                     </div>
 
                                     <div className="flex items-center gap-3 bg-white/40 dark:bg-black/20 p-1.5 rounded-xl border border-slate-300/50 dark:border-white/10 backdrop-blur-xl">
-                                        <button onClick={() => setIsFocusModeOpen(true)} className="px-4 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2 bg-slate-900 text-cyanAccent hover:bg-black transition-all shadow-sm border border-cyanAccent/30">
-                                            <IconTarget /> Labor-Modus
+                                        <button
+                                            onClick={() => setCurrentProjectId(null)}
+                                            className="px-4 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2 bg-slate-200/50 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 text-slate-700 dark:text-white transition-all shadow-sm"
+                                            title="Zurück zum Dashboard"
+                                        >
+                                            <IconHome /> Dashboard
                                         </button>
                                         <button onClick={handleExportMarkdown} className="px-4 py-1.5 rounded-lg text-sm font-bold flex items-center gap-2 bg-slate-200/50 dark:bg-white/10 hover:bg-brandOrange hover:text-white text-slate-700 dark:text-white transition-all shadow-sm">
                                             <IconCopy /> Export
@@ -1036,6 +1028,8 @@
                                             <div className="space-y-6 animate-fade-in">
                                                 <div className="glass-panel p-10 rounded-3xl shadow-xl dark:shadow-2xl relative overflow-hidden bg-white/90 dark:bg-black/60">
                                                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brandOrange/10 dark:bg-brandOrange/5 blur-[120px] pointer-events-none rounded-full"></div>
+
+                                                    {/* ── HEADER ── */}
                                                     <div className="flex justify-between items-start border-b border-slate-300/50 dark:border-white/10 pb-8 mb-8">
                                                         <div>
                                                             <div className="text-sm font-bold text-brandOrange uppercase tracking-widest mb-2">Executive Test Report</div>
@@ -1051,26 +1045,79 @@
                                                             <span className="text-5xl font-black text-slate-800 dark:text-white">{calculatedScore}</span>
                                                         </div>
                                                     </div>
+
+                                                    {/* ── STÄRKEN & SCHWÄCHEN — inline editierbar ── */}
                                                     <div className="grid grid-cols-2 gap-10 mb-10">
+                                                        {/* STÄRKEN */}
                                                         <div>
-                                                            <h4 className="text-lg font-bold text-green-600 dark:text-green-400 mb-4 flex items-center gap-2"><div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>Stärken (Pro)</h4>
-                                                            <ul className="space-y-2">
+                                                            <h4 className="text-lg font-bold text-green-600 dark:text-green-400 mb-4 flex items-center gap-2">
+                                                                <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>Stärken (Pro)
+                                                            </h4>
+                                                            <ul className="space-y-2 mb-3">
                                                                 {currentProject.data.pros.length > 0 ? currentProject.data.pros.map((p, i) => (
-                                                                    <li key={i} className="text-sm text-slate-700 dark:text-white/80 bg-green-50 dark:bg-green-900/10 px-4 py-2.5 rounded-lg border border-green-200/50 dark:border-green-500/20">{p}</li>
-                                                                )) : <li className="text-sm italic text-slate-400">Keine Stärken erfasst.</li>}
+                                                                    <li key={i} className="group flex items-center gap-2 bg-green-50 dark:bg-green-900/10 rounded-lg border border-green-200/50 dark:border-green-500/20 pr-1 pl-1 py-1">
+                                                                        <input
+                                                                            value={p}
+                                                                            onChange={(e) => {
+                                                                                const next = [...currentProject.data.pros];
+                                                                                next[i] = e.target.value;
+                                                                                updateCurrentProject({ data: { ...currentProject.data, pros: next } });
+                                                                            }}
+                                                                            className="flex-1 text-sm text-slate-700 dark:text-white/80 bg-transparent outline-none px-3 py-1.5 min-w-0"
+                                                                        />
+                                                                        <button
+                                                                            onClick={() => {
+                                                                                const next = currentProject.data.pros.filter((_, j) => j !== i);
+                                                                                updateCurrentProject({ data: { ...currentProject.data, pros: next } });
+                                                                            }}
+                                                                            className="opacity-0 group-hover:opacity-100 w-6 h-6 flex items-center justify-center text-red-400 hover:text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-all shrink-0"
+                                                                        ><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                                                                    </li>
+                                                                )) : <li className="text-sm italic text-slate-400 dark:text-white/30 px-3 py-2">Keine Stärken erfasst.</li>}
                                                             </ul>
+                                                            <button
+                                                                onClick={() => updateCurrentProject({ data: { ...currentProject.data, pros: [...currentProject.data.pros, ''] } })}
+                                                                className="w-full flex items-center justify-center gap-1.5 text-xs font-bold py-2 rounded-lg border border-dashed border-green-400/50 dark:border-green-500/30 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/10 transition"
+                                                            ><IconPlus /> Stärke hinzufügen</button>
                                                         </div>
+
+                                                        {/* SCHWÄCHEN */}
                                                         <div>
-                                                            <h4 className="text-lg font-bold text-red-600 dark:text-red-400 mb-4 flex items-center gap-2"><div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>Schwächen (Contra)</h4>
-                                                            <ul className="space-y-2">
+                                                            <h4 className="text-lg font-bold text-red-600 dark:text-red-400 mb-4 flex items-center gap-2">
+                                                                <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>Schwächen (Contra)
+                                                            </h4>
+                                                            <ul className="space-y-2 mb-3">
                                                                 {currentProject.data.cons.length > 0 ? currentProject.data.cons.map((c, i) => (
-                                                                    <li key={i} className="text-sm text-slate-700 dark:text-white/80 bg-red-50 dark:bg-red-900/10 px-4 py-2.5 rounded-lg border border-red-200/50 dark:border-red-500/20">{c}</li>
-                                                                )) : <li className="text-sm italic text-slate-400">Keine Schwächen erfasst.</li>}
+                                                                    <li key={i} className="group flex items-center gap-2 bg-red-50 dark:bg-red-900/10 rounded-lg border border-red-200/50 dark:border-red-500/20 pr-1 pl-1 py-1">
+                                                                        <input
+                                                                            value={c}
+                                                                            onChange={(e) => {
+                                                                                const next = [...currentProject.data.cons];
+                                                                                next[i] = e.target.value;
+                                                                                updateCurrentProject({ data: { ...currentProject.data, cons: next } });
+                                                                            }}
+                                                                            className="flex-1 text-sm text-slate-700 dark:text-white/80 bg-transparent outline-none px-3 py-1.5 min-w-0"
+                                                                        />
+                                                                        <button
+                                                                            onClick={() => {
+                                                                                const next = currentProject.data.cons.filter((_, j) => j !== i);
+                                                                                updateCurrentProject({ data: { ...currentProject.data, cons: next } });
+                                                                            }}
+                                                                            className="opacity-0 group-hover:opacity-100 w-6 h-6 flex items-center justify-center text-red-400 hover:text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-all shrink-0"
+                                                                        ><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                                                                    </li>
+                                                                )) : <li className="text-sm italic text-slate-400 dark:text-white/30 px-3 py-2">Keine Schwächen erfasst.</li>}
                                                             </ul>
+                                                            <button
+                                                                onClick={() => updateCurrentProject({ data: { ...currentProject.data, cons: [...currentProject.data.cons, ''] } })}
+                                                                className="w-full flex items-center justify-center gap-1.5 text-xs font-bold py-2 rounded-lg border border-dashed border-red-400/50 dark:border-red-500/30 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 transition"
+                                                            ><IconPlus /> Schwäche hinzufügen</button>
                                                         </div>
                                                     </div>
+
+                                                    {/* ── LABOR-NOTIZEN & MESSWERTE — inline editierbar ── */}
                                                     <div>
-                                                        <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-6 pb-2 border-b border-slate-300/50 dark:border-white/10">Gesammelte Labor-Notizen & Messwerte</h4>
+                                                        <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-6 pb-2 border-b border-slate-300/50 dark:border-white/10">Gesammelte Notizen & Messwerte</h4>
                                                         <div className="space-y-8">
                                                             {currentProject.checklist.map((phase, pIdx) => {
                                                                 const notesInPhase = phase.items.filter(i => i.note || i.measurements || i.issues);
@@ -1079,16 +1126,49 @@
                                                                     <div key={pIdx}>
                                                                         <h5 className="text-sm font-bold text-slate-500 dark:text-white/50 uppercase tracking-widest mb-4">{phase.phase}</h5>
                                                                         <div className="space-y-4">
-                                                                            {notesInPhase.map((item, iIdx) => (
-                                                                                <div key={iIdx} className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-5">
-                                                                                    <div className="font-bold text-slate-800 dark:text-white mb-3 text-base">{item.text}</div>
-                                                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                                                        {item.note && <div className="col-span-full bg-white dark:bg-black/30 p-3 rounded-lg border-l-2 border-cyanAccent"><span className="text-[10px] uppercase font-bold text-cyanAccent block mb-1">Beobachtung</span><span className="text-sm text-slate-700 dark:text-white/80 whitespace-pre-line">{item.note}</span></div>}
-                                                                                        {item.measurements && <div className="bg-white dark:bg-black/30 p-3 rounded-lg border-l-2 border-brandOrange"><span className="text-[10px] uppercase font-bold text-brandOrange block mb-1">Messwerte / Daten</span><span className="text-sm text-slate-700 dark:text-white/80 whitespace-pre-line">{item.measurements}</span></div>}
-                                                                                        {item.issues && <div className="bg-white dark:bg-black/30 p-3 rounded-lg border-l-2 border-red-500"><span className="text-[10px] uppercase font-bold text-red-500 block mb-1">Probleme / Bugs</span><span className="text-sm text-slate-700 dark:text-white/80 whitespace-pre-line">{item.issues}</span></div>}
+                                                                            {notesInPhase.map((item) => {
+                                                                                const phaseIdx = currentProject.checklist.findIndex(p => p.phase === phase.phase);
+                                                                                return (
+                                                                                    <div key={item.id} className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-5">
+                                                                                        <div className="font-bold text-slate-800 dark:text-white mb-3 text-base">{item.text}</div>
+                                                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                                            {item.note !== undefined && (
+                                                                                                <div className="col-span-full bg-white dark:bg-black/30 p-3 rounded-lg border-l-2 border-cyanAccent">
+                                                                                                    <span className="text-[10px] uppercase font-bold text-cyanAccent block mb-2">Beobachtung</span>
+                                                                                                    <textarea
+                                                                                                        value={item.note || ''}
+                                                                                                        onChange={(e) => updateNestedItem('checklist', phaseIdx, item.id, 'note', e.target.value)}
+                                                                                                        className="w-full text-sm text-slate-700 dark:text-white/80 bg-transparent outline-none resize-none leading-relaxed placeholder-slate-300 dark:placeholder-white/20 min-h-[60px]"
+                                                                                                        placeholder="Beobachtung eintragen..."
+                                                                                                    />
+                                                                                                </div>
+                                                                                            )}
+                                                                                            {item.measurements !== undefined && (
+                                                                                                <div className="bg-white dark:bg-black/30 p-3 rounded-lg border-l-2 border-brandOrange">
+                                                                                                    <span className="text-[10px] uppercase font-bold text-brandOrange block mb-2">Messwerte / Daten</span>
+                                                                                                    <textarea
+                                                                                                        value={item.measurements || ''}
+                                                                                                        onChange={(e) => updateNestedItem('checklist', phaseIdx, item.id, 'measurements', e.target.value)}
+                                                                                                        className="w-full text-sm text-slate-700 dark:text-white/80 bg-transparent outline-none resize-none leading-relaxed placeholder-slate-300 dark:placeholder-white/20 min-h-[60px]"
+                                                                                                        placeholder="Messwerte eintragen..."
+                                                                                                    />
+                                                                                                </div>
+                                                                                            )}
+                                                                                            {item.issues !== undefined && (
+                                                                                                <div className="bg-white dark:bg-black/30 p-3 rounded-lg border-l-2 border-red-500">
+                                                                                                    <span className="text-[10px] uppercase font-bold text-red-500 block mb-2">Probleme / Bugs</span>
+                                                                                                    <textarea
+                                                                                                        value={item.issues || ''}
+                                                                                                        onChange={(e) => updateNestedItem('checklist', phaseIdx, item.id, 'issues', e.target.value)}
+                                                                                                        className="w-full text-sm text-slate-700 dark:text-white/80 bg-transparent outline-none resize-none leading-relaxed placeholder-slate-300 dark:placeholder-white/20 min-h-[60px]"
+                                                                                                        placeholder="Probleme eintragen..."
+                                                                                                    />
+                                                                                                </div>
+                                                                                            )}
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            ))}
+                                                                                );
+                                                                            })}
                                                                         </div>
                                                                     </div>
                                                                 );
@@ -1098,6 +1178,34 @@
                                                                     In der Checkliste wurden noch keine Detail-Notizen hinterlegt.
                                                                 </div>
                                                             )}
+                                                        </div>
+                                                    </div>
+
+                                                    {/* ── FREIE NOTIZEN ── */}
+                                                    <div className="mt-10 pt-8 border-t border-slate-300/50 dark:border-white/10">
+                                                        <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                                                            <IconEdit /> Freie Berichts-Notizen
+                                                        </h4>
+                                                        <p className="text-xs text-slate-400 dark:text-white/30 mb-4">Fazit, Kaufempfehlung, Zielgruppe — frei formulierbar, wird automatisch gespeichert.</p>
+                                                        <textarea
+                                                            value={currentProject.reportNotes || ''}
+                                                            onChange={(e) => updateCurrentProject({ reportNotes: e.target.value })}
+                                                            className="w-full min-h-[200px] bg-white/60 dark:bg-black/30 border border-slate-300/50 dark:border-white/10 rounded-2xl p-5 text-sm text-slate-800 dark:text-white/90 placeholder-slate-400 dark:placeholder-white/25 outline-none focus:border-brandOrange shadow-inner resize-y leading-relaxed transition-colors"
+                                                            placeholder={`Fazit:\nDas Produkt überzeugt besonders durch... Es eignet sich vor allem für...\n\nKaufempfehlung:\nJa, wenn... / Nein, wenn...\n\nZielgruppe:\n...`}
+                                                        />
+                                                        <div className="flex justify-end mt-3">
+                                                            <button
+                                                                onClick={() => {
+                                                                    const text = currentProject.reportNotes || '';
+                                                                    const ta = Object.assign(document.createElement('textarea'), { value: text, style: 'position:fixed;left:-999999px' });
+                                                                    document.body.appendChild(ta); ta.select();
+                                                                    try { document.execCommand('copy'); showToast('Notizen kopiert!'); } catch {}
+                                                                    document.body.removeChild(ta);
+                                                                }}
+                                                                className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-white/50 dark:bg-white/10 hover:bg-brandOrange/20 text-slate-600 dark:text-white border border-slate-200 dark:border-white/10 hover:border-brandOrange/30 transition"
+                                                            >
+                                                                <IconCopy /> Text kopieren
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1373,11 +1481,12 @@
                                                 </div>
                                             </div>
                                         )}
+
                                     </div>
                                 </div>
                             </>
                         ) : (
-                            /* ── PROJECT DASHBOARD (empty state) ── */
+                            /* ── PROJECT DASHBOARD ── */
                             <div className="flex-1 overflow-auto p-8 animate-fade-in">
                                 <div className="max-w-5xl mx-auto">
                                     {/* Header */}
@@ -1516,63 +1625,6 @@
                             </div>
                         )}
                     </main>
-
-                    {/* FOCUS / LAB MODE */}
-                    {isFocusModeOpen && currentProject && (
-                        <div className="fixed inset-0 z-[100] bg-slate-900 dark:bg-black text-white flex flex-col animate-fade-in overflow-hidden">
-                            <div className="p-6 flex justify-between items-center border-b border-white/10 shrink-0">
-                                <div className="flex items-center gap-4">
-                                    <div className="bg-brandOrange text-black px-4 py-1.5 rounded-lg font-black tracking-widest uppercase flex items-center gap-2">
-                                        <IconTarget /> Labor Modus
-                                    </div>
-                                    <h2 className="text-2xl font-medium opacity-80">{currentProject.title}</h2>
-                                </div>
-                                <div className="flex items-center gap-6">
-                                    <div className="text-4xl font-mono font-bold text-cyanAccent tracking-wider flex items-center gap-3">
-                                        <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
-                                        {formatTime(currentProject.timeSpent)}
-                                    </div>
-                                    <button onClick={() => setIsFocusModeOpen(false)} className="bg-white/10 hover:bg-red-500/20 text-white p-3 rounded-xl transition"><IconX /></button>
-                                </div>
-                            </div>
-                            <div className="flex-1 overflow-auto flex items-center justify-center p-8">
-                                {focusTarget ? (
-                                    <div className="w-full max-w-4xl animate-slide-in">
-                                        <div className="text-brandOrange font-bold tracking-widest uppercase mb-4 text-lg">{focusTarget.phase}</div>
-                                        <h1 className="text-4xl md:text-5xl font-black mb-10 leading-tight">{focusTarget.item.text}</h1>
-                                        <div className="grid grid-cols-1 gap-6 mb-10">
-                                            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 focus-within:border-cyanAccent/50 focus-within:bg-white/10 transition-all">
-                                                <label className="text-cyanAccent font-bold uppercase tracking-widest mb-3 block">Beobachtungen</label>
-                                                <textarea value={focusTarget.item.note || ''} onChange={(e) => updateNestedItem('checklist', focusTarget.phaseIndex, focusTarget.item.id, 'note', e.target.value)} className="w-full bg-transparent outline-none text-xl resize-none placeholder-white/20 min-h-[100px]" placeholder="Tippe hier deine Notizen zum aktuellen Testschritt ein..." />
-                                            </div>
-                                            <div className="grid grid-cols-2 gap-6">
-                                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 focus-within:border-brandOrange/50 focus-within:bg-white/10 transition-all">
-                                                    <label className="text-brandOrange font-bold uppercase tracking-widest mb-3 block">Messwerte</label>
-                                                    <textarea value={focusTarget.item.measurements || ''} onChange={(e) => updateNestedItem('checklist', focusTarget.phaseIndex, focusTarget.item.id, 'measurements', e.target.value)} className="w-full bg-transparent outline-none text-xl resize-none placeholder-white/20 min-h-[100px]" placeholder="Messwerte, Zeiten, Lautstärke..." />
-                                                </div>
-                                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 focus-within:border-red-500/50 focus-within:bg-white/10 transition-all">
-                                                    <label className="text-red-500 font-bold uppercase tracking-widest mb-3 block">Probleme</label>
-                                                    <textarea value={focusTarget.item.issues || ''} onChange={(e) => updateNestedItem('checklist', focusTarget.phaseIndex, focusTarget.item.id, 'issues', e.target.value)} className="w-full bg-transparent outline-none text-xl resize-none placeholder-white/20 min-h-[100px]" placeholder="Fehler, Abstürze, Spaltmaße..." />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button onClick={() => updateNestedItem('checklist', focusTarget.phaseIndex, focusTarget.item.id, 'done', true)} className="w-full bg-green-500 hover:bg-green-400 text-black text-2xl font-black py-6 rounded-2xl transition-all shadow-[0_0_30px_rgba(34,197,94,0.3)] hover:shadow-[0_0_50px_rgba(34,197,94,0.6)] flex justify-center items-center gap-3 active:scale-95">
-                                            <IconCheckCircle /> Punkt erledigt & Weiter
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <div className="text-center">
-                                        <div className="w-24 h-24 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                                        </div>
-                                        <h2 className="text-4xl font-black mb-4">Checkliste abgeschlossen!</h2>
-                                        <p className="text-white/50 text-xl mb-8">Du hast alle Testpunkte dieses Projekts abgearbeitet.</p>
-                                        <button onClick={() => setIsFocusModeOpen(false)} className="bg-white text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-200 transition">Zurück zur Übersicht</button>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    )}
 
                     {/* FLOATING STOPWATCH — draggable */}
                     <div
